@@ -6,15 +6,16 @@
         public string Name { get; set; }
         public string Breed { get; set; }
         public int Age { get; set; }
-        public string Type_Pet { get; set; }
 
-        // Clave foránea para el cliente
+        //clave foránea a cliente
         public int ClientId { get; set; }
-
-        // Navegación a la entidad Client
+        //propiedad de navegación (muchas mascotas -> un cliente)
         public Client Client { get; set; }
-
-        // Navegación uno a muchos (una mascota tiene muchas citas)
-        public ICollection<Appointment> Appointments { get; set; }
+        //clave foránea a tipo de macota
+        public int TypePetId { get; set; }
+        //propiedad de navegación (muchas mascotas -> un tipo mascota )
+        public TypePet TypePet { get; set; }
+        //propiedad de enlace de tablas - cita
+        public List<Appointment> Appointments { get; set; }
     }
 }
