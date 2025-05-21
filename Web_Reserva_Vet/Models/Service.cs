@@ -8,7 +8,7 @@
         public float Cost {  get; set; }
         public int Duration { get; set; }
 
-        // Navegación uno a muchos (un servicio tiene muchas citas)
-        public ICollection<Appointment> Appointments { get; set; }
+        //Propiedad de enlace entre tablas - citas
+        public List<Appointment> Appointments { get; set; }
     }
 }
