@@ -1,20 +1,32 @@
-﻿namespace Web_Vet_Pet.Models
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
+namespace Web_Vet_Pet.Models
 {
     public class User
     {
-        // variables que serán componentes de la tabla
         public int Id { get; set; }
-        public string Name { get; set; }
+        [Required]
+        [StringLength(20)]
+        public string FirstName { get; set; }
+        [Required]
+        [StringLength(30)]
         public string Email { get; set; }
-        public string Password { get; set; }
-        public string Last_Name { get; set; }
+        [Required]
+        [StringLength(16)]
+        public string PasswordHash { get; set; }
+        [Required]
+        [StringLength(20)]
+        public string LastName { get; set; }
+        [Required]
+        [StringLength(9)]
         public string Phone { get; set; }
-        public DateOnly Date_Birth { get; set; } //fecha sin hora
+        public DateOnly DateBirthday { get; set; }
 
-        // Propiedades para enlace de tablas
-        // - uno a uno (usuario - cliente)
-        public Client Clients { get; set; }
-        // - uno a uno (usuario - administrador)
-        public Administrator administrators { get; set; }
+        //Propiedad de navegación
+        [ValidateNever]
+        public ICollection<Client> Clients { get; set; }
+        [ValidateNever]
+        public ICollection<Administrator> Administrators { get; set; }
     }
 }

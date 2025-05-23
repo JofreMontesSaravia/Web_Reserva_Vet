@@ -12,34 +12,34 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.dateBooking)
+            @Html.DisplayNameFor(model => model.DateBooking)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.dateBooking)
+            @Html.DisplayFor(model => model.DateBooking)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.statusAppointment)
+            @Html.DisplayNameFor(model => model.StatusBooking)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.statusAppointment)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Veterinarian)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Veterinarian.Id)
+            @Html.DisplayFor(model => model.StatusBooking)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Service)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Service.Id)
+            @Html.DisplayFor(model => model.Service.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Veterinarian)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Veterinarian.Email)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Pet)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Pet.Id)
+            @Html.DisplayFor(model => model.Pet.Breed)
         </dd>
     </dl>
     

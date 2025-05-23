@@ -54,7 +54,7 @@ namespace Web_Vet_Pet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Email,Password,Last_Name,Phone,Date_Birth")] User user)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,Email,PasswordHash,LastName,Phone,DateBirthday")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Web_Vet_Pet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Password,Last_Name,Phone,Date_Birth")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,Email,PasswordHash,LastName,Phone,DateBirthday")] User user)
         {
             if (id != user.Id)
             {

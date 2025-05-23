@@ -22,7 +22,7 @@ namespace Web_Vet_Pet.Controllers
         // GET: Clients
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Clients.Include(c => c.User);
+            var applicationDbContext = _context.Clients.Include(c => c.Users);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace Web_Vet_Pet.Controllers
             }
 
             var client = await _context.Clients
-                .Include(c => c.User)
+                .Include(c => c.Users)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (client == null)
             {
@@ -48,7 +48,7 @@ namespace Web_Vet_Pet.Controllers
         // GET: Clients/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace Web_Vet_Pet.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", client.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", client.UserId);
             return View(client);
         }
 
@@ -82,7 +82,7 @@ namespace Web_Vet_Pet.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", client.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", client.UserId);
             return View(client);
         }
 
@@ -118,7 +118,7 @@ namespace Web_Vet_Pet.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", client.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", client.UserId);
             return View(client);
         }
 
@@ -131,7 +131,7 @@ namespace Web_Vet_Pet.Controllers
             }
 
             var client = await _context.Clients
-                .Include(c => c.User)
+                .Include(c => c.Users)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (client == null)
             {

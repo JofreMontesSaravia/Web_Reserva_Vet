@@ -4,10 +4,10 @@ using Web_Vet_Pet.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Agregar el servicio de DbContext y la cadena de conexión
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql("server=localhost;database=VeterinariaDB;user=root;password=12345678;",
-    new MySqlServerVersion(new Version(8, 0, 34)))
+    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 34)))
 );
 
 // Add services to the container.

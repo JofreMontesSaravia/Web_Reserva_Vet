@@ -50,7 +50,7 @@ namespace Web_Vet_Pet.Controllers
         public IActionResult Create()
         {
             ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id");
-            ViewData["TypePetId"] = new SelectList(_context.Types, "Id", "Id");
+            ViewData["TypePetId"] = new SelectList(_context.TypePets, "Id", "Description");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace Web_Vet_Pet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Breed,Age,ClientId,TypePetId")] Pet pet)
+        public async Task<IActionResult> Create([Bind("Id,ClientId,TypePetId,Name,Breed,Age")] Pet pet)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace Web_Vet_Pet.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id", pet.ClientId);
-            ViewData["TypePetId"] = new SelectList(_context.Types, "Id", "Id", pet.TypePetId);
+            ViewData["TypePetId"] = new SelectList(_context.TypePets, "Id", "Description", pet.TypePetId);
             return View(pet);
         }
 
@@ -86,7 +86,7 @@ namespace Web_Vet_Pet.Controllers
                 return NotFound();
             }
             ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id", pet.ClientId);
-            ViewData["TypePetId"] = new SelectList(_context.Types, "Id", "Id", pet.TypePetId);
+            ViewData["TypePetId"] = new SelectList(_context.TypePets, "Id", "Description", pet.TypePetId);
             return View(pet);
         }
 
@@ -95,7 +95,7 @@ namespace Web_Vet_Pet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Breed,Age,ClientId,TypePetId")] Pet pet)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ClientId,TypePetId,Name,Breed,Age")] Pet pet)
         {
             if (id != pet.Id)
             {
@@ -123,7 +123,7 @@ namespace Web_Vet_Pet.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id", pet.ClientId);
-            ViewData["TypePetId"] = new SelectList(_context.Types, "Id", "Id", pet.TypePetId);
+            ViewData["TypePetId"] = new SelectList(_context.TypePets, "Id", "Description", pet.TypePetId);
             return View(pet);
         }
 
