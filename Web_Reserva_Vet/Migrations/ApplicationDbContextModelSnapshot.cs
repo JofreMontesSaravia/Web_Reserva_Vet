@@ -35,8 +35,7 @@ namespace Web_Vet_Pet.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Administrators");
                 });
@@ -49,21 +48,22 @@ namespace Web_Vet_Pet.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateOnly>("DateBooking")
+                        .HasColumnType("date");
+
                     b.Property<int>("PetId")
                         .HasColumnType("int");
 
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
 
+                    b.Property<string>("StatusBooking")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
+
                     b.Property<int>("VeterinarianId")
                         .HasColumnType("int");
-
-                    b.Property<DateOnly>("dateBooking")
-                        .HasColumnType("date");
-
-                    b.Property<string>("statusAppointment")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -89,8 +89,7 @@ namespace Web_Vet_Pet.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Clients");
                 });
@@ -108,14 +107,16 @@ namespace Web_Vet_Pet.Migrations
 
                     b.Property<string>("Breed")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("TypePetId")
                         .HasColumnType("int");
@@ -140,16 +141,18 @@ namespace Web_Vet_Pet.Migrations
                     b.Property<float>("Cost")
                         .HasColumnType("float");
 
-                    b.Property<string>("Description_Service")
+                    b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
 
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name_Service")
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
 
                     b.HasKey("Id");
 
@@ -164,13 +167,19 @@ namespace Web_Vet_Pet.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("animal")
+                    b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<string>("Species")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Types");
+                    b.ToTable("TypePets");
                 });
 
             modelBuilder.Entity("Web_Vet_Pet.Models.User", b =>
@@ -181,28 +190,33 @@ namespace Web_Vet_Pet.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("Date_Birth")
+                    b.Property<DateOnly>("DateBirthday")
                         .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
 
-                    b.Property<string>("Last_Name")
+                    b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(9)
+                        .HasColumnType("varchar(9)");
 
                     b.HasKey("Id");
 
@@ -217,17 +231,28 @@ namespace Web_Vet_Pet.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(9)
+                        .HasColumnType("varchar(9)");
 
-                    b.Property<string>("Speciality")
+                    b.Property<int>("Shift")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Specialty")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
 
                     b.HasKey("Id");
 
@@ -236,13 +261,13 @@ namespace Web_Vet_Pet.Migrations
 
             modelBuilder.Entity("Web_Vet_Pet.Models.Administrator", b =>
                 {
-                    b.HasOne("Web_Vet_Pet.Models.User", "User")
-                        .WithOne("administrators")
-                        .HasForeignKey("Web_Vet_Pet.Models.Administrator", "UserId")
+                    b.HasOne("Web_Vet_Pet.Models.User", "Users")
+                        .WithMany("Administrators")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Web_Vet_Pet.Models.Appointment", b =>
@@ -256,13 +281,13 @@ namespace Web_Vet_Pet.Migrations
                     b.HasOne("Web_Vet_Pet.Models.Service", "Service")
                         .WithMany("Appointments")
                         .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Web_Vet_Pet.Models.Veterinarian", "Veterinarian")
                         .WithMany("Appointments")
                         .HasForeignKey("VeterinarianId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Pet");
@@ -274,13 +299,13 @@ namespace Web_Vet_Pet.Migrations
 
             modelBuilder.Entity("Web_Vet_Pet.Models.Client", b =>
                 {
-                    b.HasOne("Web_Vet_Pet.Models.User", "User")
-                        .WithOne("Clients")
-                        .HasForeignKey("Web_Vet_Pet.Models.Client", "UserId")
+                    b.HasOne("Web_Vet_Pet.Models.User", "Users")
+                        .WithMany("Clients")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Web_Vet_Pet.Models.Pet", b =>
@@ -294,7 +319,7 @@ namespace Web_Vet_Pet.Migrations
                     b.HasOne("Web_Vet_Pet.Models.TypePet", "TypePet")
                         .WithMany("Pets")
                         .HasForeignKey("TypePetId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Client");
@@ -324,11 +349,9 @@ namespace Web_Vet_Pet.Migrations
 
             modelBuilder.Entity("Web_Vet_Pet.Models.User", b =>
                 {
-                    b.Navigation("Clients")
-                        .IsRequired();
+                    b.Navigation("Administrators");
 
-                    b.Navigation("administrators")
-                        .IsRequired();
+                    b.Navigation("Clients");
                 });
 
             modelBuilder.Entity("Web_Vet_Pet.Models.Veterinarian", b =>

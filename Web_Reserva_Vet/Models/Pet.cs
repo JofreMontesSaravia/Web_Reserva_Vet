@@ -1,21 +1,30 @@
-﻿namespace Web_Vet_Pet.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.Configuration;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
+namespace Web_Vet_Pet.Models
 {
     public class Pet
     {
-        public int Id { get; set; }
+        public int Id { get; set; } //Id Mascota
+        public int ClientId { get; set; } //Fk de cliente
+        public int TypePetId { get; set; } //Fk de tipo de mascota
+        [Required]
+        [StringLength(20)]
         public string Name { get; set; }
+        [Required]
+        [StringLength(20)]
         public string Breed { get; set; }
+        [Required]
+        [Range(1, 2)]
         public int Age { get; set; }
 
-        //clave foránea a cliente
-        public int ClientId { get; set; }
-        //propiedad de navegación (muchas mascotas -> un cliente)
-        public Client Client { get; set; }
-        //clave foránea a tipo de macota
-        public int TypePetId { get; set; }
-        //propiedad de navegación (muchas mascotas -> un tipo mascota )
+        //Propiedad de navegacion
         public TypePet TypePet { get; set; }
-        //propiedad de enlace de tablas - cita
-        public List<Appointment> Appointments { get; set; }
+        public Client Client { get; set; }
+
+        //Propiedad de navegacion
+        [ValidateNever]
+        public ICollection<Appointment> Appointments { get; set; }
     }
 }

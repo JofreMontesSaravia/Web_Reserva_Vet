@@ -2,13 +2,10 @@
 {
     public class Administrator
     {
-        // variables que serán componentes de la tabla
-        //al heredar valores de user, por defecto su id tambien lo usa
-        public int Id { get; set; }
+        public int Id { get; set; } //Id Administrador
+        public int UserId { get; set; } //Fk
 
-        // instancias para enlaces
-        //clave foránea - enlace con user
-        public int UserId { get; set; }
-        public User User { get; set; }
+        //propiedad de navegación
+        public User Users { get; set; }
     }
 }

@@ -50,9 +50,9 @@ namespace Web_Vet_Pet.Controllers
         // GET: Appointments/Create
         public IActionResult Create()
         {
-            ViewData["PetId"] = new SelectList(_context.Pets, "Id", "Id");
-            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Id");
-            ViewData["VeterinarianId"] = new SelectList(_context.Veterinarians, "Id", "Id");
+            ViewData["PetId"] = new SelectList(_context.Pets, "Id", "Breed");
+            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Description");
+            ViewData["VeterinarianId"] = new SelectList(_context.Veterinarians, "Id", "Email");
             return View();
         }
 
@@ -61,7 +61,7 @@ namespace Web_Vet_Pet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,dateBooking,statusAppointment,VeterinarianId,ServiceId,PetId")] Appointment appointment)
+        public async Task<IActionResult> Create([Bind("Id,PetId,ServiceId,VeterinarianId,DateBooking,StatusBooking")] Appointment appointment)
         {
             if (ModelState.IsValid)
             {
@@ -69,9 +69,9 @@ namespace Web_Vet_Pet.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PetId"] = new SelectList(_context.Pets, "Id", "Id", appointment.PetId);
-            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Id", appointment.ServiceId);
-            ViewData["VeterinarianId"] = new SelectList(_context.Veterinarians, "Id", "Id", appointment.VeterinarianId);
+            ViewData["PetId"] = new SelectList(_context.Pets, "Id", "Breed", appointment.PetId);
+            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Description", appointment.ServiceId);
+            ViewData["VeterinarianId"] = new SelectList(_context.Veterinarians, "Id", "Email", appointment.VeterinarianId);
             return View(appointment);
         }
 
@@ -88,9 +88,9 @@ namespace Web_Vet_Pet.Controllers
             {
                 return NotFound();
             }
-            ViewData["PetId"] = new SelectList(_context.Pets, "Id", "Id", appointment.PetId);
-            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Id", appointment.ServiceId);
-            ViewData["VeterinarianId"] = new SelectList(_context.Veterinarians, "Id", "Id", appointment.VeterinarianId);
+            ViewData["PetId"] = new SelectList(_context.Pets, "Id", "Breed", appointment.PetId);
+            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Description", appointment.ServiceId);
+            ViewData["VeterinarianId"] = new SelectList(_context.Veterinarians, "Id", "Email", appointment.VeterinarianId);
             return View(appointment);
         }
 
@@ -99,7 +99,7 @@ namespace Web_Vet_Pet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,dateBooking,statusAppointment,VeterinarianId,ServiceId,PetId")] Appointment appointment)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,PetId,ServiceId,VeterinarianId,DateBooking,StatusBooking")] Appointment appointment)
         {
             if (id != appointment.Id)
             {
@@ -126,9 +126,9 @@ namespace Web_Vet_Pet.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PetId"] = new SelectList(_context.Pets, "Id", "Id", appointment.PetId);
-            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Id", appointment.ServiceId);
-            ViewData["VeterinarianId"] = new SelectList(_context.Veterinarians, "Id", "Id", appointment.VeterinarianId);
+            ViewData["PetId"] = new SelectList(_context.Pets, "Id", "Breed", appointment.PetId);
+            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Description", appointment.ServiceId);
+            ViewData["VeterinarianId"] = new SelectList(_context.Veterinarians, "Id", "Email", appointment.VeterinarianId);
             return View(appointment);
         }
 

@@ -16,59 +16,54 @@
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
-        public DbSet<TypePet> Types { get; set; }
+        public DbSet<TypePet> TypePets { get; set; }
 
         // Configuración de relaciones
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //relacion uno a uno entre Cliente y Usuario
+            base.OnModelCreating(modelBuilder);
+
+            // Relación uno a muchos: User → Clients
             modelBuilder.Entity<Client>()
-                .HasOne(c => c.User)
-                .WithOne(u => u.Clients)
-                .HasForeignKey<Client>(c => c.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasOne(c => c.Users)
+                .WithMany(u => u.Clients)
+                .HasForeignKey(c => c.UserId);
 
-            //relacion uno a uno entre administrador y Usuraio
+            // Relación uno a muchos: User → Administrators
             modelBuilder.Entity<Administrator>()
-                .HasOne(a => a.User)
-                .WithOne(u => u.administrators)
-                .HasForeignKey<Administrator>(a => a.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasOne(a => a.Users)
+                .WithMany(u => u.Administrators)
+                .HasForeignKey(a => a.UserId);
 
-            //relación uno a muchos entre Client y Pet
+            // Relación uno a muchos: Client → Pets
             modelBuilder.Entity<Pet>()
                 .HasOne(p => p.Client)
                 .WithMany(c => c.Pets)
-                .HasForeignKey(p => p.ClientId)
-                .OnDelete(DeleteBehavior.Cascade); //si un cliente es eliminado, todas las pets se van
+                .HasForeignKey(p => p.ClientId);
 
-            // Relación uno a muchos entre Pet y Appointment
-            modelBuilder.Entity<Appointment>()
-                .HasOne(a => a.Pet)
-                .WithMany(p => p.Appointments)
-                .HasForeignKey(a => a.PetId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            // Relación uno a muchos entre Service y Appointment
-            modelBuilder.Entity<Appointment>()
-                .HasOne(a => a.Service)
-                .WithMany(s => s.Appointments)
-                .HasForeignKey(a => a.ServiceId)
-                .OnDelete(DeleteBehavior.Restrict); // Si eliminas un servicio, no se eliminan las citas
-
-            //relacion uno a muchos entre tipo_mascota y mascota
+            // Relación uno a muchos: TypePet → Pets
             modelBuilder.Entity<Pet>()
                 .HasOne(p => p.TypePet)
                 .WithMany(t => t.Pets)
-                .HasForeignKey(p => p.TypePetId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(p => p.TypePetId);
 
-            // Relación uno a muchos entre Veterinarian y Appointment
+            // Relación uno a muchos: Pet → Appointments
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Pet)
+                .WithMany(p => p.Appointments)
+                .HasForeignKey(a => a.PetId);
+
+            // Relación uno a muchos: Service → Appointments
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Service)
+                .WithMany(s => s.Appointments)
+                .HasForeignKey(a => a.ServiceId);
+
+            // Relación uno a muchos: Veterinarian → Appointments
             modelBuilder.Entity<Appointment>()
                 .HasOne(a => a.Veterinarian)
                 .WithMany(v => v.Appointments)
-                .HasForeignKey(a => a.VeterinarianId)
-                .OnDelete(DeleteBehavior.Restrict); // Si el veterinario se elimina, la relación queda en null
+                .HasForeignKey(a => a.VeterinarianId);
         }
     }
 

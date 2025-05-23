@@ -22,7 +22,7 @@ namespace Web_Vet_Pet.Controllers
         // GET: Administrators
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Administrators.Include(a => a.User);
+            var applicationDbContext = _context.Administrators.Include(a => a.Users);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace Web_Vet_Pet.Controllers
             }
 
             var administrator = await _context.Administrators
-                .Include(a => a.User)
+                .Include(a => a.Users)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (administrator == null)
             {
@@ -48,7 +48,7 @@ namespace Web_Vet_Pet.Controllers
         // GET: Administrators/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace Web_Vet_Pet.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", administrator.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", administrator.UserId);
             return View(administrator);
         }
 
@@ -82,7 +82,7 @@ namespace Web_Vet_Pet.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", administrator.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", administrator.UserId);
             return View(administrator);
         }
 
@@ -118,7 +118,7 @@ namespace Web_Vet_Pet.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", administrator.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", administrator.UserId);
             return View(administrator);
         }
 
@@ -131,7 +131,7 @@ namespace Web_Vet_Pet.Controllers
             }
 
             var administrator = await _context.Administrators
-                .Include(a => a.User)
+                .Include(a => a.Users)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (administrator == null)
             {

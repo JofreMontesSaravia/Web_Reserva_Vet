@@ -1,18 +1,17 @@
-﻿namespace Web_Vet_Pet.Models
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
+namespace Web_Vet_Pet.Models
 {
     public class Client
     {
-        // variables que serán componentes de la tabla
-        //al heredar valores de user, por defecto su id tambien lo usa
-        public int Id { get; set; }
+        public int Id { get; set; } //Id Cliente
+        public int UserId { get; set; }//Fk
 
-        // instancias para enlaces
-        //clave foránea - enlace con user
-        public int  UserId { get; set; }
-        public User User { get; set; }
+        //Propiedad de navegacion
+        [ValidateNever]
+        public ICollection<Pet> Pets { get; set; }
 
-        //enlace con mascota
-        //propiedad de navegación (1 cliente - muchas mascotas)
-        public List<Pet> Pets { get; set; }
+        //Propiedad de navegación
+        public User Users { get; set; }
     }
 }

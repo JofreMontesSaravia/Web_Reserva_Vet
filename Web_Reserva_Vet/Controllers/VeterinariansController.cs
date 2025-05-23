@@ -54,7 +54,7 @@ namespace Web_Vet_Pet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Phone,Speciality")] Veterinarian veterinarian)
+        public async Task<IActionResult> Create([Bind("Id,Specialty,Name,Email,Shift,Phone")] Veterinarian veterinarian)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Web_Vet_Pet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Phone,Speciality")] Veterinarian veterinarian)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Specialty,Name,Email,Shift,Phone")] Veterinarian veterinarian)
         {
             if (id != veterinarian.Id)
             {

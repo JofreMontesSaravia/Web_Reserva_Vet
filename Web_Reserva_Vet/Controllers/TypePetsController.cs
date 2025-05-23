@@ -22,7 +22,7 @@ namespace Web_Vet_Pet.Controllers
         // GET: TypePets
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Types.ToListAsync());
+            return View(await _context.TypePets.ToListAsync());
         }
 
         // GET: TypePets/Details/5
@@ -33,7 +33,7 @@ namespace Web_Vet_Pet.Controllers
                 return NotFound();
             }
 
-            var typePet = await _context.Types
+            var typePet = await _context.TypePets
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (typePet == null)
             {
@@ -54,7 +54,7 @@ namespace Web_Vet_Pet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,animal")] TypePet typePet)
+        public async Task<IActionResult> Create([Bind("Id,Species,Description")] TypePet typePet)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace Web_Vet_Pet.Controllers
                 return NotFound();
             }
 
-            var typePet = await _context.Types.FindAsync(id);
+            var typePet = await _context.TypePets.FindAsync(id);
             if (typePet == null)
             {
                 return NotFound();
@@ -86,7 +86,7 @@ namespace Web_Vet_Pet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,animal")] TypePet typePet)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Species,Description")] TypePet typePet)
         {
             if (id != typePet.Id)
             {
@@ -124,7 +124,7 @@ namespace Web_Vet_Pet.Controllers
                 return NotFound();
             }
 
-            var typePet = await _context.Types
+            var typePet = await _context.TypePets
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (typePet == null)
             {
@@ -139,10 +139,10 @@ namespace Web_Vet_Pet.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var typePet = await _context.Types.FindAsync(id);
+            var typePet = await _context.TypePets.FindAsync(id);
             if (typePet != null)
             {
-                _context.Types.Remove(typePet);
+                _context.TypePets.Remove(typePet);
             }
 
             await _context.SaveChangesAsync();
@@ -151,7 +151,7 @@ namespace Web_Vet_Pet.Controllers
 
         private bool TypePetExists(int id)
         {
-            return _context.Types.Any(e => e.Id == id);
+            return _context.TypePets.Any(e => e.Id == id);
         }
     }
 }
