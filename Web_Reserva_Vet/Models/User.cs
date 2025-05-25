@@ -25,8 +25,8 @@ namespace Web_Vet_Pet.Models
 
         //Propiedad de navegación
         [ValidateNever]
-        public ICollection<Client> Clients { get; set; }
+        public ICollection<Client>? Clients { get; set; }
         [ValidateNever]
-        public ICollection<Administrator> Administrators { get; set; }
+        public ICollection<Administrator>? Administrators { get; set; }
     }
 }

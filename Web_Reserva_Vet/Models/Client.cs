@@ -12,6 +12,6 @@ namespace Web_Vet_Pet.Models
         public ICollection<Pet> Pets { get; set; }
 
         //Propiedad de navegación
-        public User Users { get; set; }
+        public User? Users { get; set; }
     }
 }

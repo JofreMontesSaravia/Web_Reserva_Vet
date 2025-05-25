@@ -12,7 +12,7 @@ namespace Web_Vet_Pet.Controllers
 {
     public class AdministratorsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;//hace referencia a mi base datos
 
         public AdministratorsController(ApplicationDbContext context)
         {
