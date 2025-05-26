@@ -20,6 +20,6 @@ namespace Web_Vet_Pet.Models
 
         //Propiedad de Navegación
         [ValidateNever]
-        public ICollection<Appointment> Appointments { get; set; }
+        public ICollection<Appointment>? Appointments { get; set; }
     }
 }

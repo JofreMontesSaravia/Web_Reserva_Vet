@@ -20,11 +20,11 @@ namespace Web_Vet_Pet.Models
         public int Age { get; set; }
 
         //Propiedad de navegacion
-        public TypePet TypePet { get; set; }
-        public Client Client { get; set; }
+        public TypePet? TypePet { get; set; }
+        public Client? Client { get; set; }
 
         //Propiedad de navegacion
         [ValidateNever]
-        public ICollection<Appointment> Appointments { get; set; }
+        public ICollection<Appointment>? Appointments { get; set; }
     }
 }

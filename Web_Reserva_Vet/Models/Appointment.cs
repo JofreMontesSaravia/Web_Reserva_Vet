@@ -14,11 +14,11 @@ namespace Web_Vet_Pet.Models
         public DateOnly DateBooking { get; set; }
         [Required]
         [StringLength(10)]
-        public string StatusBooking { get; set; }
+        public string? StatusBooking { get; set; }
 
         //Propiedad de navegacion
-        public Service Service {  get; set; }
-        public Veterinarian Veterinarian { get; set; }
-        public Pet Pet { get; set; }
+        public Service? Service {  get; set; }
+        public Veterinarian? Veterinarian { get; set; }
+        public Pet? Pet { get; set; }
     }
 }

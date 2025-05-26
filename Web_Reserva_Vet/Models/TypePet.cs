@@ -16,6 +16,6 @@ namespace Web_Vet_Pet.Models
 
         //Propiedad de navegación
         [ValidateNever]
-        public ICollection<Pet> Pets { get; set; }
+        public ICollection<Pet>? Pets { get; set; }
     }
 }
