@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web_Vet_Pet.Data;
 using Web_Vet_Pet.Models;
+using Web_Vet_Pet.Services;
 
 namespace Web_Vet_Pet.Controllers
 {
     public class ClientsController : Controller
     {
+         
         private readonly ApplicationDbContext _context;
+        private readonly IValidacionUsers _usuarioService1;
 
-        public ClientsController(ApplicationDbContext context)
+        public ClientsController(ApplicationDbContext context, IValidacionUsers usuarioService1)
         {
             _context = context;
+            _usuarioService1 = usuarioService1;
         }
 
         // GET: Clients
@@ -46,9 +50,10 @@ namespace Web_Vet_Pet.Controllers
         }
 
         // GET: Clients/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
+            var lista = await _usuarioService1.ObtenerSeleccionUsuarioDisponiblesync();
+            ViewData["UserId"] = new SelectList(lista, "Id", "email");
             return View();
         }
 

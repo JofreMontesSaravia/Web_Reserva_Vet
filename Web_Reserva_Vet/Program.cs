@@ -2,7 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using Web_Vet_Pet.Data;
 using Web_Vet_Pet.Interfaces;
 using Web_Vet_Pet.Models;
+<<<<<<< HEAD
 using Web_Vet_Pet.Repositories;
+=======
+using Web_Vet_Pet.Services;
+
+>>>>>>> 227170cfd5485aaf86cb21392c155ffc01219fd5
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -16,6 +21,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddScoped<IValidacionUsers, Validacion>();
 
 var app = builder.Build();
 
