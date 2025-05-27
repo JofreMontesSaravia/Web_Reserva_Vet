@@ -6,17 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web_Vet_Pet.Data;
+using Web_Vet_Pet.DTOs;
 using Web_Vet_Pet.Models;
+using Web_Vet_Pet.Services;
 
 namespace Web_Vet_Pet.Controllers
 {
     public class AdministratorsController : Controller
     {
         private readonly ApplicationDbContext _context;//hace referencia a mi base datos
+        private readonly IValidacionUsers _usuarioService; // ***** NUEVO: Inyectar el servicio *****
 
-        public AdministratorsController(ApplicationDbContext context)
+        public AdministratorsController(ApplicationDbContext context, IValidacionUsers usuarioService)
         {
             _context = context;
+            _usuarioService = usuarioService;   
         }
 
         // GET: Administrators
@@ -46,10 +50,21 @@ namespace Web_Vet_Pet.Controllers
         }
 
         // GET: Administrators/Create
-        public IActionResult Create()
+        // En AdministratorsController.cs
+        // En AdministratorsController.cs
+        // En AdministratorsController.cs
+        public async Task<IActionResult> Create()
+
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
+
+            var usuariosElegibles = await _usuarioService.ObtenerSeleccionUsuarioDisponiblesync(); // O la versión que prefieras
+
+            // Usamos las propiedades del DTO UsuarioSeleccionDto
+
+            ViewData["UserId"] = new SelectList(usuariosElegibles, "Id", "email");
+
             return View();
+
         }
 
         // POST: Administrators/Create

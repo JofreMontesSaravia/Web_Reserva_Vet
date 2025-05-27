@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Web_Vet_Pet.Data;
 using Web_Vet_Pet.Models;
+using Web_Vet_Pet.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddScoped<IValidacionUsers, Validacion>();
 
 var app = builder.Build();
 
