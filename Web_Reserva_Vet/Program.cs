@@ -1,8 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Web_Vet_Pet.Data;
+using Web_Vet_Pet.Interfaces;
 using Web_Vet_Pet.Models;
+using Web_Vet_Pet.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 

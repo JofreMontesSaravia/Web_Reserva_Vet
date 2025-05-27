@@ -16,7 +16,7 @@ namespace Web_Vet_Pet.Models
         [StringLength(20)]
         public string Breed { get; set; }
         [Required]
-        [Range(1, 2)]
+        [Range(1, 30)]
         public int Age { get; set; }
 
         //Propiedad de navegacion
