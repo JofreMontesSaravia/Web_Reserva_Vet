@@ -1,49 +1,36 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
 using Web_Vet_Pet.Data;
-using Web_Vet_Pet.Models;
 using Web_Vet_Pet.Interfaces;
+using Web_Vet_Pet.Models;
 
 namespace Web_Vet_Pet.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
-        private readonly ApplicationDbContext _context;
-
-        public UserRepository(ApplicationDbContext context)
+        public UserRepository(ApplicationDbContext context) : base(context)
         {
-            _context = context;
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync()
+        public async Task<User?> GetByEmailAsync(string email)
         {
-            return await _context.Users.ToListAsync();
+            return await _dbSet
+                .FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<User?> GetByIdAsync(int id)
+        public async Task<IEnumerable<User>> GetWithClientsAsync()
         {
-            return await _context.Users.FindAsync(id);
+            return await _dbSet
+                .Include(u => u.Clients)
+                .ToListAsync();
         }
 
-        public async Task AddAsync(User user)
+        public async Task<IEnumerable<User>> GetWithAdministratorsAsync()
         {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task UpdateAsync(User user)
-        {
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            if (user != null)
-            {
-                _context.Users.Remove(user);
-                await _context.SaveChangesAsync();
-            }
+            return await _dbSet
+                .Include(u => u.Administrators)
+                .ToListAsync();
         }
     }
 }

@@ -6,39 +6,34 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web_Vet_Pet.Data;
+using Web_Vet_Pet.Interfaces;
 using Web_Vet_Pet.Models;
 
 namespace Web_Vet_Pet.Controllers
 {
     public class TypePetsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ITypePetRepository _typePetRepository;
 
-        public TypePetsController(ApplicationDbContext context)
+        public TypePetsController(ITypePetRepository typePetRepository)
         {
-            _context = context;
+            _typePetRepository = typePetRepository;
         }
 
         // GET: TypePets
         public async Task<IActionResult> Index()
         {
-            return View(await _context.TypePets.ToListAsync());
+            var typePets = await _typePetRepository.GetAllAsync();
+            return View(typePets);
         }
 
         // GET: TypePets/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var typePet = await _context.TypePets
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (typePet == null)
-            {
-                return NotFound();
-            }
+            var typePet = await _typePetRepository.GetByIdAsync(id.Value);
+            if (typePet == null) return NotFound();
 
             return View(typePet);
         }
@@ -50,16 +45,13 @@ namespace Web_Vet_Pet.Controllers
         }
 
         // POST: TypePets/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Species,Description")] TypePet typePet)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(typePet);
-                await _context.SaveChangesAsync();
+                await _typePetRepository.AddAsync(typePet);
                 return RedirectToAction(nameof(Index));
             }
             return View(typePet);
@@ -68,49 +60,24 @@ namespace Web_Vet_Pet.Controllers
         // GET: TypePets/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var typePet = await _context.TypePets.FindAsync(id);
-            if (typePet == null)
-            {
-                return NotFound();
-            }
+            var typePet = await _typePetRepository.GetByIdAsync(id.Value);
+            if (typePet == null) return NotFound();
+
             return View(typePet);
         }
 
         // POST: TypePets/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Species,Description")] TypePet typePet)
         {
-            if (id != typePet.Id)
-            {
-                return NotFound();
-            }
+            if (id != typePet.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(typePet);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TypePetExists(typePet.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                await _typePetRepository.UpdateAsync(typePet);
                 return RedirectToAction(nameof(Index));
             }
             return View(typePet);
@@ -119,17 +86,10 @@ namespace Web_Vet_Pet.Controllers
         // GET: TypePets/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var typePet = await _context.TypePets
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (typePet == null)
-            {
-                return NotFound();
-            }
+            var typePet = await _typePetRepository.GetByIdAsync(id.Value);
+            if (typePet == null) return NotFound();
 
             return View(typePet);
         }
@@ -139,19 +99,25 @@ namespace Web_Vet_Pet.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var typePet = await _context.TypePets.FindAsync(id);
-            if (typePet != null)
-            {
-                _context.TypePets.Remove(typePet);
-            }
-
-            await _context.SaveChangesAsync();
+            await _typePetRepository.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TypePetExists(int id)
+        // GET: TypePets/BySpecies
+        public async Task<IActionResult> BySpecies(string species)
         {
-            return _context.TypePets.Any(e => e.Id == id);
+            if (string.IsNullOrWhiteSpace(species))
+                return RedirectToAction(nameof(Index));
+
+            var results = await _typePetRepository.GetBySpeciesAsync(species);
+            return View("Index", results);
+        }
+
+        // GET: TypePets/WithPets
+        public async Task<IActionResult> WithPets()
+        {
+            var list = await _typePetRepository.GetWithPetsAsync();
+            return View("Index", list);
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web_Vet_Pet.Data;
+using Web_Vet_Pet.Interfaces;
 using Web_Vet_Pet.Models;
 using Web_Vet_Pet.Services;
 
@@ -13,24 +14,23 @@ namespace Web_Vet_Pet.Controllers
 {
     public class ClientsController : Controller
     {
-         
-        private readonly ApplicationDbContext _context;
-        private readonly IValidacionUsers _usuarioService1;
+        private readonly IClientRepository _clientRepository;
+        private readonly IValidacionUsers _usuarioService;
 
-        public ClientsController(ApplicationDbContext context, IValidacionUsers usuarioService1)
+        public ClientsController(IClientRepository clientRepository, IValidacionUsers usuarioService)
         {
-            _context = context;
-            _usuarioService1 = usuarioService1;
+            _clientRepository = clientRepository;
+            _usuarioService = usuarioService;
         }
 
-        // GET: Clients
+        // GET: /Clients
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Clients.Include(c => c.Users);
-            return View(await applicationDbContext.ToListAsync());
+            var clients = await _clientRepository.GetAllWithUsersAsync();
+            return View(clients);
         }
 
-        // GET: Clients/Details/5
+        // GET: /Clients/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,9 +38,7 @@ namespace Web_Vet_Pet.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Clients
-                .Include(c => c.Users)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var client = await _clientRepository.GetByIdWithUsersAsync(id.Value);
             if (client == null)
             {
                 return NotFound();
@@ -49,32 +47,30 @@ namespace Web_Vet_Pet.Controllers
             return View(client);
         }
 
-        // GET: Clients/Create
+        // GET: /Clients/Create
         public async Task<IActionResult> Create()
         {
-            var lista = await _usuarioService1.ObtenerSeleccionUsuarioDisponiblesync();
-            ViewData["UserId"] = new SelectList(lista, "Id", "email");
+            var users = await _usuarioService.ObtenerSeleccionUsuarioDisponiblesync();
+            ViewData["UserId"] = new SelectList(users, "Id", "email");
             return View();
         }
 
-        // POST: Clients/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: /Clients/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId")] Client client)
+        public async Task<IActionResult> Create(Client client)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(client);
-                await _context.SaveChangesAsync();
+                await _clientRepository.AddAsync(client);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", client.UserId);
+            var users = await _usuarioService.ObtenerSeleccionUsuarioDisponiblesync();
+            ViewData["UserId"] = new SelectList(users, "Id", "email", client.UserId);
             return View(client);
         }
 
-        // GET: Clients/Edit/5
+        // GET: /Clients/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,52 +78,57 @@ namespace Web_Vet_Pet.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Clients.FindAsync(id);
+            var client = await _clientRepository.GetByIdWithUsersAsync(id.Value);
             if (client == null)
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", client.UserId);
+            var users = await _usuarioService.ObtenerSeleccionUsuarioDisponiblesync();
+            ViewData["UserId"] = new SelectList(users, "Id", "email", client.UserId);
             return View(client);
         }
 
-        // POST: Clients/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: /Clients/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId")] Client client)
+        public async Task<IActionResult> Edit(int id, Client client)
         {
             if (id != client.Id)
             {
-                return NotFound();
+                return BadRequest();
             }
 
             if (ModelState.IsValid)
             {
+                var existingClient = await _clientRepository.GetByIdWithUsersAsync(id);
+                if (existingClient == null)
+                {
+                    return NotFound();
+                }
+
+                // Actualizar propiedades para evitar conflictos de seguimiento
+                existingClient.UserId = client.UserId;
+
                 try
                 {
-                    _context.Update(client);
-                    await _context.SaveChangesAsync();
+                    await _clientRepository.UpdateAsync(existingClient);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClientExists(client.Id))
+                    if (!await ClientExistsAsync(id))
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", client.UserId);
+            var users = await _usuarioService.ObtenerSeleccionUsuarioDisponiblesync();
+            ViewData["UserId"] = new SelectList(users, "Id", "email", client.UserId);
             return View(client);
         }
 
-        // GET: Clients/Delete/5
+        // GET: /Clients/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,9 +136,7 @@ namespace Web_Vet_Pet.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Clients
-                .Include(c => c.Users)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var client = await _clientRepository.GetByIdWithUsersAsync(id.Value);
             if (client == null)
             {
                 return NotFound();
@@ -146,24 +145,37 @@ namespace Web_Vet_Pet.Controllers
             return View(client);
         }
 
-        // POST: Clients/Delete/5
+        // POST: /Clients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var client = await _context.Clients.FindAsync(id);
+            var client = await _clientRepository.GetByIdWithUsersAsync(id);
             if (client != null)
             {
-                _context.Clients.Remove(client);
+                await _clientRepository.DeleteAsync(id);
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClientExists(int id)
+        // GET: /Clients/ByUserId/5
+        public async Task<IActionResult> ByUserId(int userId)
         {
-            return _context.Clients.Any(e => e.Id == id);
+            var clients = await _clientRepository.GetByUserIdAsync(userId);
+            return View(clients);
+        }
+
+        // GET: /Clients/WithPets
+        public async Task<IActionResult> WithPets()
+        {
+            var clients = await _clientRepository.GetWithPetsAsync();
+            return View(clients);
+        }
+
+        private async Task<bool> ClientExistsAsync(int id)
+        {
+            var client = await _clientRepository.GetByIdAsync(id);
+            return client != null;
         }
     }
 }
