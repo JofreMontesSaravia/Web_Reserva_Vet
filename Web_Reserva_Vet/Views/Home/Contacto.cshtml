@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Contacto";
+}
+<div class="mb-4" style="margin-top: 20px;">
+        <a href="/Home/Index" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Volver al Inicio
+        </a>
+
+<!-- Contenedor principal -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Contáctanos</h2>
+
+    <div class="row">
+        <!-- Información de contacto -->
+        <div class="col-md-6 mb-4">
+            <h4>Clínica Veterinaria DocPet</h4>
+            <p><strong>Dirección:</strong> Av. Siempre Viva 742, Ciudad Animal</p>
+            <p><strong>Teléfono:</strong> (123) 456-7890</p>
+            <p><strong>Email:</strong> contacto@DocPet.com</p>
+            <p><strong>Horario:</strong> Lunes a Sábado de 8:00 a.m. a 6:00 p.m.</p>
+        </div>
+
+        <!-- Formulario de contacto -->
+        <div class="col-md-6">
+            <form method="post" action="/Account/Contacto">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="asunto" class="form-label">Asunto</label>
+                    <input type="text" class="form-control" id="asunto" name="asunto">
+                </div>
+
+                <div class="mb-3">
+                    <label for="mensaje" class="form-label">Mensaje</label>
+                    <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+            </form>
+        </div>
+    </div>
+</div>
+
