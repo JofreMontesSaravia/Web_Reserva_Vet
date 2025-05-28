@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web_Vet_Pet.Data;
 using Web_Vet_Pet.DTOs;
+using Web_Vet_Pet.Interfaces;
 using Web_Vet_Pet.Models;
 using Web_Vet_Pet.Services;
 
@@ -14,23 +15,23 @@ namespace Web_Vet_Pet.Controllers
 {
     public class AdministratorsController : Controller
     {
-        private readonly ApplicationDbContext _context;//hace referencia a mi base datos
-        private readonly IValidacionUsers _usuarioService; // ***** NUEVO: Inyectar el servicio *****
+        private readonly IAdministratorRepository _administratorRepository;
+        private readonly IValidacionUsers _usuarioService;
 
-        public AdministratorsController(ApplicationDbContext context, IValidacionUsers usuarioService)
+        public AdministratorsController(IAdministratorRepository administratorRepository, IValidacionUsers usuarioService)
         {
-            _context = context;
-            _usuarioService = usuarioService;   
+            _administratorRepository = administratorRepository;
+            _usuarioService = usuarioService;
         }
 
-        // GET: Administrators
+        // GET: /Administrators
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Administrators.Include(a => a.Users);
-            return View(await applicationDbContext.ToListAsync());
+            var administrators = await _administratorRepository.GetAllWithUsersAsync();
+            return View(administrators);
         }
 
-        // GET: Administrators/Details/5
+        // GET: /Administrators/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,9 +39,7 @@ namespace Web_Vet_Pet.Controllers
                 return NotFound();
             }
 
-            var administrator = await _context.Administrators
-                .Include(a => a.Users)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var administrator = await _administratorRepository.GetByIdWithUsersAsync(id.Value);
             if (administrator == null)
             {
                 return NotFound();
@@ -49,42 +48,30 @@ namespace Web_Vet_Pet.Controllers
             return View(administrator);
         }
 
-        // GET: Administrators/Create
-        // En AdministratorsController.cs
-        // En AdministratorsController.cs
-        // En AdministratorsController.cs
+        // GET: /Administrators/Create
         public async Task<IActionResult> Create()
-
         {
-
-            var usuariosElegibles = await _usuarioService.ObtenerSeleccionUsuarioDisponiblesync(); // O la versión que prefieras
-
-            // Usamos las propiedades del DTO UsuarioSeleccionDto
-
-            ViewData["UserId"] = new SelectList(usuariosElegibles, "Id", "email");
-
+            var users = await _usuarioService.ObtenerSeleccionUsuarioDisponiblesync();
+            ViewData["UserId"] = new SelectList(users, "Id", "email");
             return View();
-
         }
 
-        // POST: Administrators/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: /Administrators/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId")] Administrator administrator)
+        public async Task<IActionResult> Create(Administrator administrator)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(administrator);
-                await _context.SaveChangesAsync();
+                await _administratorRepository.AddAsync(administrator);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", administrator.UserId);
+            var users = await _usuarioService.ObtenerSeleccionUsuarioDisponiblesync();
+            ViewData["UserId"] = new SelectList(users, "Id", "email", administrator.UserId);
             return View(administrator);
         }
 
-        // GET: Administrators/Edit/5
+        // GET: /Administrators/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -92,52 +79,57 @@ namespace Web_Vet_Pet.Controllers
                 return NotFound();
             }
 
-            var administrator = await _context.Administrators.FindAsync(id);
+            var administrator = await _administratorRepository.GetByIdWithUsersAsync(id.Value);
             if (administrator == null)
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", administrator.UserId);
+            var users = await _usuarioService.ObtenerSeleccionUsuarioDisponiblesync();
+            ViewData["UserId"] = new SelectList(users, "Id", "email", administrator.UserId);
             return View(administrator);
         }
 
-        // POST: Administrators/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: /Administrators/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId")] Administrator administrator)
+        public async Task<IActionResult> Edit(int id, Administrator administrator)
         {
             if (id != administrator.Id)
             {
-                return NotFound();
+                return BadRequest();
             }
 
             if (ModelState.IsValid)
             {
+                var existingAdministrator = await _administratorRepository.GetByIdWithUsersAsync(id);
+                if (existingAdministrator == null)
+                {
+                    return NotFound();
+                }
+
+                // Actualizar propiedades para evitar conflictos de seguimiento
+                existingAdministrator.UserId = administrator.UserId;
+
                 try
                 {
-                    _context.Update(administrator);
-                    await _context.SaveChangesAsync();
+                    await _administratorRepository.UpdateAsync(existingAdministrator);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AdministratorExists(administrator.Id))
+                    if (!await AdministratorExistsAsync(id))
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", administrator.UserId);
+            var users = await _usuarioService.ObtenerSeleccionUsuarioDisponiblesync();
+            ViewData["UserId"] = new SelectList(users, "Id", "email", administrator.UserId);
             return View(administrator);
         }
 
-        // GET: Administrators/Delete/5
+        // GET: /Administrators/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -145,9 +137,7 @@ namespace Web_Vet_Pet.Controllers
                 return NotFound();
             }
 
-            var administrator = await _context.Administrators
-                .Include(a => a.Users)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var administrator = await _administratorRepository.GetByIdWithUsersAsync(id.Value);
             if (administrator == null)
             {
                 return NotFound();
@@ -156,24 +146,30 @@ namespace Web_Vet_Pet.Controllers
             return View(administrator);
         }
 
-        // POST: Administrators/Delete/5
+        // POST: /Administrators/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var administrator = await _context.Administrators.FindAsync(id);
+            var administrator = await _administratorRepository.GetByIdWithUsersAsync(id);
             if (administrator != null)
             {
-                _context.Administrators.Remove(administrator);
+                await _administratorRepository.DeleteAsync(id);
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AdministratorExists(int id)
+        // GET: /Administrators/ByUserId/5
+        public async Task<IActionResult> ByUserId(int userId)
         {
-            return _context.Administrators.Any(e => e.Id == id);
+            var administrators = await _administratorRepository.GetByUserIdAsync(userId);
+            return View(administrators);
+        }
+
+        private async Task<bool> AdministratorExistsAsync(int id)
+        {
+            var administrator = await _administratorRepository.GetByIdAsync(id);
+            return administrator != null;
         }
     }
 }

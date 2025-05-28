@@ -49,31 +49,5 @@ namespace Web_Vet_Pet.Services
 
             return cmb;
         }
-        /*
-        public async Task<List<Usuarios>> ObtenerClientes()
-        {
-            var clientes=await _context.Clients.Select(c=>c.UserId).Distinct().ToListAsync();
-
-
-            var adminitradores=await _context.Administrators.Select(a=>a.UserId).Distinct().ToListAsync();
-            
-
-            var seleccionados=clientes.Union(adminitradores);
-
-            var cmb1= await _context.Users.Where( m => !seleccionados.Contains(m.Id)).Select(a => new Usuarios
-            {
-                Id = a.Id,
-                email=a.Email
-            })
-                .ToListAsync(); 
-
-        }
-        */
-
-
-
-
     }
-
-
 }

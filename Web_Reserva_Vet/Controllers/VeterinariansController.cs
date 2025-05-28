@@ -6,26 +6,29 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web_Vet_Pet.Data;
+using Web_Vet_Pet.Interfaces;
+using Web_Vet_Pet.Repositories;
 using Web_Vet_Pet.Models;
 
 namespace Web_Vet_Pet.Controllers
 {
     public class VeterinariansController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IVeterinarianRepository _veterinarianRepository;
 
-        public VeterinariansController(ApplicationDbContext context)
+        public VeterinariansController(IVeterinarianRepository veterinarianRepository)
         {
-            _context = context;
+            _veterinarianRepository = veterinarianRepository;
         }
 
-        // GET: Veterinarians
+        // GET: /Veterinarians
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Veterinarians.ToListAsync());
+            var veterinarians = await _veterinarianRepository.GetWithAppointmentsAsync();
+            return View(veterinarians);
         }
 
-        // GET: Veterinarians/Details/5
+        // GET: /Veterinarians/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,8 +36,7 @@ namespace Web_Vet_Pet.Controllers
                 return NotFound();
             }
 
-            var veterinarian = await _context.Veterinarians
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var veterinarian = await _veterinarianRepository.GetByIdWithAppointmentsAsync(id.Value);
             if (veterinarian == null)
             {
                 return NotFound();
@@ -43,29 +45,26 @@ namespace Web_Vet_Pet.Controllers
             return View(veterinarian);
         }
 
-        // GET: Veterinarians/Create
+        // GET: /Veterinarians/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Veterinarians/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: /Veterinarians/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Specialty,Name,Email,Shift,Phone")] Veterinarian veterinarian)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(veterinarian);
-                await _context.SaveChangesAsync();
+                await _veterinarianRepository.AddAsync(veterinarian);
                 return RedirectToAction(nameof(Index));
             }
             return View(veterinarian);
         }
 
-        // GET: Veterinarians/Edit/5
+        // GET: /Veterinarians/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,7 +72,7 @@ namespace Web_Vet_Pet.Controllers
                 return NotFound();
             }
 
-            var veterinarian = await _context.Veterinarians.FindAsync(id);
+            var veterinarian = await _veterinarianRepository.GetByIdWithAppointmentsAsync(id.Value);
             if (veterinarian == null)
             {
                 return NotFound();
@@ -81,42 +80,49 @@ namespace Web_Vet_Pet.Controllers
             return View(veterinarian);
         }
 
-        // POST: Veterinarians/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: /Veterinarians/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Specialty,Name,Email,Shift,Phone")] Veterinarian veterinarian)
         {
             if (id != veterinarian.Id)
             {
-                return NotFound();
+                return BadRequest();
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(veterinarian);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!VeterinarianExists(veterinarian.Id))
+                    var existingVeterinarian = await _veterinarianRepository.GetByIdWithAppointmentsAsync(id);
+                    if (existingVeterinarian == null)
                     {
                         return NotFound();
                     }
-                    else
+
+                    // Actualizar propiedades para evitar conflictos de seguimiento
+                    existingVeterinarian.Specialty = veterinarian.Specialty;
+                    existingVeterinarian.Name = veterinarian.Name;
+                    existingVeterinarian.Email = veterinarian.Email;
+                    existingVeterinarian.Shift = veterinarian.Shift;
+                    existingVeterinarian.Phone = veterinarian.Phone;
+
+                    await _veterinarianRepository.UpdateAsync(existingVeterinarian);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!await VeterinarianExistsAsync(id))
                     {
-                        throw;
+                        return NotFound();
                     }
+                    throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
             return View(veterinarian);
         }
 
-        // GET: Veterinarians/Delete/5
+        // GET: /Veterinarians/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,8 +130,7 @@ namespace Web_Vet_Pet.Controllers
                 return NotFound();
             }
 
-            var veterinarian = await _context.Veterinarians
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var veterinarian = await _veterinarianRepository.GetByIdWithAppointmentsAsync(id.Value);
             if (veterinarian == null)
             {
                 return NotFound();
@@ -134,24 +139,42 @@ namespace Web_Vet_Pet.Controllers
             return View(veterinarian);
         }
 
-        // POST: Veterinarians/Delete/5
+        // POST: /Veterinarians/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var veterinarian = await _context.Veterinarians.FindAsync(id);
+            var veterinarian = await _veterinarianRepository.GetByIdWithAppointmentsAsync(id);
             if (veterinarian != null)
             {
-                _context.Veterinarians.Remove(veterinarian);
+                await _veterinarianRepository.DeleteAsync(id);
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool VeterinarianExists(int id)
+        // GET: /Veterinarians/BySpecialty
+        public async Task<IActionResult> BySpecialty(string specialty)
         {
-            return _context.Veterinarians.Any(e => e.Id == id);
+            if (string.IsNullOrEmpty(specialty))
+            {
+                return BadRequest("La especialidad no puede estar vacía.");
+            }
+
+            var veterinarians = await _veterinarianRepository.GetBySpecialtyAsync(specialty);
+            return View(veterinarians);
+        }
+
+        // GET: /Veterinarians/ByShift
+        public async Task<IActionResult> ByShift(int shift)
+        {
+            var veterinarians = await _veterinarianRepository.GetByShiftAsync(shift);
+            return View(veterinarians);
+        }
+
+        private async Task<bool> VeterinarianExistsAsync(int id)
+        {
+            var veterinarian = await _veterinarianRepository.GetByIdAsync(id);
+            return veterinarian != null;
         }
     }
 }
