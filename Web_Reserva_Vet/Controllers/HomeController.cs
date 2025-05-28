@@ -19,12 +19,33 @@ namespace Web_Reserva_Vet.Controllers
         {
             return View();
         }
-        
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult Empleados()
+        {
+            return View();
+        }
+        public IActionResult Servicios()
+        {
+            return View();
+        }
+        public IActionResult Contacto()
+        {
+            return View();
+        }
+        public IActionResult Citas()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        
+
     }
 }
