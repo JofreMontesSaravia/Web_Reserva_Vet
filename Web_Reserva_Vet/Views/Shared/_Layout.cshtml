@@ -1,27 +1,198 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
 <head>
+    @RenderSection("Styles", required: false)
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DocPet</title>
-    <link rel="icon" href="~/IMAGENES/logo1.png" sizes="32x32" type="image/png" />
-    <link rel="stylesheet" href="~/css/index.css" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/DocPet.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+    <title>@ViewBag.Title</title> <!-- titulo de la pagina -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> <!-- Linkeo bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"> <!-- pack íconos sugerido -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet"> <!-- letra de google - usado -->
+    <link rel="icon" href="~/Fotos/logo1.png" sizes="32x32" type="image/png"> <!-- imagen encabezado de pestaña -->
+
+    <style>
+        /* estilo predeterminado general */
+        body {
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            background: #fff;
+            width: 100vw;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        /* navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #fff;
+            padding: 1rem 2rem;
+            z-index: 999;
+            display: flex;
+            justify-content: space-between;
+            transition: background-color 0.3s ease;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            color: #333;
+            font-weight: 800;
+            font-size: 1.5rem;
+        }
+
+            .navbar-brand img {
+                height: 50px;
+                margin-left: 1rem;
+                margin-right: 0.5rem;
+            }
+
+        .navbar-nav {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+            .navbar-nav a {
+                text-decoration: none;
+                color: #333;
+                font-weight: 500;
+                display: inline-block;
+                position: relative;
+            }
+
+                .navbar-nav a:hover::after {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    bottom: -2px;
+                    width: 100%;
+                    height: 2px;
+                    background-color: #000;
+                }
+
+        .redes-btn {
+            background-color: #45413e;
+            color: white;
+            border-radius: 2rem;
+            padding: 0.5rem 1.2rem;
+            border: 2px solid #45413e;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: bold;
+        }
+
+        /* pie de página */
+        footer {
+            background: #302d2b;
+            color: #fff;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin: 0 6rem;
+            text-align: start;
+        }
+
+            .footer-section h4 {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+                font-weight: 500;
+            }
+
+            .footer-section p {
+                margin: 0.5rem 0;
+            }
+
+            .footer-section a {
+                color: #fff;
+                text-decoration: none;
+                margin: 0 0.5rem;
+            }
+
+                .footer-section a:hover {
+                    color: #e0f7fa;
+                }
+
+        .footer-bottom {
+            width: 100%;
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 1rem;
+        }
+    </style>
 </head>
 <body>
-    <main role="main">
+    <!-- Navbar común -->
+    <nav class="navbar navbar-expand-lg" id="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="~/Fotos/logo1.png" alt="DocPet - Veterinaria">
+                DOCPET
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="#conocenos">Conócenos</a></li>
+                <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+                <li class="nav-item"><a class="nav-link" href="#ubicacion">Ubicación</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contacto">Contáctanos</a></li>
+            </ul>
+            <div class="redes-btn">
+                <a href="#"><i class="fa-brands fa-whatsapp" style="color: #fff;"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook" style="color: #fff;"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram" style="color: #fff;"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Renderiza el contenido específico -->
+    <main class="mt-5 pt-5">
         @RenderBody()
     </main>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <!-- Footer común -->
+    <footer>
+        <div class="footer-section">
+            <h4>Contacto</h4>
+            <p><i class="fas fa-map-marker-alt"></i> Av. La Encajada 123, Surco, Lima</p>
+            <p><i class="fas fa-phone"></i> (01) 123-4567</p>
+            <p><i class="fas fa-envelope"></i> info@docpet.com</p>
+        </div>
+        <div class="footer-section">
+            <h4>Horario de Atención</h4>
+            <p>Lunes a Viernes: 8:00 am - 8:00 pm</p>
+            <p>Sábados: 9:00 am - 5:00 pm</p>
+            <p>Emergencias: 24/7</p>
+        </div>
+        <div class="footer-section">
+            <h4>Síguenos</h4>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 DocPet - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

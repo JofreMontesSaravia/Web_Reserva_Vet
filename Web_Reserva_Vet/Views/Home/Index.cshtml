@@ -1,197 +1,137 @@
 ﻿@{
-    ViewData["Title"] = "Inicio";
+    ViewBag.Title = "DOCPET";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link rel="stylesheet" href="~/css/style.css" />
 }
 
-<!-- Navbar -->
-<header>
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-custom">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" asp-controller="Home" asp-action="Index">
-                <img src="~/Fotos/logo1.png" alt="DocPet Logo" />
-                <span>DOCPET</span>
-            </a>
-            <div class="nav-menu">
-                <a href="#conocenos">Conócenos</a>
-                <a href="#servicios">Servicios</a>
-                <a href="#ubicacion">Ubicación</a>
-                <a href="#contacto">Contactanos</a>
-            </div>
-            <div class="navbar-right">
-                <div class="social-icons">
-                    <a href="https://facebook.com" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-square"></i></a>
-                    <a href="https://facebook.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                </div>
+<!-- Hero Section -->
+<section style="position: relative; text-align: center;">
+    <img src="~/Fotos/gato-f.png" alt="Banner" style="width:100%; height: 400px; object-fit: cover;" />
+    <div style="position: absolute; top: 65%; left: 50%; transform: translate(-50%, -50%); color: white;">
+        <h1>Cuidamos a tu mejor amigo</h1>
+        <p>Servicios veterinarios de calidad</p>
+        <a href="/Auth/Login" class="btn-iniciar">Iniciar sesión</a>
+        <a href="/Auth/Register" class="btn-registrar">Registrarse</a>
+    </div>
+</section>
+
+<!-- Nosotros -->
+<section class="about mt-5" id="conocenos">
+    <h2 class="section-title0">Sobre <span class="highlight">nosotros</span></h2>
+    <div class="about-container">
+        <!-- Columna de imágenes -->
+        <div class="image-column">
+            <div class="image-stack">
+                <img src="~/Fotos/vet.png" alt="Clínica Veterinaria" class="featured-image">
+                <img src="~/Fotos/vet.png" alt="Equipo DocPet" class="secondary-image">
             </div>
         </div>
-    </nav>
-</header>
 
-<!-- Frase y Botones de credenciales -->
-<section class="hero">
-    <div class="hero-content">
-        <h1 style="margin-left:40px; font-size: 3rem;">Amor por ellos, compromiso contigo</h1>
-        <div class="btn-group">
-            <a class="btn-filled-dark" asp-controller="Account" asp-action="Login">Iniciar Sesión</a>
-            <a class="btn-outline-dark btn-hover-color" asp-controller="Account" asp-action="Register">Registrarse</a>
+        <!-- Columna de texto -->
+        <div class="text-column">
+            <div class="features">
+                <div class="feature-item">
+                    <h3 class="feature-title">El "Efecto Huella"</h3>
+                    <p style="font-family: 'Franklin Gothic Medium'; font-size:0.97rem;">
+                        En DocPet, somos más que una clínica veterinaria: cuidamos las historias de amor entre
+                        humanos y mascotas. Surgimos con una idea clara: "¿Nos elegirían los animales?" Con más de
+                        1,000 patitas atendidas, la respuesta es un ¡Sí! rotundo.
+                    </p>
+                </div>
+
+                <div class="feature-item">
+                    <h3 class="feature-title">Tecnología con Alma</h3>
+                    <p style="font-family: 'Franklin Gothic Medium'; font-size:0.97rem;">
+                        Contamos con equipos de
+                        diagnóstico de última generación, pero nuestro verdadero secreto es
+                        el "Protocolo Cariño": ningún tratamiento comienza sin antes ganarnos la confianza del
+                        paciente con caricias y golosinas (¡100% saludables!).
+                    </p>
+                </div>
+
+                <div class="feature-item">
+                    <h3 class="feature-title">Sala de Espera Felina</h3>
+                    <p style="font-family: 'Franklin Gothic Medium'; font-size:0.97rem;">
+                        ¿Sabías que tenemos una
+                        sala exclusiva para gatos con feromonas ambientales y música clásica?
+                        Reducimos su estrés desde el momento en que entran.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Contenido principal dentro de un contenedor -->
-<div class="container">
-    <!-- Información sobre la veterinaria -->
-    <section class="about" id="conocenos">
-        <h2 class="section-title">Sobre <span class="highlight">nosotros</span></h2>
-        <div class="about-container">
-            <!-- Columna de imágenes -->
-            <div class="image-column">
-                <div class="image-stack">
-                    <img src="~/Fotos/vet.png" alt="Clínica Veterinaria" class="featured-image">
-                    <img src="~/Fotos/vet.png" alt="Equipo DocPet" class="secondary-image">
+<!-- Servicios -->
+<section class="services-section mt-5" id="servicios">
+    <h2 class="section-title0">Nuestros <span class="highlight">Servicios</span></h2>
+    <div class="services-grid">
+        <!-- Columna Izquierda -->
+        <div class="services-column">
+            <!-- Servicio 1 -->
+            <div class="service-item">
+                <div class="service-image-circle">
+                    <img src="~/Fotos/baño.png" alt="Consultas veterinarias">
+                </div>
+                <div class="service-details">
+                    <h3 class="service-title">Higiene</h3>
+                    <p class="service-description">Limpieza del pelaje de tu mascota, asi como tambien cepillado de sus dientes</p>
+                    <button class="btn-reservar">+ info</button>
                 </div>
             </div>
-
-            <!-- Columna de texto -->
-            <div class="text-column">
-                <div class="features">
-                    <div class="feature-item">
-                        <h3 class="feature-title">El "Efecto Huella"</h3>
-                        <p style="font-family: 'Franklin Gothic Medium'; font-size:0.97rem;">
-                            En DocPet, somos más que una clínica veterinaria: cuidamos las historias de amor entre
-                            humanos y mascotas. Surgimos con una idea clara: "¿Nos elegirían los animales?" Con más de
-                            1,000 patitas atendidas, la respuesta es un ¡Sí! rotundo.
-                        </p>
-                    </div>
-
-                    <div class="feature-item">
-                        <h3 class="feature-title">Tecnología con Alma</h3>
-                        <p style="font-family: 'Franklin Gothic Medium'; font-size:0.97rem;">
-                            Contamos con equipos de diagnóstico de última generación, pero nuestro verdadero secreto es
-                            el "Protocolo Cariño": ningún tratamiento comienza sin antes ganarnos la confianza del
-                            paciente con caricias y golosinas (¡100% saludables!).
-                        </p>
-                    </div>
-
-                    <div class="feature-item">
-                        <h3 class="feature-title">Sala de Espera Felina</h3>
-                        <p style="font-family: 'Franklin Gothic Medium'; font-size:0.97rem;">
-                            ¿Sabías que tenemos una sala exclusiva para gatos con feromonas ambientales y música clásica?
-                            Reducimos su estrés desde el momento en que entran.
-                        </p>
-                    </div>
+            <!-- Servicio 3 -->
+            <div class="service-item">
+                <div class="service-image-circle">
+                    <img src="~/Fotos/vacuna.png" alt="Vacunación">
+                </div>
+                <div class="service-details">
+                    <h3 class="service-title">Vacunación</h3>
+                    <p class="service-description">Programa completo de vacunas para su protección.</p>
+                    <button class="btn-reservar">+ info</button>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Información sobre los servicios disponibles -->
-    <section class="services-section" id="servicios">
-        <h2 class="section-title">Nuestros <span class="highlight">Servicios</span></h2>
-        <div class="services-grid">
-            <!-- Columna Izquierda -->
-            <div class="services-column">
-                <!-- Servicio 1 -->
-                <div class="service-item">
-                    <div class="service-image-circle">
-                        <img src="~/Fotos/baño.png" alt="Consultas veterinarias">
-                    </div>
-                    <div class="service-details">
-                        <h3 class="service-title">Higiene</h3>
-                        <p class="service-description">Limpieza del pelaje de tu mascota, así como también cepillado de sus dientes</p>
-                        <button class="btn-reservar" onclick="window.location.href='@Url.Action("Login", "Account")'">+ info</button>
-                    </div>
+        <!-- Columna Derecha -->
+        <div class="services-column">
+            <!-- Servicio 5 -->
+            <div class="service-item">
+                <div class="service-image-circle">
+                    <img src="~/Fotos/peinar.png" alt="Urgencias veterinarias">
                 </div>
-                <!-- Servicio 3 -->
-                <div class="service-item">
-                    <div class="service-image-circle">
-                        <img src="~/Fotos/vacuna.png" alt="Vacunación">
-                    </div>
-                    <div class="service-details">
-                        <h3 class="service-title">Vacunación</h3>
-                        <p class="service-description">Programa completo de vacunas para su protección.</p>
-                        <button class="btn-reservar" onclick="window.location.href='@Url.Action("Login", "Account")'">+ info</button>
-                    </div>
+                <div class="service-details">
+                    <h3 class="service-title">Cortes/estilo</h3>
+                    <p class="service-description">Ofrecemos distintos estilos para variedad de razas</p>
+                    <button class="btn-reservar">+ info</button>
                 </div>
             </div>
-
-            <!-- Columna Derecha -->
-            <div class="services-column">
-                <!-- Servicio 5 -->
-                <div class="service-item">
-                    <div class="service-image-circle">
-                        <img src="~/Fotos/peinar.png" alt="Urgencias veterinarias">
-                    </div>
-                    <div class="service-details">
-                        <h3 class="service-title">Cortes/estilo</h3>
-                        <p class="service-description">Ofrecemos distintos estilos para variedad de razas</p>
-                        <button class="btn-reservar" onclick="window.location.href='@Url.Action("Login", "Account")'">+ info</button>
-                    </div>
+            <!-- Servicio 6 -->
+            <div class="service-item">
+                <div class="service-image-circle">
+                    <img src="~/Fotos/revisar.png" alt="Laboratorio veterinario">
                 </div>
-                <!-- Servicio 6 -->
-                <div class="service-item">
-                    <div class="service-image-circle">
-                        <img src="~/Fotos/revisar.png" alt="Laboratorio veterinario">
-                    </div>
-                    <div class="service-details">
-                        <h3 class="service-title">Revisión</h3>
-                        <p class="service-description">Contamos con dispositivos tecnológicos para la revisión de tu mascota</p>
-                        <button class="btn-reservar" onclick="window.location.href='@Url.Action("Login", "Account")'">+ info</button>
-                    </div>
+                <div class="service-details">
+                    <h3 class="service-title">Revisión</h3>
+                    <p class="service-description">Contamos con dispositivos tecnologicos para la revisión de tu mascota</p>
+                    <button class="btn-reservar">+ info</button>
                 </div>
             </div>
-        </div>
-    </section>
-    <button class="btn-reservar-top" onclick="window.location.href='@Url.Action("Login", "Account")'" style="margin-left:25rem;">+ Descubre más servicios</button>
-
-    <!-- Sección Ubicación -->
-    <section class="location-section" id="ubicacion">
-        <h2 class="section-title">Nuestra <span class="highlight">Ubicación</span></h2>
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.965949600882!2d-76.9905429241649!3d-12.067025088137936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c5f619ee3ec7%3A0x14206cb9cc452e4a!2sAv.%20La%20Encalada%2C%20Santiago%20de%20Surco%2015023!5e0!3m2!1ses-419!2spe!4v1718739557246!5m2!1ses-419!2spe"
-                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </section>
-</div>
-
-<!-- Footer -->
-<footer id="contacto">
-    <div class="footer-section">
-        <div>
-            <h5>Contacto</h5>
-            <p>📍 Av. La Encalada 123, Surco, Lima</p>
-            <p>📞 (01) 123-4567</p>
-            <p>✉️ info@docpet.com</p>
-        </div>
-        <div>
-            <h5>Horario de Atención</h5>
-            <p>Lunes a Viernes: 8:00 am - 8:00 pm</p>
-            <p>Sábados: 9:00 am - 5:00 pm</p>
-            <p>Emergencias: 24/7</p>
-        </div>
-        <div>
-            <h5>Síguenos</h5>
-            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-square"></i></a>
-            <a href="https://facebook.com" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://facebook.com" target="_blank"><i class="fab fa-whatsapp"></i></a>
         </div>
     </div>
-</footer>
+    <button class="btn-reservar-top" style="margin-left:30rem;">+ Descubre más servicios</button>
+</section>
 
-<script>
-    // Script para desplazamiento suave
-    document.querySelectorAll('.nav-menu a[href*="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').split('#')[1];
-            const targetElement = document.getElementById(targetId);
+<!-- Ubicación -->
+<section class="location-section" id="ubicacion">
+    <h2 class="section-title0">Nuestra <span class="highlight">Ubicación</span></h2>
+    <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.965949600882!2d-76.9905429241649!3d-12.067025088137936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c5f619ee3ec7%3A0x14206cb9cc452e4a!2sAv.%20La%20Encalada%2C%20Santiago%20de%20Surco%2015023!5e0!3m2!1ses-419!2spe!4v1718739557246!5m2!1ses-419!2spe"
+                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</section>
 
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
-</script>
+
+
 
 

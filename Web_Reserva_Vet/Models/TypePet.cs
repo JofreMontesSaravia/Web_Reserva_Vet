@@ -5,17 +5,17 @@ namespace Web_Vet_Pet.Models
 {
     public class TypePet
     {
-        public int Id { get; set; } //Id Tipo de Mascota
+        public int Id { get; set; } //PK Tipo de Mascota
 
-        [Required]
+        [Required] //requerido si o si
         [StringLength(20)]
-        public string Species {  get; set; }
+        public string Species {  get; set; } //especies
         [Required]
         [StringLength(45)]
-        public string Description { get; set; }
+        public string Description { get; set; } //descripcion
 
         //Propiedad de navegación
-        [ValidateNever]
+        [ValidateNever] //No valida su relacíón con mascota al ser creado
         public ICollection<Pet>? Pets { get; set; }
     }
 }
