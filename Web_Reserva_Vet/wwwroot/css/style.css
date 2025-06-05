@@ -1,148 +1,58 @@
-﻿:root {
-    --text-01: #45413e;
-    --light-01: #f9f9f9;
-    --light-02: #ffffff;
-    --brand-01: #16296b;
-    --brand-03: #2ba9dbbb;
-    --card-hover: 0px 4px 24px rgba(0, 0, 0, 0.15);
-    --card-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-    --hover-timing: all 0.2s ease;
-    --nav-card-size: 240px;
-    --pg-margin: 80px;
-    --hero-text: 56px;
-    -webkit-font-smoothing: antialiased;
-    scroll-behavior: smooth;
-}
-
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
-
-body {
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    transition: var(--hover-timing);
-    background: var(--light-01);
-    width: 100vw;
-    overflow-x: hidden;
-}
-
-/* Navbar styles */
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: transparent;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    transition: background-color 0.3s ease;
-    z-index: 999;
-}
-
-    .navbar.scrolled {
-        background-color: #45afda;
-    }
-
-.navbar-custom {
-    background-color: #00a8cc;
-    padding: 10px 0;
-}
-
-.navbar-brand img {
-    height: 50px;
-    width: auto;
-    margin-right: 10px;
-}
-
-.navbar-brand span {
-    font-weight: bold;
-    font-size: 24px;
-    color: #333;
-}
-
-.nav-menu {
-    display: flex;
-    align-items: center;
-}
-
-    .nav-menu a {
-        color: #fff;
-        margin: 0 15px;
-        text-decoration: none;
-        font-size: 16px;
-    }
-
-        .nav-menu a:hover {
-            text-decoration: underline;
-        }
-
-.navbar-right {
-    display: flex;
-    align-items: center;
-}
-
-    .navbar-right img {
-        height: 60px;
-        margin-left: 20px;
-    }
-
-.social-icons a {
-    color: #fff;
-    margin-left: 10px;
-    font-size: 20px;
-}
-
-.logo-container {
-    display: flex;
-    align-items: center;
-}
-
-.logo {
-    height: 50px;
-    margin-right: 10px;
-}
-
-.clinic-name {
-    font-weight: bold;
-    font-size: 1.5rem;
-    color: #333;
-}
-
-.main-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-}
-
-.main-nav a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-}
-
-.redes-btn {
-    background-color: var(--text-01);
+﻿.btn-iniciar {
+    margin: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #3498db;
     color: white;
-    border-radius: 2rem;
-    padding: 0.5rem 1.2rem;
-    border: 2px solid var(--text-01);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
 }
 
-/* About section */
+.btn-registrar {
+    padding: 0.5rem 1rem;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+    .btn-iniciar:hover, .btn-registrar:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+
+.btn-iniciar:hover {
+    background-color: #2980b9;
+}
+
+.btn-registrar:hover {
+    background-color: #222;
+}
+
+.section-title0 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
 .about-container {
     display: flex;
     max-width: 1000px;
     margin: 0 auto;
     align-items: center;
     padding: 0 2rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 2.5rem;
+}
+
+.highlight {
+    color: #238eb9e8;
 }
 
 .image-column {
@@ -178,16 +88,6 @@ body {
     flex: 1;
 }
 
-.section-title {
-    font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 2.5rem;
-}
-
-.highlight {
-    color: #238eb9e8;
-}
-
 .features {
     display: flex;
     flex-direction: column;
@@ -212,164 +112,14 @@ body {
     margin-bottom: 0.5rem;
 }
 
-/* Hero section */
-section.hero {
-    height: 40vw;
-    background: var(--brand-03) url("/Fotos/gato-f.png") no-repeat;
-    background-position: 70% center;
-    background-size: 40%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 24px;
-    padding-top: 100px;
-    padding-left: var(--pg-margin);
-}
-
-    section.hero .hero-content {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-    }
-
-    section.hero h1 {
-        font-size: var(--hero-text);
-        font-weight: 600;
-        line-height: 1.2;
-        width: 40%;
-        color: var(--text-01);
-    }
-
-/* Button styles */
-button {
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 24px;
-    padding: 12px 24px;
-    border-radius: 48px;
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-    button.btn-outline-light {
-        color: var(--light-01);
-        background: none;
-        border: 2px solid var(--light-01);
-    }
-
-    button.btn-outline-dark {
-        color: var(--text-01);
-        background: none;
-        border: 2px solid var(--text-01);
-        margin-left: 20px;
-    }
-
-    button.btn-filled-dark {
-        color: var(--light-01);
-        background: var(--text-01);
-        border: 2px solid var(--text-01);
-    }
-
-.btn-filled-dark {
-    display: inline-block;
-    padding: 8px 25px;
-    text-decoration: none;
-    text-align: center;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-    color: var(--light-01, #ffffff);
-    background-color: var(--text-01, #4a4a4a);
-    border: 5px solid var(--text-01, #4a4a4a);
-    border-radius: 10px;
-}
-
-.btn-outline-dark:hover {
-    background: var(--text-01);
-    color: var(--light-01);
-}
-
-.btn-outline-light:hover {
-    background: var(--light-01);
-    color: var(--text-01);
-}
-
-button:hover,
-.btn-outline-dark.btn-hover-color:hover {
-    color: var(--light-01);
-    border: 2px solid var(--brand-01);
-    background: var(--brand-01);
-    transition: var(--hover-timing);
-    box-shadow: var(--card-hover);
-}
-
-.btn-outline-dark.btn-hover-color {
-    display: inline-block;
-    padding: 10px 15px;
-    text-decoration: none;
-    color: var(--dark-text);
-    background-color: transparent;
-    border: 2px solid gray;
-    border-radius: 10px 10px 10px 10px;
-    cursor: pointer;
-    text-align: center;
-    transition: var(--hover-timing);
-}
-
-/* Section styles */
-section {
-    position: relative;
-    width: 100%;
-    padding: 0 var(--pg-margin);
-}
-
-    section:not(.hero) {
-        padding: calc(var(--pg-margin) / 2) var(--pg-margin);
-    }
-
-    section h2 {
-        font-size: 32px;
-        font-weight: 600;
-        line-height: 1.2;
-        text-align: center;
-        color: var(--text-01);
-        margin-bottom: 32px;
-    }
-
-/* Button group */
-.btn-group {
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-    margin-left: 40px;
-}
-
-/* Subnavigation */
-nav .navigation-menu > li > ul.subnav {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    padding: 48px;
-}
-
-nav ul.navigation-menu > li:hover .subnav {
-    display: grid;
-}
-
-/* Estilos para la sección de Servicios */
 .services-section {
-    padding: 4rem var(--pg-margin);
-    background-color: var(--light-01);
+    padding: 2rem;
+    background-color: #fefefe;
 }
 
 .services-grid {
     display: flex;
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
     gap: 3rem;
 }
@@ -413,7 +163,7 @@ nav ul.navigation-menu > li:hover .subnav {
 }
 
 .service-title {
-    color: var(--brand-01);
+    color: #16296b;
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
 }
@@ -426,7 +176,7 @@ nav ul.navigation-menu > li:hover .subnav {
 }
 
 .btn-reservar {
-    background-color: var(--brand-01);
+    background-color: #302d2b;
     color: white;
     border: none;
     padding: 0.5rem 1.2rem;
@@ -434,12 +184,12 @@ nav ul.navigation-menu > li:hover .subnav {
     font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
-    transition: var(--hover-timing);
+    transition: all 0.2s ease;
 }
 
 .btn-reservar-top {
-    background-color: var(--brand-01);
-    margin-top: 1rem;
+    background-color: #302d2b;
+    margin-top: 2rem;
     margin-bottom: 5rem;
     color: white;
     border: none;
@@ -448,22 +198,21 @@ nav ul.navigation-menu > li:hover .subnav {
     font-size: 1.5rem;
     font-weight: 600;
     cursor: pointer;
-    transition: var(--hover-timing);
+    transition: all 0.2s ease;
 }
 
 .btn-reservar:hover {
-    background-color: var(--brand-03);
-    color: var(--text-01);
+    background-color: #2ba9dbbb;
+    color: #45413e;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .btn-reservar-top:hover {
-    background-color: var(--brand-03);
-    color: var(--text-01);
+    background-color: #2ba9dbbb;
+    color: #45413e;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* Estilos para la sección de Ubicación */
 .location-section {
     padding: 4rem var(--pg-margin);
     background-color: var(--light-01);
@@ -475,41 +224,4 @@ nav ul.navigation-menu > li:hover .subnav {
     border-radius: 50px;
     overflow: hidden;
     box-shadow: var(--card-shadow);
-}
-
-/* Footer styles */
-.footer-section {
-    background-color: #2c7a7b;
-    color: #fff;
-    padding: 20px 0;
-    border-top: 4px solid #f9bc60;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-    .footer-section h5 {
-        font-size: 18px;
-        margin-bottom: 10px;
-    }
-
-    .footer-section p {
-        margin: 5px 0;
-    }
-
-    .footer-section a {
-        color: #f9bc60;
-        text-decoration: none;
-    }
-
-        .footer-section a:hover {
-            text-decoration: underline;
-        }
-
-.footer-bottom {
-    background-color: #2c7a7b;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    margin-top: 20px;
 }

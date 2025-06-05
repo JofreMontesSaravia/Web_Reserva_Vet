@@ -2,10 +2,10 @@
 {
     public class Administrator
     {
-        public int Id { get; set; } //Id Administrador
+        public int Id { get; set; } //PK Administrador
         public int UserId { get; set; } //Fk
 
-        //relacion
+        //Propiedad de navegación
         public User? Users { get; set; }
     }
 }

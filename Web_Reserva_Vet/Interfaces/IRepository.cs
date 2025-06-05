@@ -2,12 +2,13 @@
 
 namespace Web_Vet_Pet.Interfaces
 {
+    //definimos la firma de métodos generales para todas las interfaces
     public interface IRepository<T> where T : class
     {
-        Task<IEnumerable<T>> GetAllAsync();
-        Task<T?> GetByIdAsync(int id);
-        Task AddAsync(T entity);
-        Task UpdateAsync(T entity);
-        Task DeleteAsync(int id);
+        Task<IEnumerable<T>> GetAllAsync(); //todos los datos
+        Task<T?> GetByIdAsync(int id); //busqueda por id
+        Task AddAsync(T entity); //agregar
+        Task UpdateAsync(T entity); //actualizar
+        Task DeleteAsync(int id); //eliminar
     }
 }

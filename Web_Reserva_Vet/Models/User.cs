@@ -5,28 +5,28 @@ namespace Web_Vet_Pet.Models
 {
     public class User
     {
-        public int Id { get; set; }
-        [Required]
+        public int Id { get; set; } //PK de la tabla
+        [Required] //requerido si o si
         [StringLength(20)]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } //primer normbre
         [Required]
         [StringLength(30)]
-        public string Email { get; set; }
+        public string Email { get; set; } //correo
         [Required]
         [StringLength(16)]
-        public string PasswordHash { get; set; }
+        public string PasswordHash { get; set; } //contraseña
         [Required]
         [StringLength(20)]
-        public string LastName { get; set; }
+        public string LastName { get; set; } //apellido
         [Required]
         [StringLength(9)]
-        public string Phone { get; set; }
-        public DateOnly DateBirthday { get; set; }
+        public string Phone { get; set; } //telefono
+        public DateOnly DateBirthday { get; set; } //cumpleaños
 
         //Propiedad de navegación
-        [ValidateNever]
+        [ValidateNever] //no valida su relación con cliente al ser creado
         public ICollection<Client>? Clients { get; set; }
-        [ValidateNever]
+        [ValidateNever] //no valida su relación con admin al ser creado
         public ICollection<Administrator>? Administrators { get; set; }
     }
 }
