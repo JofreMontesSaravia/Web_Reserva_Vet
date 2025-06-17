@@ -1,0 +1,28 @@
+@model List<Web_Vet_Pet.ViewModels.ServicioAdminViewModel>
+@{
+    ViewBag.Title = "Servicios";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 text-center mt-3">
+            <h2>Servicios</h2>
+            <span class="float-end"><i class="fa fa-bell"></i></span>
+        </div>
+    </div>
+    <hr />
+    <div class="row mt-4">
+        <div class="col-8">
+            <h5>Mis Servicios ...
+                <a href="#" title="Agregar servicio" class="ms-2">
+                    <span style="font-size:1.7rem;vertical-align:middle;">&#x2795;</span>
+                </a>
+            </h5>
+        </div>
+        <div class="col-4 text-end">
+            <input type="text" class="form-control d-inline-block w-50" placeholder="?? Servicio" />
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12">
