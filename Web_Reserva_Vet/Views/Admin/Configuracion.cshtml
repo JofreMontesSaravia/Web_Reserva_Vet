@@ -1,0 +1,520 @@
+﻿@{
+    ViewBag.Title = "DOCPET";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section Styles {
+    <style>
+        /* VARIABLES CSS - Asegúrate que estas estén definidas en tu CSS global o aquí */
+        :root {
+            --primary-color: #4CAF50; /* Un verde amigable y vibrante */
+            --secondary-color: #6A1B9A; /* Un morado profundo para contraste */
+            --text-color: #333;
+            --light-bg: #F8F9FA;
+            --dark-bg: #2C3E50; /* Azul oscuro para un toque profesional */
+            --border-color: #E0E0E0;
+            --hover-color: #e6f7e6; /* Verde claro para hover */
+        }
+
+        /* Estilos específicos para el contenido de Configuraciones */
+        .settings-container {
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            max-width: 700px;
+            margin: 30px auto; /* Centra el contenedor */
+        }
+
+            .settings-container h2 {
+                color: var(--dark-bg);
+                margin-bottom: 25px;
+                font-weight: 600;
+                font-size: 1.8rem;
+                border-bottom: 2px solid var(--primary-color);
+                padding-bottom: 10px;
+            }
+
+        .settings-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+            .settings-section:last-child {
+                border-bottom: none; /* Elimina la línea en la última sección */
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+            .settings-section h3 {
+                color: var(--secondary-color);
+                margin-bottom: 20px;
+                font-weight: 600;
+                font-size: 1.3rem;
+            }
+
+        /* Estilos para los formularios */
+        .settings-form-group {
+            margin-bottom: 20px;
+        }
+
+            .settings-form-group label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: 500;
+                color: var(--text-color);
+            }
+
+            .settings-form-group input[type="text"],
+            .settings-form-group input[type="email"],
+            .settings-form-group input[type="url"],
+            .settings-form-group textarea,
+            .settings-form-group input[type="password"] {
+                width: 100%;
+                padding: 10px 15px;
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                font-family: 'Poppins', sans-serif;
+                font-size: 1rem;
+                color: var(--text-color);
+                box-sizing: border-box;
+            }
+
+            .settings-form-group textarea {
+                min-height: 80px;
+                resize: vertical;
+            }
+
+                .settings-form-group input[type="text"]:focus,
+                .settings-form-group input[type="email"]:focus,
+                .settings-form-group input[type="url"]:focus,
+                .settings-form-group textarea:focus,
+                .settings-form-group input[type="password"]:focus {
+                    outline: none;
+                    border-color: var(--primary-color);
+                    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+                }
+
+        /* Estilo para el switch de notificaciones */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+        }
+
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 28px;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 20px;
+                width: 20px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                transition: .4s;
+                border-radius: 50%;
+            }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+
+        /* Estilo para el texto del switch */
+        .toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 500;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        .settings-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+            .settings-button:hover {
+                background-color: #43A047;
+                transform: translateY(-2px);
+            }
+
+        /* Estilos para el botón de la cámara superpuesto en la imagen */
+        .camera-button {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background-color: var(--primary-color);
+            color: white;
+            border: 2px solid white;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            padding: 0;
+        }
+
+            .camera-button:hover {
+                background-color: var(--secondary-color);
+                transform: scale(1.1);
+            }
+
+        /* Estilos para la tarjeta de información adicional */
+        .info-card {
+            background-color: var(--light-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-top: 30px;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+            .info-card h4 {
+                color: var(--primary-color);
+                font-weight: 600;
+                margin-bottom: 15px;
+                font-size: 1.4rem;
+            }
+
+            .info-card p {
+                line-height: 1.6;
+                margin-bottom: 15px;
+            }
+
+        .whatsapp-support-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #25D366; /* Color de WhatsApp */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+            .whatsapp-support-button i {
+                margin-right: 10px;
+                font-size: 1.2rem;
+            }
+
+            .whatsapp-support-button:hover {
+                background-color: #1DA851;
+                transform: translateY(-2px);
+                color: white;
+            }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Referencias a elementos del DOM
+            const cameraButtonConfig = document.getElementById('cameraButtonConfig');
+            const imageUploadConfig = document.getElementById('imageUploadConfig');
+            const profileImageConfig = document.getElementById('profileImageConfig');
+            // Asegúrate de que estos IDs existan en tu _Layout.cshtml si los quieres actualizar
+            const sidebarProfileImage = document.getElementById('sidebarProfileImage');
+            const clinicNameInput = document.getElementById('clinicName');
+            const sidebarClinicName = document.getElementById('sidebarClinicName');
+
+            const logoutForm = document.getElementById('logoutForm'); // Si tu botón de salir está en el Layout
+            const clinicProfileForm = document.getElementById('clinicProfileForm');
+            const adminPrefsForm = document.getElementById('adminPrefsForm');
+            const enableNotificationsCheckbox = document.getElementById('enableNotifications');
+
+            // --- Funcionalidad para la Carga de Imagen de Perfil ---
+            if (cameraButtonConfig && imageUploadConfig && profileImageConfig) {
+                cameraButtonConfig.addEventListener('click', function() {
+                    imageUploadConfig.click();
+                });
+
+                imageUploadConfig.addEventListener('change', function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            profileImageConfig.src = e.target.result;
+                            // Actualizar la imagen en el sidebar, si existe
+                            if (sidebarProfileImage) {
+                                sidebarProfileImage.src = e.target.result;
+                            }
+                        };
+                        reader.readAsDataURL(file);
+                        // ***** AQUÍ: LÓGICA PARA SUBIR LA IMAGEN AL SERVIDOR *****
+                        // Para subir la imagen, necesitarías hacer una petición AJAX (Fetch API o jQuery.ajax)
+                        // a un Endpoint de tu controlador ASP.NET Core que reciba el archivo.
+                        // Ejemplo (requeriría un controlador con un método POST):
+                        /*
+                        const formData = new FormData();
+                        formData.append('profileImage', file);
+                        fetch('/api/Configuraciones/UploadProfileImage', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                console.log('Imagen subida con éxito:', data.imageUrl);
+                                // Opcional: Actualizar la URL de la imagen si el backend devuelve una nueva
+                                // profileImageConfig.src = data.imageUrl;
+                                // if (sidebarProfileImage) { sidebarProfileImage.src = data.imageUrl; }
+                            } else {
+                                console.error('Error al subir imagen:', data.message);
+                            }
+                        })
+                        .catch(error => console.error('Error de red al subir imagen:', error));
+                        */
+                    }
+                });
+            }
+
+            // --- Funcionalidad para Actualizar el Nombre de la Clínica en el Sidebar (si existe) ---
+            if (clinicProfileForm) {
+                clinicProfileForm.addEventListener('submit', function(event) {
+                    event.preventDefault(); // Evita que el formulario recargue la página
+
+                    const newClinicName = clinicNameInput.value;
+                    if (sidebarClinicName) {
+                        sidebarClinicName.textContent = newClinicName; // Actualiza el nombre en el sidebar
+                    }
+                    alert('Datos del perfil de la clínica guardados (simulado).');
+
+                    // ***** AQUÍ: LÓGICA PARA GUARDAR DATOS DEL FORMULARIO DE PERFIL AL SERVIDOR *****
+                    // Crear un objeto con los datos del formulario
+                    /*
+                    const clinicData = {
+                        Name: clinicNameInput.value,
+                        Description: document.getElementById('clinicDescriptionShort').value,
+                        Hours: document.getElementById('clinicHours').value,
+                        Phone: document.getElementById('clinicPhone').value
+                    };
+                    fetch('/api/Configuraciones/SaveClinicProfile', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            // 'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() // Si usas CSRF token
+                        },
+                        body: JSON.stringify(clinicData)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Perfil de la clínica actualizado con éxito.');
+                        } else {
+                            alert('Error al actualizar perfil: ' + data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error al enviar perfil:', error));
+                    */
+                });
+            }
+
+            // --- Funcionalidad del Switch de Notificaciones ---
+            if (enableNotificationsCheckbox) {
+                enableNotificationsCheckbox.addEventListener('change', function() {
+                    const isEnabled = this.checked;
+                    if (isEnabled) {
+                        console.log('Notificaciones de actualizaciones ACTIVADAS.');
+                        alert('Notificaciones de actualizaciones activadas.');
+                    } else {
+                        console.log('Notificaciones de actualizaciones DESACTIVADAS.');
+                        alert('Notificaciones de actualizaciones desactivadas.');
+                    }
+                    // ***** AQUÍ: LÓGICA PARA GUARDAR LA PREFERENCIA DE NOTIFICACIONES *****
+                    /*
+                    fetch('/api/Configuraciones/SetNotifications', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ enable: isEnabled })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log('Preferencia de notificaciones guardada.');
+                        } else {
+                            console.error('Error al guardar preferencia de notificaciones:', data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error de red al guardar preferencia:', error));
+                    */
+                });
+            }
+
+            // --- Funcionalidad del Formulario de Preferencias del Admin (ej. cambiar contraseña) ---
+            if (adminPrefsForm) {
+                adminPrefsForm.addEventListener('submit', function(event) {
+                    event.preventDefault(); // Evita que el formulario se envíe
+
+                    const newPassword = document.getElementById('newPassword').value;
+                    const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+                    if (newPassword || confirmNewPassword) { // Solo validar si se intenta cambiar la contraseña
+                        if (newPassword !== confirmNewPassword) {
+                            alert('Las nuevas contraseñas no coinciden.');
+                            return;
+                        }
+                        if (newPassword.length < 8) {
+                            alert('La nueva contraseña debe tener al menos 8 caracteres.');
+                            return;
+                        }
+                        // Aquí, en un proyecto real, también enviarías la contraseña actual para verificar.
+                    }
+
+                    alert('Preferencias de administrador guardadas (simulado).');
+                    // Limpia los campos de contraseña después de un intento de guardar
+                    document.getElementById('newPassword').value = '';
+                    document.getElementById('confirmNewPassword').value = '';
+
+                    // ***** AQUÍ: LÓGICA PARA CAMBIAR LA CONTRASEÑA EN EL SERVIDOR *****
+                    /*
+                    if (newPassword) { // Solo si se ingresó una nueva contraseña
+                        fetch('/api/Account/ChangePassword', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ newPassword: newPassword, confirmPassword: confirmNewPassword })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('Contraseña actualizada con éxito.');
+                            } else {
+                                alert('Error al actualizar contraseña: ' + data.message);
+                            }
+                        })
+                        .catch(error => console.error('Error de red al cambiar contraseña:', error));
+                    }
+                    */
+                });
+            }
+
+            // --- Funcionalidad de Salir (Redirección simulada, asumiendo que el botón está en el _Layout) ---
+            // Si tu botón de salir está en el _Layout.cshtml y no se renderiza dentro de esta vista
+            // puedes mover este bloque al _Layout.cshtml o asegurarte de que el ID 'logoutForm' sea único.
+            if (logoutForm) {
+                logoutForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    console.log('Simulando cierre de sesión...');
+                    // En un proyecto real de ASP.NET Core, esto sería una redirección a una acción de Account/Logout
+                    // O una llamada AJAX para cerrar sesión.
+                    // window.location.href = '/Account/Logout'; // Ejemplo para ASP.NET Core
+                });
+            }
+        });
+    </script>
+}
+
+<div class="settings-container">
+    <div class="settings-section">
+        <h3><i class="fa-solid fa-paw"></i> Perfil de la Clínica</h3>
+        <form id="clinicProfileForm">
+            <div class="settings-form-group">
+                <label for="clinicName">Nombre de la Veterinaria:</label>
+                <input type="text" id="clinicName" value="Veterinaria La Mascota Feliz" placeholder="Nombre de tu clínica">
+            </div>
+            <div class="settings-form-group">
+                <label for="clinicLogo">Logo/Imagen de Perfil:</label>
+                <div style="position: relative; width: 120px; height: 120px; margin-bottom: 15px; margin-left: auto; margin-right: auto;">
+                    <img id="profileImageConfig" src=~/Fotos/logo1.png alt="Logo Veterinaria" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary-color);">
+                    <input type="file" id="imageUploadConfig" accept="image/*" style="display: none;" />
+                    <button type="button" id="cameraButtonConfig" class="camera-button">
+                        <i class="fa-solid fa-camera"></i>
+                    </button>
+                </div>
+                <p style="text-align: center; font-size: 0.85em; color: #666;">Haz clic en el icono de la cámara para cambiar el logo.</p>
+            </div>
+            <div class="settings-form-group">
+                <label for="clinicDescriptionShort">Descripción Corta / Eslogan:</label>
+                <textarea id="clinicDescriptionShort" placeholder="Una frase o breve descripción de tu veterinaria...">Cuidado profesional y amor incondicional para tus mascotas.</textarea>
+            </div>
+            <div class="settings-form-group">
+                <label for="clinicHours">Horario de Atención General:</label>
+                <input type="text" id="clinicHours" value="Lunes a Viernes: 9 AM - 6 PM, Sábados: 9 AM - 1 PM" placeholder="Ej: L-V 9AM-6PM, S 9AM-1PM">
+            </div>
+            <div class="settings-form-group">
+                <label for="clinicPhone">Teléfono Principal:</label>
+                <input type="text" id="clinicPhone" value="+51 987 654 321" placeholder="Ej: +51 987 654 321">
+            </div>
+            <button type="submit" class="settings-button">Guardar Perfil</button>
+        </form>
+    </div>
+
+    <div class="settings-section">
+        <h3><i class="fa-solid fa-user-shield"></i> Preferencias Personales</h3>
+        <form id="adminPrefsForm">
+            <div class="settings-form-group">
+                <label class="toggle-label" for="enableNotifications">
+                    Recibir Notificaciones de Actualizaciones:
+                    <label class="switch">
+                        <input type="checkbox" id="enableNotifications" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </label>
+                <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Activa esta opción para recibir avisos sobre nuevas características del panel o mensajes importantes.</p>
+            </div>
+            <div class="settings-form-group">
+                <label for="newPassword">Cambiar Contraseña:</label>
+                <input type="password" id="newPassword" placeholder="Nueva contraseña (mínimo 8 caracteres)">
+            </div>
+            <div class="settings-form-group">
+                <label for="confirmNewPassword">Confirmar Nueva Contraseña:</label>
+                <input type="password" id="confirmNewPassword" placeholder="Repite la nueva contraseña">
+            </div>
+            <button type="submit" class="settings-button">Guardar Preferencias</button>
+        </form>
+    </div>
+
+    <div class="info-card">
+        <h4><i class="fa-solid fa-circle-info"></i> Ayuda y Soporte Rápido</h4>
+        <p>¡Bienvenido, Administrador! Aquí puedes mantener la información de tu veterinaria actualizada.</p>
+        <p>Si necesitas asistencia o tienes alguna consulta sobre el panel, no dudes en contactarnos directamente.</p>
+
+        <a href="https://wa.me/51987654321?text=Hola,%20necesito%20soporte%20con%20el%20panel%20de%20administracion%20de%20la%20veterinaria."
+           target="_blank" class="whatsapp-support-button">
+            <i class="fa-brands fa-whatsapp"></i> Soporte por WhatsApp
+        </a>
+    </div>
+
+</div>
