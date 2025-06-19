@@ -1,27 +1,43 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Web_Reserva_Vet.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Web_Vet_Pet.Data;
-using Web_Vet_Pet.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web_Vet_Pet.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly ILogger<AdminController> _logger;
-        private readonly ApplicationDbContext _context;
-
-        public AdminController(ILogger<AdminController> logger, ApplicationDbContext context)
-        {
-            _logger = logger;
-            _context = context;
-        }
-
         public IActionResult Index()
         {
-            ViewBag.Name_Vet = "Clínica Veterinaria Patitas";
+            ViewData["Titulo"] = "Dashboard";
+            ViewData["Icono"] = "fa-solid fa-bars-staggered";
+            return View();
+        }
+
+        public IActionResult Configuracion()
+        {
+            ViewData["Titulo"] = "Configuracion";
+            ViewData["Icono"] = "fa-solid fa-gear";
+            return View();
+        }
+        public IActionResult Reservas()
+        {
+            ViewData["Titulo"] = "Reservas";
+            ViewData["Icono"] = "fa-regular fa-clipboard";
+            return View();
+        }
+        public IActionResult Veterinarios()
+        {
+            ViewData["Titulo"] = "Veterinarios";
+            ViewData["Icono"] = "fa-solid fa-user-doctor";
+            return View();
+        }
+        public IActionResult Servicios()
+        {
+            ViewData["Titulo"] = "Servicios";
+            ViewData["Icono"] = "fa-solid fa-shield-dog";
             return View();
         }
 
