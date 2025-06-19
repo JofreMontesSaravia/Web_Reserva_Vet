@@ -1,13 +1,12 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Web_Reserva_Vet.Models;
-using Microsoft.EntityFrameworkCore;// Librerias que nos van ayudar a la creacion del crud
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Authorization; //Librerias que nos van ayudar a la creacion del crud
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web_Vet_Pet.Controllers
 {
-    //controller para la vista, aqui van agregando las vistas nuevas respecto a admin
     public class AdminController : Controller
     {
         public IActionResult Index()
@@ -40,6 +39,45 @@ namespace Web_Vet_Pet.Controllers
             ViewData["Titulo"] = "Servicios";
             ViewData["Icono"] = "fa-solid fa-shield-dog";
             return View();
+        }
+
+        public IActionResult Servicios()
+        {
+            ViewBag.Name_Vet = "Clínica Veterinaria Patitas";
+            var servicios = _context.Services
+                .Select(s => new ServicioAdminViewModel
+                {
+                    Id = s.Id,
+                    Nombre = s.Name,
+                    Duracion = s.Duration,
+                    Costo = s.Cost,
+                    Veterinario = s.Appointments
+                        .OrderBy(a => a.Id)
+                        .Select(a => a.Veterinarian != null ? a.Veterinarian.Name : "-")
+                        .FirstOrDefault() ?? "-",
+                    Especie = s.Appointments
+                        .OrderBy(a => a.Id)
+                        .Select(a => a.Pet != null && a.Pet.TypePet != null ? a.Pet.TypePet.Species : "-")
+                        .FirstOrDefault() ?? "-"
+                })
+                .ToList();
+            return View(servicios);
+        }
+
+        public IActionResult Veterinarios()
+        {
+            ViewBag.Name_Vet = "Clínica Veterinaria Patitas";
+            var veterinarios = _context.Veterinarians
+                .Select(v => new VeterinarioAdminViewModel
+                {
+                    Id = v.Id,
+                    Nombre = v.Name,
+                    Email = v.Email,
+                    Jornada = v.Shift + " horas",
+                    PhoneNumber = v.Phone
+                })
+                .ToList();
+            return View(veterinarios);
         }
 
         public IActionResult Error()
