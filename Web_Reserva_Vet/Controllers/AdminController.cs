@@ -2,23 +2,43 @@
 using Microsoft.AspNetCore.Mvc;
 using Web_Reserva_Vet.Models;
 using Microsoft.EntityFrameworkCore;// Librerias que nos van ayudar a la creacion del crud
-using Microsoft.AspNetCore.Mvc.Rendering; //Librerias que nos van ayudar a la creacion del crud
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization; //Librerias que nos van ayudar a la creacion del crud
 
 namespace Web_Vet_Pet.Controllers
 {
     //controller para la vista, aqui van agregando las vistas nuevas respecto a admin
     public class AdminController : Controller
     {
-        private readonly ILogger<AdminController> _logger;
-
-        public AdminController(ILogger<AdminController> logger)
-        {
-            _logger = logger;
-        }
-
         public IActionResult Index()
         {
-            ViewBag.Name_Vet = "Clínica Veterinaria Patitas";
+            ViewData["Titulo"] = "Dashboard";
+            ViewData["Icono"] = "fa-solid fa-bars-staggered";
+            return View();
+        }
+
+        public IActionResult Configuracion()
+        {
+            ViewData["Titulo"] = "Configuracion";
+            ViewData["Icono"] = "fa-solid fa-gear";
+            return View();
+        }
+        public IActionResult Reservas()
+        {
+            ViewData["Titulo"] = "Reservas";
+            ViewData["Icono"] = "fa-regular fa-clipboard";
+            return View();
+        }
+        public IActionResult Veterinarios()
+        {
+            ViewData["Titulo"] = "Veterinarios";
+            ViewData["Icono"] = "fa-solid fa-user-doctor";
+            return View();
+        }
+        public IActionResult Servicios()
+        {
+            ViewData["Titulo"] = "Servicios";
+            ViewData["Icono"] = "fa-solid fa-shield-dog";
             return View();
         }
 

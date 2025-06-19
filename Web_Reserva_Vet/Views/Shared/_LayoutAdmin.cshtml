@@ -1,88 +1,241 @@
-﻿@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
-    <title>Panel Administrador</title>
+    <title>Panel de Administración - Veterinaria</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <style>
+        /* Fuentes y base */
         body {
+            font-family: 'Poppins', sans-serif;
             margin: 0;
-            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            overflow: hidden;
+            background-color: #f4f6f8;
         }
 
+        /* ===== SIDEBAR ===== */
         .sidebar {
-            width: 220px;
+            width: 250px;
+            min-width: 250px;
             height: 100vh;
             position: fixed;
-            background-color: #f8f9fa;
-            border-right: 1px solid #ccc;
-            padding: 20px 10px;
+            background-color: #1f2d40;
+
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 30px 20px;
         }
 
-            .sidebar img {
-                width: 100%;
-                max-width: 120px;
+        .sidebar-header {
+            text-align: center;
+            padding-bottom: 30px;
+        }
+
+            .sidebar-header img {
+                width: 150px;
+                height: 150px;
                 border-radius: 50%;
-                display: block;
-                margin: 0 auto 10px auto;
+                object-fit: cover;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                margin-bottom: 10px;
             }
 
-            .sidebar a {
-                display: block;
-                padding: 10px;
-                color: #333;
+            .sidebar-header h4 {
+                color: white;
+                margin-top: 10px;
+                font-weight: 600;
+                font-size: 1.25rem;
+            }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1; /* Para que ocupe el espacio disponible */
+        }
+
+            .sidebar-menu li {
+                margin-bottom: 10px;
+            }
+
+            .sidebar-menu a {
+                display: flex;
+                align-items: center;
+                padding: 12px 15px;
+                color: rgba(255, 255, 255, 0.85);
                 text-decoration: none;
                 font-weight: 500;
+                transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+                border-radius: 8px;
             }
 
-                .sidebar a:hover {
-                    background-color: #e2e6ea;
-                    border-radius: 6px;
+                .sidebar-menu a:hover,
+                .sidebar-menu a.active {
+                    background-color: #4CAF50;
+                    color: white;
+                    transform: translateX(5px);
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
                 }
 
-            .sidebar i {
-                margin-right: 10px;
+            .sidebar-menu a i {
+                margin-right: 15px;
+                font-size: 1.1rem;
             }
 
-        .main-content {
-            margin-left: 220px;
-            padding: 20px;
+        .sidebar-footer {
+            padding-top: 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
         }
 
-        .footer-support {
-            position: absolute;
-            bottom: 15px;
-            left: 10px;
-            font-size: 12px;
+            .sidebar-footer a {
+                color: rgba(255, 255, 255, 0.7);
+                text-decoration: none;
+                font-size: 0.9rem;
+                transition: color 0.3s ease;
+            }
+
+                .sidebar-footer a:hover {
+                    color: #4CAF50;
+                }
+
+        /* ===== NAVBAR SUPERIOR ===== */
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 250px; /* Igual al ancho del sidebar */
+            right: 0;
+            height: 90px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index:999;
         }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-left:25rem;
+        }
+
+        .messages-btn {
+            background: none;
+            border: none;
+            position: relative;
+            font-size: 20px;
+            color: #1f2d40;
+            cursor: pointer;
+        }
+
+            .messages-btn .badge {
+                position: absolute;
+                top: -6px;
+                right: -8px;
+                background-color: red;
+                color: white;
+                font-size: 12px;
+                border-radius: 50%;
+                padding: 4px 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+       .contenido{
+            flex: 1;
+            padding-top: 140px;
+            padding-left: 60px;
+            background-color: #ecf0f1;
+            overflow-y: auto;
+       }
+       .main{
+           margin-left:250px;
+            width: calc(100% - 220px);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+       }
+       /* seccion reservar */
+        .btn-editar,
+        .btn-eliminar,
+        .btn-agregar {
+            padding: 6px 12px;
+            margin: 4px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-editar {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-eliminar {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-agregar {
+            background-color: #2ecc71;
+            color: white;
+            margin-bottom: 10px;
+        }
+        .contenedor-reser{
+            max-width:95%;
+        }
+
     </style>
 </head>
 <body>
-
     <div class="sidebar">
-        <img src="https://via.placeholder.com/120" alt="Logo" />
-        <div class="text-center mb-3">@ViewBag.Name_Vet</div>
-
-        <hr />
-        <a href="/Administrador/Reservas"><i class="fa-solid fa-calendar-check"></i> Reservas</a>
-        <a href="/Administrador/Veterinarios"><i class="fa-solid fa-user-doctor"></i> Veterinarios</a>
-        <a href="/Administrador/Noticias"><i class="fa-solid fa-newspaper"></i> Noticias</a>
-        <a href="/Administrador/Servicios"><i class="fa-solid fa-cart-plus"></i> Servicios</a>
-        <a href="/Cuenta/Logout"><i class="fa-solid fa-right-from-bracket"></i> Salir</a>
-
-        <div class="footer-support">
-            <a href="#">¿Necesitas ayuda? / soporte</a>
+        <div>
+            <div class="sidebar-header">
+                <img src="https://static.wixstatic.com/media/57741e_7b4595dacd3b42a1b053aa60a776e4a6~mv2.png/v1/fill/w_329,h_411,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/57741e_7b4595dacd3b42a1b053aa60a776e4a6~mv2.png" alt="Logo Veterinaria" />
+                <h4>@ViewBag.Name_Vet</h4>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a asp-controller="Admin" asp-action="Index"><i class="fa-solid fa-images"></i> Dashboard</a></li>
+                <li><a asp-controller="Admin" asp-action="Reservas"><i class="fa-solid fa-calendar-check"></i> Reservas</a></li>
+                <li><a asp-controller="Admin" asp-action="Veterinarios"><i class="fa-solid fa-user-doctor"></i> Veterinarios</a></li>
+                <li><a asp-controller="Admin" asp-action="Servicios"><i class="fa-solid fa-syringe"></i> Servicios</a></li>
+                <li><a asp-controller="Admin" asp-action="Configuracion"><i class="fa-solid fa-gear"></i> Configuración</a></li>
+                <li><a asp-controller="Admin" asp-action=""></i> Salir</a></li> <!-- Mejor práctica: endpoint de logout -->
+            </ul>
+        </div>
+        <div class="sidebar-footer">
+            <a href="#">¿Necesitas ayuda? | Soporte</a>
         </div>
     </div>
-
-    <div class="main-content">
-        @RenderBody()
+    <!-- Navbar superior -->
+    <div class="main">
+        <div class="top-navbar">
+            <div class="section-title">
+                <h1><i class="@ViewData["Icono"]"></i> @ViewData["Titulo"]</h1>
+            </div>
+            <button class="messages-btn" onclick="openMessages()">
+                <i class="fa-solid fa-envelope"></i>
+                <span class="badge">3</span> <!-- Contador dinámico -->
+            </button>
+        </div>
+        <div class="contenido">
+            @RenderBody()
+        </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    @RenderSection("Scripts", required: false)
+    @RenderSection("Styles", required: false)
 </body>
 </html>
