@@ -1,46 +1,146 @@
-﻿@model Web_Vet_Pet.ViewModels.LoginViewModel
+﻿@model Web_Vet_Pet.ViewModels.LoginAndRegisterViewModel
 
 @{
-    ViewData["Title"] = "Iniciar Sesión";
-    Layout = "_Layout"; // Asegúrate de que usa tu layout principal
+    Layout = null;
+    ViewData["Title"] = "Acceso Clínica Veterinaria";
 }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    <style>
+        .text-danger {
+            color: #dc3545; 
+            font-size: 12px;
+            text-align: left;
+            width: 100%;
+            margin-top: -5px;
+            margin-bottom: 5px;
+        }
 
-<h1>@ViewData["Title"]</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Login" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        .validation-summary-errors {
+            color: #dc3545;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
 
-            <div class="form-group mb-3">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+    <div class="contenedorPrincipal" id="contenedorPrincipal">
+
+        @* FORMULARIO DE REGISTRO *@
+        <div class="contenedor-formulario contenedor-registro" id="registro">
+            <form asp-controller="Account" asp-action="Register" method="post">
+                <h1>Crear Cuenta</h1>
+                <div class="contenedor-social">
+                    @* ... tus SVGs ... *@
+                </div>
+                <span>o usa tu correo para registrarte</span>
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input asp-for="Register.FirstName" class="input-formulario" placeholder="Nombre(s)" />
+                <span asp-validation-for="Register.FirstName" class="text-danger"></span>
+
+                <input asp-for="Register.LastName" class="input-formulario" placeholder="Apellido(s)" />
+                <span asp-validation-for="Register.LastName" class="text-danger"></span>
+
+                <input asp-for="Register.Email" class="input-formulario" placeholder="Correo Electrónico" />
+                <span asp-validation-for="Register.Email" class="text-danger"></span>
+
+                <input asp-for="Register.Phone" class="input-formulario" placeholder="Teléfono" />
+                <span asp-validation-for="Register.Phone" class="text-danger"></span>
+
+                <div style="width: 100%; text-align: left; margin: 8px 0;">
+                    <label asp-for="Register.DateBirthday" style="font-size: 12px; color: #6b7280; padding-left: 15px;"></label>
+                    <input asp-for="Register.DateBirthday" class="input-formulario" style="margin-top: 0;" />
+                    <span asp-validation-for="Register.DateBirthday" class="text-danger"></span>
+                </div>
+
+                <input asp-for="Register.Password" class="input-formulario" placeholder="Contraseña" />
+                <span asp-validation-for="Register.Password" class="text-danger"></span>
+
+                <input asp-for="Register.ConfirmPassword" class="input-formulario" placeholder="Confirmar Contraseña" />
+                <span asp-validation-for="Register.ConfirmPassword" class="text-danger"></span>
+
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn">Registrarse</button>
+            </form>
+        </div>
+
+        @* FORMULARIO DE LOGIN *@
+        <div class="contenedor-formulario contenedor-inicio-sesion">
+            <form asp-controller="Account" asp-action="Login" method="post">
+                <h1>Iniciar Sesión</h1>
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div style="color: green; font-size: 13px; margin-bottom: 10px; border: 1px solid green; padding: 10px; border-radius: 8px;">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+                <div class="contenedor-social">
+                    @* ... tus SVGs ... *@
+                </div>
+                <span>o usa tu cuenta</span>
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input asp-for="Login.Email" class="input-formulario" placeholder="Correo Electrónico" />
+                <span asp-validation-for="Login.Email" class="text-danger"></span>
+
+                <input asp-for="Login.Password" class="input-formulario" placeholder="Contraseña" />
+                <span asp-validation-for="Login.Password" class="text-danger"></span>
+
+                <a href="#" class="enlace-formulario">¿Olvidaste tu contraseña?</a>
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn">Ingresar</button>
+            </form>
+        </div>
+
+        @* PANELES DE SUPERPOSICIÓN (OVERLAY) *@
+        <div class="contenedor-superposicion">
+            <div class="superposicion">
+                <div class="panel-superposicion superposicion-izquierda">
+                    <h2 class="encabezado-panel">¡Bienvenido de Nuevo!</h2>
+                    <p class="texto-panel">Para seguir conectado con nosotros, por favor inicia sesión con tu información personal.</p>
+                    <button class="btn fantasma" id="botonInicioSesion">Ingresar</button>
+                </div>
+                <div class="panel-superposicion superposicion-derecha">
+                    <h2 class="encabezado-panel">¡Hola, Amigo!</h2>
+                    <p class="texto-panel">Ingresa tus datos personales y comienza esta aventura con nosotros cuidando de tus mascotas.</p>
+                    <button class="btn fantasma" id="botonRegistro">Registrarse</button>
+                </div>
             </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-
-            <div class="form-group form-check mb-3">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(m => m.RememberMe)
-                </label>
-            </div>
-
-            @Html.AntiForgeryToken()
-
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+    @* SCRIPT COMPLETO Y FINAL *@
+    <script>
+        const botonRegistro = document.getElementById('botonRegistro');
+        const botonInicioSesion = document.getElementById('botonInicioSesion');
+        const contenedorPrincipal = document.getElementById('contenedorPrincipal');
+
+        botonRegistro.addEventListener('click', () => {
+            contenedorPrincipal.classList.add('panel-derecho-activo');
+        });
+
+        botonInicioSesion.addEventListener('click', () => {
+            contenedorPrincipal.classList.remove('panel-derecho-activo');
+        });
+
+        // Esta función se asegura de que si vienes de un error de validación en el servidor,
+        // se muestre el panel correcto (el de registro).
+        (function () {
+            const showRegisterPanel = '@(ViewData["ShowRegister"] as bool? ?? false)';
+            if (showRegisterPanel.toLowerCase() === 'true') {
+                contenedorPrincipal.classList.add('panel-derecho-activo');
+            }
+        })();
+    </script>
+</body>
+</html>
