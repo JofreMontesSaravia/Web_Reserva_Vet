@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Web_Vet_Pet.Interfaces
 {
@@ -10,5 +11,6 @@ namespace Web_Vet_Pet.Interfaces
         Task AddAsync(T entity); //agregar
         Task UpdateAsync(T entity); //actualizar
         Task DeleteAsync(int id); //eliminar
+        Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
     }
 }

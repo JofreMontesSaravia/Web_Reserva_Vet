@@ -9,5 +9,6 @@ namespace Web_Vet_Pet.Interfaces
         Task<User?> GetByEmailAsync(string email); //muestra por un email
         Task<IEnumerable<User>> GetWithClientsAsync(); //muestra relacionado con cliente
         Task<IEnumerable<User>> GetWithAdministratorsAsync(); //muestra relacionado con administrador
+        
     }
 }

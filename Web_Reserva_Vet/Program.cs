@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Web_Vet_Pet.Data;
 using Web_Vet_Pet.Interfaces;
@@ -12,6 +13,18 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 34)))
 );
+
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.HttpOnly = true;
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+        options.LoginPath = "/Account/Login"; // ¡MUY IMPORTANTE!
+        options.AccessDeniedPath = "/Home/Index"; // O a una página de "Acceso Denegado"
+        options.SlidingExpiration = true;
+    });
 
 // Agregar repositorios
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -45,6 +58,8 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles(); // Para CSS, JS, imágenes
 app.UseRouting();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 // Configurar enrutamiento MVC
