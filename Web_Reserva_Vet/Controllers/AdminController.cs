@@ -41,45 +41,6 @@ namespace Web_Vet_Pet.Controllers
             return View();
         }
 
-        public IActionResult Servicios()
-        {
-            ViewBag.Name_Vet = "Clínica Veterinaria Patitas";
-            var servicios = _context.Services
-                .Select(s => new ServicioAdminViewModel
-                {
-                    Id = s.Id,
-                    Nombre = s.Name,
-                    Duracion = s.Duration,
-                    Costo = s.Cost,
-                    Veterinario = s.Appointments
-                        .OrderBy(a => a.Id)
-                        .Select(a => a.Veterinarian != null ? a.Veterinarian.Name : "-")
-                        .FirstOrDefault() ?? "-",
-                    Especie = s.Appointments
-                        .OrderBy(a => a.Id)
-                        .Select(a => a.Pet != null && a.Pet.TypePet != null ? a.Pet.TypePet.Species : "-")
-                        .FirstOrDefault() ?? "-"
-                })
-                .ToList();
-            return View(servicios);
-        }
-
-        public IActionResult Veterinarios()
-        {
-            ViewBag.Name_Vet = "Clínica Veterinaria Patitas";
-            var veterinarios = _context.Veterinarians
-                .Select(v => new VeterinarioAdminViewModel
-                {
-                    Id = v.Id,
-                    Nombre = v.Name,
-                    Email = v.Email,
-                    Jornada = v.Shift + " horas",
-                    PhoneNumber = v.Phone
-                })
-                .ToList();
-            return View(veterinarios);
-        }
-
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
