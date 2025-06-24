@@ -92,7 +92,7 @@
             padding-top: 20px;
             text-align: center;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 30px;
+            margin-top: 10px;
         }
 
             .sidebar-footer a {
@@ -154,14 +154,16 @@
 
        .contenido{
             flex: 1;
+            position: relative;
             padding-top: 140px;
             padding-left: 60px;
             background-color: #ecf0f1;
             overflow-y: auto;
+            min-height: calc(100vh - 140px);
        }
        .main{
            margin-left:250px;
-            width: calc(100% - 220px);
+            width: calc(100% - 250px);
             display: flex;
             flex-direction: column;
             height: 100vh;
@@ -195,6 +197,53 @@
         .contenedor-reser{
             max-width:95%;
         }
+       /* Seccion de contraseña para admin*/
+        .password-form {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1050; /* Mayor que el navbar (999) y overlay */
+            width: 400px;
+            max-width: 90%;
+            text-align: center;
+            border: none;
+        }
+        /* Overlay de fondo oscuro */
+        .password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1040; /* Debajo del formulario pero encima de todo lo demás */
+            backdrop-filter: blur(3px);
+        }
+
+        .password-form input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+
+        .password-form button {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .password-form button:hover {
+                background: #0056b3;
+            }
 
     </style>
 </head>
@@ -211,7 +260,8 @@
                 <li><a asp-controller="Admin" asp-action="Veterinarios"><i class="fa-solid fa-user-doctor"></i> Veterinarios</a></li>
                 <li><a asp-controller="Admin" asp-action="Servicios"><i class="fa-solid fa-syringe"></i> Servicios</a></li>
                 <li><a asp-controller="Admin" asp-action="Configuracion"><i class="fa-solid fa-gear"></i> Configuración</a></li>
-                <li><a asp-controller="Admin" asp-action=""></i> Salir</a></li> <!-- Mejor práctica: endpoint de logout -->
+                <li><a asp-controller="Admin" asp-action="Administrador"><i class="fa-solid fa-user-tie"></i> Administrador</a></li>
+                <li><a asp-controller="Home" asp-action="Index"> Salir</a></li> <!-- Mejor práctica: endpoint de logout -->
             </ul>
         </div>
         <div class="sidebar-footer">
@@ -224,12 +274,40 @@
             <div class="section-title">
                 <h1><i class="@ViewData["Icono"]"></i> @ViewData["Titulo"]</h1>
             </div>
-            <button class="messages-btn" onclick="openMessages()">
+            <button class="messages-btn" onclick="location.href='@Url.Action("Mensajes", "Admin")'">
                 <i class="fa-solid fa-envelope"></i>
                 <span class="badge">3</span> <!-- Contador dinámico -->
             </button>
         </div>
         <div class="contenido">
+            @if (ViewBag.ShowPasswordForm == true)
+            {
+                <div class="password-overlay"></div>
+                <div class="password-form">
+                    <h3>Verificación de Seguridad</h3>
+                    <form asp-controller="Admin" asp-action="ValidatePassword" method="post">
+                        <input type="hidden" name="returnUrl" value="@ViewContext.RouteData.Values["action"]" />
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input type="password" name="password" class="form-control" placeholder="Contraseña de administrador" required />
+                        </div>
+                        <div class="d-flex justify-content-center gap-3">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-check"></i> Verificar
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "Admin")'">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
+                        </div>
+                    </form>
+                    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                    {
+                        <div class="alert alert-danger mt-3">
+                            @ViewBag.ErrorMessage
+                        </div>
+                    }
+                </div>
+            }
             @RenderBody()
         </div>
     </div>

@@ -5,39 +5,11 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $('#tablaReservas').DataTable();
             $('#tablaBloqueados').DataTable();
         });
     </script>
 }
-<h2>Citas Reservadas</h2>
-<div class="contenedor-reser">
-    <table id="tablaReservas" class="display">
-        <thead>
-            <tr>
-                <th>Cliente</th>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Servicio</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @* Simulación de datos *@
-            <tr>
-                <td>Juan Pérez</td>
-                <td>2025-06-20</td>
-                <td>10:00 AM</td>
-                <td>Consulta</td>
-                <td>
-                    <button class="btn-editar">Editar</button>
-                    <button class="btn-eliminar">Eliminar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<hr />
+
 <h2>Usuarios Bloqueados</h2>
 <button class="btn-agregar">Agregar Usuario</button>
 

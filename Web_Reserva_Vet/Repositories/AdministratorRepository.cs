@@ -33,5 +33,11 @@ namespace Web_Vet_Pet.Repositories
                 .Include(a => a.Users)
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
+        public async Task<Administrator> GetFirstAdminAsync()
+        {
+            return await _dbSet
+                .OrderBy(a => a.Id)
+                .FirstOrDefaultAsync();
+        }
     }
 }

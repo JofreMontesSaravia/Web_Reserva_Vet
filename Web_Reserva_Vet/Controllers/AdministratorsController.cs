@@ -171,5 +171,18 @@ namespace Web_Vet_Pet.Controllers
             var administrator = await _administratorRepository.GetByIdAsync(id);
             return administrator != null;
         }
+
+        //GET: 
+        public async Task<IActionResult> ShowFirstAdmin()
+        {
+            var administrator = await _administratorRepository.GetFirstAdminAsync();
+
+            if (administrator == null)
+            {
+                return NotFound(); // o puedes redirigir a otra vista si prefieres
+            }
+
+            return View(administrator); // pasa el admin a la vista
+        }
     }
 }
