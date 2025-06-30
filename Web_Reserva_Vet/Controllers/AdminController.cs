@@ -70,7 +70,6 @@ namespace Web_Vet_Pet.Controllers
 
             if (firstAdmin != null)
             {
-                Console.WriteLine(firstAdmin.Users.PasswordHash);
                 // Validar contraseña (en un entorno real, usa PasswordHasher)
                 if (VerifyPassword(password, firstAdmin.Users.PasswordHash)) // Implementa esta función
                 {
