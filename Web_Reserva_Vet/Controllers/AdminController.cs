@@ -8,16 +8,23 @@ using Microsoft.AspNetCore.Authorization;
 using Web_Vet_Pet.Data;
 using Web_Vet_Pet.Interfaces;
 using Web_Vet_Pet.Repositories;
+using NuGet.Protocol.Plugins;
+using Web_Vet_Pet.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using Web_Vet_Pet.Models;
+
 
 namespace Web_Vet_Pet.Controllers
 {
     public class AdminController : Controller
     {
         private readonly IAdministratorRepository _administratorRepository;
+        private readonly IUserRepository _userRepository;
         private readonly string[] protectedSections = { "Administrador" };
-        public AdminController(IAdministratorRepository administratorRepository)
+        public AdminController(IAdministratorRepository administratorRepository, IUserRepository userRepository)
         {
             _administratorRepository = administratorRepository;
+            _userRepository = userRepository;
         }
         public IActionResult Index()
         {
@@ -63,24 +70,24 @@ namespace Web_Vet_Pet.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ValidatePassword(string password, string returnUrl)
+        public async Task<IActionResult> ValidatePassword(PasswordViewModel model)
         {
             // Obtener la contraseña del primer usuario admin registrado
-            var firstAdmin = await _administratorRepository.GetFirstAdminAsync();
+            var user = await _administratorRepository.GetFirstAdminAsync();
+            var user2=await _userRepository.GetByEmailAsync(user.Users.Email);
 
-            if (firstAdmin != null)
+
+            var passwordHasher = new PasswordHasher<User>();
+            var verificationResult = passwordHasher.VerifyHashedPassword(user2, user2.PasswordHash, model.Password);
+
+            if (verificationResult == PasswordVerificationResult.Success)
             {
-                // Validar contraseña (en un entorno real, usa PasswordHasher)
-                if (VerifyPassword(password, firstAdmin.Users.PasswordHash)) // Implementa esta función
-                {
-                    HttpContext.Session.SetString("AdminAuthenticated", "true");
-                    return RedirectToAction(returnUrl);
-                }
+                return View("Reservas");
+               
             }
 
-            ViewBag.ShowPasswordForm = true;
-            ViewBag.ErrorMessage = "Contraseña incorrecta o usuario no encontrado. Inténtalo de nuevo.";
-            return View(returnUrl);
+            return View();
+
         }
         private IActionResult RequirePassword(string section, string icon)
         {
@@ -98,12 +105,5 @@ namespace Web_Vet_Pet.Controllers
             }
         }
 
-        // Método auxiliar para verificar contraseña (simplificado, usa PasswordHasher en producción)
-        private bool VerifyPassword(string inputPassword, string storedHash)
-        {
-            // En un entorno real, usa un hasher como Microsoft.AspNetCore.Identity.PasswordHasher
-            // Aquí asumimos que storedHash es la contraseña en texto plano para simplicidad
-            return inputPassword == storedHash; // Reemplaza con lógica de hashing
-        }
     }
 }

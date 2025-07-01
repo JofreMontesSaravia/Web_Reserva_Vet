@@ -171,5 +171,72 @@ namespace Web_Vet_Pet.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Account");
         }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult registerAdmin()
+        {
+
+            return View();
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken] // Buena práctica para seguridad
+        public async Task<IActionResult> registerAdmin(RegisterViewModel model) // <--- Usamos el nuevo ViewModel
+        {
+
+
+            if (!ModelState.IsValid)
+            {
+                // Si hay un error de validación (ej: email inválido, campos vacíos),
+                // devolvemos la misma vista con los datos que el usuario ya ingresó.
+                return View(model); // <--- ¡Esto es clave! Devuelve a la vista Register_Admin.
+            }
+
+            // Validación de negocio: Verificar si el email ya existe
+            bool userExists = await _userRepository.AnyAsync(u => u.Email == model.Email);
+            if (userExists)
+            {
+                ModelState.AddModelError("Email", "Ya existe una cuenta con este correo.");
+                return View(model); // Devuelve a la vista Register_Admin con el error
+            }
+
+            var passwordHasher = new PasswordHasher<User>();
+            var hashedPassword = passwordHasher.HashPassword(null, model.Password);
+
+            var newUser = new User
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email,
+                Phone = model.Phone,
+                PasswordHash = hashedPassword
+            };
+
+            var newAdmin = new Administrator { Users = newUser };
+
+            // Aquí parece haber una inconsistencia en tu lógica anterior. 
+            // Si la tabla Administrator tiene una FK a User, solo necesitas guardar el usuario 
+            // y EF Core se encargará de la relación si está bien configurada.
+            // O si son dos entidades separadas, el guardado doble está bien.
+            // Por ahora, mantendré tu lógica original de guardado.
+            await _userRepository.AddAsync(newUser);
+            await _adminRepository.AddAsync(newAdmin);
+
+            TempData["SuccessMessage"] = "¡Administrador registrado exitosamente!";
+
+            // Redirigir a una página relevante para el admin, como un Dashboard.
+            return RedirectToAction("Index", "Admin");
+        }
+
+
+
     }
+
+
+
+
 }
+

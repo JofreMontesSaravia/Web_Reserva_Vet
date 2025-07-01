@@ -1,0 +1,141 @@
+﻿* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+/* --- Contenedor Principal --- */
+.main-container {
+    display: flex;
+    flex-direction: row; /* Paneles lado a lado por defecto */
+    width: 100%;
+    max-width: 900px;
+    background-color: #ffffff;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+/* --- Paneles (Izquierdo y Derecho) --- */
+.panel {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.welcome-panel {
+    flex-basis: 40%; /* Ocupa el 40% del ancho */
+    background-color: #2a364b;
+    color: white;
+    text-align: center;
+    align-items: center;
+}
+
+.form-panel {
+    flex-basis: 60%; /* Ocupa el 60% del ancho */
+}
+
+/* --- Tipografía --- */
+h1 {
+    font-size: 2.5rem; /* 40px */
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 2rem; /* 32px */
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.welcome-panel p {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.6;
+    max-width: 300px;
+}
+
+.form-panel .subtitle {
+    text-align: center;
+    color: #6c757d;
+    margin-bottom: 2rem;
+}
+
+/* --- Formulario --- */
+form {
+    width: 100%;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="date"] {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #0dcaf0;
+    box-shadow: 0 0 0 3px rgba(13, 202, 240, 0.25);
+}
+
+/* --- Botón --- */
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: #0df07e;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    margin-top: 1rem;
+}
+
+    .submit-btn:hover {
+        background-color: #0b9ebf;
+        transform: translateY(-2px);
+    }
+
+/* --- Responsividad --- */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column; /* Apila los paneles verticalmente */
+    }
+
+    .panel {
+        flex-basis: auto; /* Resetea la base del flex */
+        padding: 2rem;
+    }
+}

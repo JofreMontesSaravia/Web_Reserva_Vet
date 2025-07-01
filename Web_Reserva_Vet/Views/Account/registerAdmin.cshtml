@@ -1,0 +1,87 @@
+﻿@model Web_Vet_Pet.ViewModels.RegisterViewModel
+
+@{
+    Layout = null;
+    ViewBag.Title = "Registro de Administradores";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    @* MEJORA 1: Usar la raíz del sitio (~) para vincular el CSS es más seguro *@
+    <link rel="stylesheet" href="~/css/StylesRegisterAdmin.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="panel welcome-panel">
+            <h1>¡Bienvenido de Nuevo!</h1>
+            <p>
+                Para seguir conectado con nosotros, por favor inicia sesión con tu información personal.
+            </p>
+        </div>
+
+        <div class="panel form-panel">
+            <h2>Crear Cuenta</h2>
+            <p class="subtitle">o usa tu correo para registrarte</p>
+
+            <form asp-controller="Account" asp-action="registerAdmin" method="post">
+
+                @* AÑADIDO CRÍTICO 1: Resumen de errores (opcional pero recomendado) *@
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="input-group">
+                    <input asp-for="FirstName" class="form-control" placeholder="Nombre(s)">
+                    @* AÑADIDO CRÍTICO 2: Mensaje de error para este campo específico *@
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="input-group">
+                    <input asp-for="LastName" class="form-control" placeholder="Apellido(s)">
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+
+                <div class="input-group">
+                    <input asp-for="Email" class="form-control" placeholder="Correo Electrónico">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="input-group">
+                    <input asp-for="Phone" class="form-control" placeholder="Teléfono">
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                <div class="input-group">
+                    <label asp-for="DateBirthday">Fecha de Nacimiento</label>
+                    <input asp-for="DateBirthday" class="form-control">
+                    <span asp-validation-for="DateBirthday" class="text-danger"></span>
+                </div>
+
+                <div class="input-group">
+                    <input asp-for="Password" class="form-control" placeholder="Contraseña">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="input-group">
+                    <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirmar Contraseña">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    REGISTRARSE
+                </button>
+            </form>
+        </div>
+    </div>
+
+    @* AÑADIDO CRÍTICO 3: Scripts para validación del lado del cliente *@
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>
