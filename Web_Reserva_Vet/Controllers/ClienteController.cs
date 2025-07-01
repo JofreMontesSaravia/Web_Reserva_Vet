@@ -18,6 +18,88 @@ namespace Web_Vet_Pet.Controllers
         {
             return View();
         }
+        public IActionResult Perfil()
+        {
+            return View();
+        }
+        public IActionResult Reserva()
+        {
+            return View();
+        }
+        // GET: AjustesController
+        public ActionResult Ajustes()
+        {
+            return View();
+        }
+
+        // GET: AjustesController/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+
+        // GET: AjustesController/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: AjustesController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: AjustesController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        // POST: AjustesController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: AjustesController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: AjustesController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
         public IActionResult Error()
         {
