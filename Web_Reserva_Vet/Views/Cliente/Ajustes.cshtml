@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "Ajustes";
+    Layout = "~/Views/Shared/_LayoutCliente.cshtml";
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<div class="container py-4">
+    <div class="d-flex flex-column align-items-center gap-4">
+
+        <!-- Comentario -->
+        <div class="card shadow rounded-4 w-100" style="max-width: 800px; padding: 2rem;">
+            <div class="card-header bg-primary text-white fw-bold fs-5">
+                <i class="fa fa-comment-dots me-2"></i> Enviar un comentario
+            </div>
+            <div class="card-body">
+                <textarea id="comentario" class="form-control mb-3 fs-5" rows="5" placeholder="Escribe tu comentario..."></textarea>
+                <button class="btn btn-primary w-100 fs-5" onclick="enviarComentario()">
+                    <i class="fa fa-paper-plane me-1"></i> Enviar
+                </button>
+                <div id="mensajeConfirmacion" class="alert alert-success mt-3 d-none" role="alert">
+                    ¡Comentario enviado correctamente!
+                </div>
+            </div>
+        </div>
+
+        <!-- Políticas de uso -->
+        <div class="card shadow rounded-4 w-100" style="max-width: 800px; padding: 2rem;">
+            <div class="card-header bg-secondary text-white fw-bold fs-5">
+                <i class="fa fa-file-alt me-2"></i> Políticas de uso
+            </div>
+            <div class="card-body text-center fs-5">
+                <p class="mb-4">Puedes descargar nuestras políticas de privacidad y uso desde el siguiente botón:</p>
+                <a href="~/politicas/Politicas.pdf" download class="btn btn-outline-secondary fs-5">
+                    <i class="fa fa-download me-1"></i> Descargar PDF
+                </a>
+            </div>
+        </div>
+
+        <!-- Manual de Uso -->
+        <div class="card shadow rounded-4 w-100" style="max-width: 800px; padding: 2rem;">
+            <div class="card-header bg-info text-white fw-bold fs-5">
+                <i class="fa fa-book me-2"></i> Manual de uso
+            </div>
+            <div class="card-body text-center fs-5">
+                <p class="mb-4">Consulta nuestro video tutorial para entender mejor cómo usar la plataforma:</p>
+                <a class="btn btn-outline-info fs-5" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
+                    <i class="fa fa-play-circle me-1"></i> Ver video
+                </a>
+            </div>
+        </div>
+
+        <!-- Imagen interactiva -->
+        <div class="text-center">
+            <img src="@Url.Content("~/Fotos/Perro.jpg")"
+                 alt="Interacción"
+                 class="img-fluid rounded-4 shadow-sm"
+                 style="cursor: pointer; max-width: 600px;"
+                 onclick="alert('¡Perro acariciado!')" />
+            <p class="mt-3 text-muted fs-5">Haz clic para acariciar al perro.</p>
+        </div>
+
+    </div>
+</div>
+
+
+</div>
+
+@section Scripts {
+        <script>
+            function enviarComentario() {
+                const comentario = document.getElementById('comentario').value.trim();
+                const mensaje = document.getElementById('mensajeConfirmacion');
+
+                if (comentario === "") {
+                    alert("Por favor, escribe un comentario.");
+                    return;
+                }
+
+                mensaje.classList.remove("d-none");
+                mensaje.textContent = "¡Comentario enviado correctamente!";
+                document.getElementById('comentario').value = "";
+
+                setTimeout(() => mensaje.classList.add("d-none"), 3000);
+            }
+        </script>
+}
+
+
+

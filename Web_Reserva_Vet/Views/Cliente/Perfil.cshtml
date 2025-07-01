@@ -1,0 +1,511 @@
+﻿@{
+    ViewBag.Title = "Perfil";
+    Layout = "~/Views/Shared/_LayoutCliente.cshtml";
+}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="container py-4">
+
+    <div class="row g-4">
+    <!-- SOBRE MÍ -->
+    <div class="col-md-6">
+      <div class="card border border-primary-subtle shadow-sm rounded-4 bg-light">
+        <div class="card-header bg-primary text-white rounded-top-4 d-flex justify-content-between">
+          <strong><i class="fa fa-user-circle me-2"></i>Sobre mí</strong>
+          <button id="btn-editar" class="btn btn-sm btn-outline-light">
+            <i class="fa fa-edit"></i>
+          </button>
+        </div>
+        <form id="form-sobre-mi">
+          <div class="card-body">
+            <div class="mb-2">
+              <label>Nombre:</label>
+              <input type="text" class="form-control" id="nombre" value="Juan" readonly />
+            </div>
+            <div class="mb-2">
+              <label>Apellido:</label>
+              <input type="text" class="form-control" id="apellido" value="Pérez" readonly />
+            </div>
+            <div class="mb-2">
+              <label>Correo:</label>
+              <input type="email" class="form-control" id="correo" value="juan@example.com" readonly />
+            </div>
+            <div class="mb-2">
+              <label>Teléfono:</label>
+              <input type="text" class="form-control" id="telefono" value="+51 999999999" readonly />
+            </div>
+            <div>
+              <label>Dirección:</label>
+              <input type="text" class="form-control" id="direccion" value="Av. Siempre Viva 123" readonly />
+            </div>
+          </div>
+          <div class="card-footer text-end bg-white d-none" id="acciones-sobre-mi">
+            <button type="button" class="btn btn-outline-secondary me-2" id="btn-cancelar">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+        <!-- MASCOTAS -->
+    <div class="col-md-6">
+      <div class="card border border-info-subtle shadow-sm rounded-4 bg-info-subtle">
+        <div class="card-header bg-info text-white rounded-top-4 d-flex justify-content-between">
+          <strong><i class="fa fa-paw me-2"></i>Mis Mascotas</strong>
+          <button class="btn btn-sm btn-outline-light" data-bs-toggle="modal" data-bs-target="#modalAgregarMascota">
+            <i class="fa fa-plus-circle"></i>
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="d-flex overflow-auto" id="contenedor-mascotas">
+                <!-- MASCOTA INDIVIDUAL -->
+                <div class="card me-2" style="min-width: 250px;" id="mascota-1">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <input type="text" class="form-control form-control-sm fw-bold border-0 bg-transparent" id="nombre-mascota-1" value="Toni" readonly />
+        <div>
+            <button class="btn btn-sm btn-outline-primary" onclick="editarMascota(1)"><i class="fa fa-edit"></i></button>
+            <button class="btn btn-sm btn-outline-danger" onclick="eliminarMascota(1)"><i class="fa fa-trash"></i></button>
+        </div>
+    </div>
+                    <div class="card-body p-2">
+                        <div class="mb-1">
+                            <label class="form-label mb-0">Raza:</label>
+                            <input type="text" class="form-control form-control-sm" id="raza-mascota-1" value="Labrador" readonly />
+                        </div>
+                        <div class="mb-1">
+                            <label class="form-label mb-0">Edad:</label>
+                            <input type="number" class="form-control form-control-sm" id="edad-mascota-1" value="3" readonly />
+                        </div>
+                        <div>
+                            <label class="form-label mb-0">Descripción:</label>
+                            <textarea class="form-control form-control-sm" id="descripcion-mascota-1" rows="2" readonly>Juguetón y cariñoso</textarea>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                        <i class="fa fa-clock"></i>
+                        <div class="d-none" id="acciones-mascota-1">
+                            <button class="btn btn-sm btn-secondary me-1" onclick="cancelarEdicion(1)">Cancelar</button>
+                            <button class="btn btn-sm btn-primary" onclick="guardarMascota(1)">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Aquí se agregarán más mascotas dinámicamente -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PARA AGREGAR MASCOTA -->
+<div class="modal fade" id="modalAgregarMascota" tabindex="-1" aria-labelledby="modalMascotaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" onsubmit="agregarMascota(event)">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Mascota</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-2">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" id="nuevoNombre" required />
+                </div>
+                <div class="mb-2">
+                    <label>Raza</label>
+                    <input type="text" class="form-control" id="nuevaRaza" required />
+                </div>
+                <div class="mb-2">
+                    <label>Edad</label>
+                    <input type="number" class="form-control" id="nuevaEdad" required />
+                </div>
+                <div>
+                    <label>Descripción</label>
+                    <textarea class="form-control" id="nuevaDescripcion"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    let contadorMascotas = 2;
+
+    function agregarMascota(e) {
+        e.preventDefault();
+
+        const nombre = document.getElementById("nuevoNombre").value;
+        const raza = document.getElementById("nuevaRaza").value;
+        const edad = document.getElementById("nuevaEdad").value;
+        const descripcion = document.getElementById("nuevaDescripcion").value;
+
+        if (!nombre || !raza || !edad) {
+            alert("Por favor completa todos los campos.");
+            return;
+        }
+
+        const id = contadorMascotas++;
+            const tarjeta = `
+      <div class="card me-2" style="min-width: 250px;" id="mascota-${id}">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <input type="text" class="form-control form-control-sm fw-bold border-0 bg-transparent" id="nombre-mascota-${id}" value="${nombre}" readonly />
+          <div>
+            <button class="btn btn-sm btn-outline-primary" onclick="editarMascota(${id})"><i class="fa fa-edit"></i></button>
+            <button class="btn btn-sm btn-outline-danger" onclick="eliminarMascota(${id})"><i class="fa fa-trash"></i></button>
+          </div>
+        </div>
+        <div class="card-body p-2">
+          <div class="mb-1">
+            <label class="form-label mb-0">Raza:</label>
+            <input type="text" class="form-control form-control-sm" id="raza-mascota-${id}" value="${raza}" readonly />
+          </div>
+          <div class="mb-1">
+            <label class="form-label mb-0">Edad:</label>
+            <input type="number" class="form-control form-control-sm" id="edad-mascota-${id}" value="${edad}" readonly />
+          </div>
+          <div>
+            <label class="form-label mb-0">Descripción:</label>
+            <textarea class="form-control form-control-sm" id="descripcion-mascota-${id}" rows="2" readonly>${descripcion}</textarea>
+          </div>
+        </div>
+        <div class="card-footer d-flex justify-content-between align-items-center">
+          <i class="fa fa-clock"></i>
+          <div class="d-none" id="acciones-mascota-${id}">
+            <button class="btn btn-sm btn-secondary me-1" onclick="cancelarEdicion(${id})">Cancelar</button>
+            <button class="btn btn-sm btn-primary" onclick="guardarMascota(${id})">Guardar</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("contenedor-mascotas").insertAdjacentHTML("beforeend", tarjeta);
+
+    // Cierra el modal
+    const modal = bootstrap.Modal.getInstance(document.getElementById('modalAgregarMascota'));
+    modal.hide();
+
+    // Limpia los campos del modal
+    document.getElementById("nuevoNombre").value = '';
+    document.getElementById("nuevaRaza").value = '';
+    document.getElementById("nuevaEdad").value = '';
+    document.getElementById("nuevaDescripcion").value = '';
+}
+    function eliminarMascota(id) {
+    if (confirm("¿Estás seguro de que deseas eliminar esta mascota?")) {
+        const tarjeta = document.getElementById(`mascota-${id}`);
+        if (tarjeta) {
+            tarjeta.remove();
+        }
+    }
+}
+</script>
+
+
+        <!-- RESERVAS -->
+<div class="col-md-6">
+      <div class="card border border-success-subtle shadow-sm rounded-4 bg-success-subtle">
+        <div class="card-header bg-success text-white rounded-top-4 d-flex justify-content-between">
+          <strong><i class="fa fa-calendar-check me-2"></i>Mis reservas</strong>
+          <button class="btn btn-sm btn-outline-light" onclick="activarEdicionReservas()">
+            <i class="fa fa-edit"></i>
+          </button>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+
+                <!-- RESERVA 1 -->
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span><i class="fa fa-dot-circle me-2"></i>Peluquería - 16/05/2025</span>
+                        <a data-bs-toggle="collapse" href="#reserva1" role="button" aria-expanded="false" aria-controls="reserva1">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </div>
+                    <div class="collapse mt-2" id="reserva1">
+                        <div class="border rounded p-2 bg-light">
+                            <div class="mb-2">
+                                <label class="form-label fw-bold">Comentario:</label>
+                                <textarea class="form-control form-control-sm" id="comentario1" readonly>Corte completo con tijera.</textarea>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label fw-bold">Día Programado:</label>
+                                <input type="date" class="form-control form-control-sm" id="fecha1" value="2025-05-16" readonly />
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label fw-bold">Estado:</label>
+                                <input type="text" class="form-control form-control-sm" id="estado1" value="Confirmado" readonly />
+                            </div>
+                            <div class="d-none text-end" id="acciones1">
+                                <button class="btn btn-sm btn-secondary me-2" onclick="cancelarReserva(1)">Cancelar</button>
+                                <button class="btn btn-sm btn-primary" onclick="guardarReserva(1)">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- RESERVA 2 -->
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span><i class="fa fa-dot-circle me-2"></i>Baño - 02/05/2025</span>
+                        <a data-bs-toggle="collapse" href="#reserva2" role="button" aria-expanded="false" aria-controls="reserva2">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </div>
+                    <div class="collapse mt-2" id="reserva2">
+                        <div class="border rounded p-2 bg-light">
+                            <div class="mb-2">
+                                <label class="form-label fw-bold">Comentario:</label>
+                                <textarea class="form-control form-control-sm" id="comentario2" readonly>Baño con shampoo especial para piel sensible.</textarea>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label fw-bold">Día Programado:</label>
+                                <input type="date" class="form-control form-control-sm" id="fecha2" value="2025-05-02" readonly />
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label fw-bold">Estado:</label>
+                                <input type="text" class="form-control form-control-sm" id="estado2" value="Realizado" readonly />
+                            </div>
+                            <div class="d-none text-end" id="acciones2">
+                                <button class="btn btn-sm btn-secondary me-2" onclick="cancelarReserva(2)">Cancelar</button>
+                                <button class="btn btn-sm btn-primary" onclick="guardarReserva(2)">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+        <!-- HISTORIAL DE MASCOTA -->
+<div class="col-md-6">
+      <div class="card border border-warning-subtle shadow-sm rounded-4 bg-warning-subtle">
+        <div class="card-header bg-warning text-dark rounded-top-4">
+          <strong><i class="fa fa-book-medical me-2"></i>Historial de mi mascota</strong>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+
+                <!-- Historial 1 -->
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>• Vacunación - 12/05/2025</span>
+                        <div>
+                            <a data-bs-toggle="collapse" href="#historial1" role="button" aria-expanded="false" aria-controls="historial1">
+                                <i class="fa fa-plus me-2"></i>
+                            </a>
+                            <button class="btn btn-sm btn-outline-danger" onclick="eliminarHistorial(1)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="collapse mt-2" id="historial1">
+                        <div class="border rounded p-2 bg-light">
+                            <p class="mb-1"><strong>Tipo de cita:</strong> Vacunación anual</p>
+                            <p class="mb-1"><strong>Veterinario:</strong> Dr. Ramírez</p>
+                            <p class="mb-0"><strong>Observaciones:</strong> Todo en orden, próxima dosis en mayo 2026.</p>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Historial 2 -->
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>• Control - 01/04/2025</span>
+                        <div>
+                            <a data-bs-toggle="collapse" href="#historial2" role="button" aria-expanded="false" aria-controls="historial2">
+                                <i class="fa fa-plus me-2"></i>
+                            </a>
+                            <button class="btn btn-sm btn-outline-danger" onclick="eliminarHistorial(2)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="collapse mt-2" id="historial2">
+                        <div class="border rounded p-2 bg-light">
+                            <p class="mb-1"><strong>Tipo de cita:</strong> Revisión general</p>
+                            <p class="mb-1"><strong>Veterinario:</strong> Dra. Fernández</p>
+                            <p class="mb-0"><strong>Observaciones:</strong> Se recomendó cambio de dieta.</p>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Más historial duplicando los bloques -->
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+</div>
+<script>
+    const btnEditar = document.getElementById("btn-editar");
+    const btnCancelar = document.getElementById("btn-cancelar");
+    const form = document.getElementById("form-sobre-mi");
+    const acciones = document.getElementById("acciones-sobre-mi");
+    const campos = form.querySelectorAll("input");
+
+    let valoresOriginales = {};
+
+    btnEditar.addEventListener("click", () => {
+        // Guardar valores originales
+        campos.forEach(campo => {
+            valoresOriginales[campo.id] = campo.value;
+            campo.removeAttribute("readonly");
+        });
+        acciones.classList.remove("d-none");
+    });
+
+    btnCancelar.addEventListener("click", () => {
+        // Restaurar valores originales y desactivar edición
+        campos.forEach(campo => {
+            campo.value = valoresOriginales[campo.id];
+            campo.setAttribute("readonly", true);
+        });
+        acciones.classList.add("d-none");
+    });
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        // Aquí podrías hacer un fetch/ajax para enviar los datos
+        alert("Datos guardados (simulado)");
+        campos.forEach(campo => campo.setAttribute("readonly", true));
+        acciones.classList.add("d-none");
+    });
+</script>
+<script>
+    const mascotasOriginales = {};
+
+    function editarMascota(id) {
+        // Guardar valores originales
+        mascotasOriginales[id] = {
+            nombre: document.getElementById(`nombre-mascota-${id}`).value,
+            raza: document.getElementById(`raza-mascota-${id}`).value,
+            edad: document.getElementById(`edad-mascota-${id}`).value,
+            descripcion: document.getElementById(`descripcion-mascota-${id}`).value
+        };
+
+        // Hacer campos editables
+        document.getElementById(`nombre-mascota-${id}`).removeAttribute("readonly");
+        document.getElementById(`raza-mascota-${id}`).removeAttribute("readonly");
+        document.getElementById(`edad-mascota-${id}`).removeAttribute("readonly");
+        document.getElementById(`descripcion-mascota-${id}`).removeAttribute("readonly");
+
+        // Mostrar botones
+        document.getElementById(`acciones-mascota-${id}`).classList.remove("d-none");
+    }
+
+    function cancelarEdicion(id) {
+        // Restaurar valores originales
+        document.getElementById(`nombre-mascota-${id}`).value = mascotasOriginales[id].nombre;
+        document.getElementById(`raza-mascota-${id}`).value = mascotasOriginales[id].raza;
+        document.getElementById(`edad-mascota-${id}`).value = mascotasOriginales[id].edad;
+        document.getElementById(`descripcion-mascota-${id}`).value = mascotasOriginales[id].descripcion;
+
+        // Desactivar edición
+        document.getElementById(`nombre-mascota-${id}`).setAttribute("readonly", true);
+        document.getElementById(`raza-mascota-${id}`).setAttribute("readonly", true);
+        document.getElementById(`edad-mascota-${id}`).setAttribute("readonly", true);
+        document.getElementById(`descripcion-mascota-${id}`).setAttribute("readonly", true);
+
+        // Ocultar botones
+        document.getElementById(`acciones-mascota-${id}`).classList.add("d-none");
+    }
+
+    function guardarMascota(id) {
+        // Obtener valores
+        const nombre = document.getElementById(`nombre-mascota-${id}`).value;
+        const raza = document.getElementById(`raza-mascota-${id}`).value;
+        const edad = document.getElementById(`edad-mascota-${id}`).value;
+        const descripcion = document.getElementById(`descripcion-mascota-${id}`).value;
+
+        // Simular guardado
+        alert(`Mascota ${nombre} actualizada.`);
+
+        // Desactivar edición
+        cancelarEdicion(id);
+    }
+    function eliminarMascota(id) {
+    if (confirm("¿Estás seguro de que quieres eliminar esta mascota?")) {
+        const tarjeta = document.getElementById(`mascota-${id}`);
+        if (tarjeta) {
+            tarjeta.remove();
+        }
+    }
+}
+</script>
+<script>
+    // Guardará los valores originales de las reservas por ID
+    let reservasOriginales = {};
+
+    // Activa el modo edición para todas las reservas
+    function activarEdicionReservas() {
+        const ids = [1, 2]; // Agrega más si tienes más reservas
+
+        ids.forEach(id => {
+            const comentario = document.getElementById(`comentario${id}`);
+            const fecha = document.getElementById(`fecha${id}`);
+            const estado = document.getElementById(`estado${id}`);
+
+            // Guardar los valores originales para poder restaurarlos
+            reservasOriginales[id] = {
+                comentario: comentario.value,
+                fecha: fecha.value,
+                estado: estado.value
+            };
+
+            comentario.removeAttribute("readonly");
+            fecha.removeAttribute("readonly");
+            estado.removeAttribute("readonly");
+
+            document.getElementById(`acciones${id}`).classList.remove("d-none");
+        });
+    }
+
+    // Cancela los cambios de edición
+    function cancelarReserva(id) {
+        if (!reservasOriginales[id]) return;
+
+        document.getElementById(`comentario${id}`).value = reservasOriginales[id].comentario;
+        document.getElementById(`fecha${id}`).value = reservasOriginales[id].fecha;
+        document.getElementById(`estado${id}`).value = reservasOriginales[id].estado;
+
+        document.getElementById(`comentario${id}`).setAttribute("readonly", true);
+        document.getElementById(`fecha${id}`).setAttribute("readonly", true);
+        document.getElementById(`estado${id}`).setAttribute("readonly", true);
+
+        document.getElementById(`acciones${id}`).classList.add("d-none");
+    }
+
+    // Guarda los cambios (solo simulado, no guarda en servidor)
+    function guardarReserva(id) {
+        const comentario = document.getElementById(`comentario${id}`).value;
+        const fecha = document.getElementById(`fecha${id}`).value;
+        const estado = document.getElementById(`estado${id}`).value;
+
+        console.log(`Reserva ${id} actualizada:`, comentario, fecha, estado);
+
+        document.getElementById(`comentario${id}`).setAttribute("readonly", true);
+        document.getElementById(`fecha${id}`).setAttribute("readonly", true);
+        document.getElementById(`estado${id}`).setAttribute("readonly", true);
+
+        document.getElementById(`acciones${id}`).classList.add("d-none");
+
+        alert("Reserva actualizada correctamente.");
+    }
+</script>
+<script>
+    function eliminarHistorial(id) {
+        const item = document.querySelector(`#historial${id}`).closest('li');
+        if (confirm("¿Seguro que deseas eliminar este historial?")) {
+            item.remove();
+            // Aquí puedes agregar lógica para eliminar en el servidor (AJAX o formulario)
+        }
+    }
+</script>
+
+
+
+
+
