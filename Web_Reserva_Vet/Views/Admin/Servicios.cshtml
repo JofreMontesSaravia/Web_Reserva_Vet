@@ -1,4 +1,85 @@
+﻿@model List<Web_Vet_Pet.ViewModels.ServicioAdminViewModel>
 @{
     ViewBag.Title = "DOCPET";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    // Datos de ejemplo si el modelo está vacío
+    var ejemplo = new List<Web_Vet_Pet.ViewModels.ServicioAdminViewModel> {
+        new Web_Vet_Pet.ViewModels.ServicioAdminViewModel { Id = 1, Nombre = "Baño", Duracion = 60, Veterinario = "Messi", Costo = 30, Especie = "perro" },
+        new Web_Vet_Pet.ViewModels.ServicioAdminViewModel { Id = 2, Nombre = "Vacuna", Duracion = 30, Veterinario = "Mia", Costo = 20, Especie = "gato" },
+        new Web_Vet_Pet.ViewModels.ServicioAdminViewModel { Id = 3, Nombre = "Peinado", Duracion = 20, Veterinario = "Teodoro", Costo = 10, Especie = "perro" }
+    };
+    var mostrar = Model != null && Model.Count > 0 ? Model : ejemplo;
 }
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#tablaServicios').DataTable();
+        });
+    </script>
+}
+
+<h2>Servicios</h2>
+<div class="contenedor-reser">
+    <table id="tablaServicios" class="display">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Duración</th>
+                <th>Veterinario</th>
+                <th>Costo</th>
+                <th>Especie</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var s in mostrar)
+            {
+                <tr>
+                    <td>@s.Id</td>
+                    <td>@s.Nombre</td>
+                    <td>@s.Duracion minutos</td>
+                    <td>@s.Veterinario</td>
+                    <td>@s.Costo soles</td>
+                    <td>@s.Especie</td>
+                    <td>
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-eliminar">Eliminar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .contenedor-reser {
+        max-width: 1540px;
+        margin: auto;
+    }
+
+    .btn-editar,
+    .btn-eliminar {
+        padding: 5px 10px;
+        margin: 0 5px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .btn-editar {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-eliminar {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    h2 {
+        margin-top: 20px;
+    }
+</style>

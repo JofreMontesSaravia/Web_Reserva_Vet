@@ -1,5 +1,97 @@
+﻿@model List<Web_Vet_Pet.ViewModels.VeterinarioAdminViewModel>
 @{
     ViewBag.Title = "DOCPET";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    var ejemplo = new List<Web_Vet_Pet.ViewModels.VeterinarioAdminViewModel> {
+        new Web_Vet_Pet.ViewModels.VeterinarioAdminViewModel { Id = 1, Nombre = "Alan", Email = "Janice_Monahan@yahoo.com", Jornada = "8 horas", PhoneNumber = "969-068-8439" },
+        new Web_Vet_Pet.ViewModels.VeterinarioAdminViewModel { Id = 2, Nombre = "Hitller", Email = "Rollin_Fadel@gmail.com", Jornada = "8 horas", PhoneNumber = "(017) 057-6055" },
+        new Web_Vet_Pet.ViewModels.VeterinarioAdminViewModel { Id = 3, Nombre = "Magdiel", Email = "Lera_Stroman3@gmail.com", Jornada = "4 horas", PhoneNumber = "166-619-2267" }
+    };
+    var mostrar = Model != null && Model.Count > 0 ? Model : ejemplo;
 }
-<h2>jdkasndljsandlkjas</h2>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#tablaVeterinarios').DataTable();
+        });
+    </script>
+}
+
+<h2>Veterinarios</h2>
+<div class="contenedor-reser">
+    <button class="btn-agregar">Agregar Veterinario</button>
+    <table id="tablaVeterinarios" class="display">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Jornada</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in mostrar)
+            {
+                <tr>
+                    <td>@v.Id</td>
+                    <td>@v.Nombre</td>
+                    <td>@v.Email</td>
+                    <td>@v.Jornada</td>
+                    <td>@v.PhoneNumber</td>
+                    <td>
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-eliminar">Eliminar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .contenedor-reser {
+        max-width: 1540px;
+        margin: auto;
+    }
+
+    .btn-agregar {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        cursor: pointer;
+    }
+
+    .btn-editar,
+    .btn-eliminar {
+        padding: 5px 10px;
+        margin: 0 5px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .btn-editar {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-eliminar {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    h2 {
+        margin-top: 20px;
+    }
+
+    table.display {
+        width: 100% !important;
+    }
+</style>
