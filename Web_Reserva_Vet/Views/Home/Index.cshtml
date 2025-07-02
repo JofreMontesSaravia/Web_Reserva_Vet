@@ -10,8 +10,12 @@
     <div style="position: absolute; top: 65%; left: 50%; transform: translate(-50%, -50%); color: white;">
         <h1>Cuidamos a tu mejor amigo</h1>
         <p>Servicios veterinarios de calidad</p>
-        <a href="/Auth/Login" class="btn-iniciar">Iniciar sesión</a>
-        <a href="/Auth/Register" class="btn-registrar">Registrarse</a>
+        <a asp-controller="Account" 
+           asp-action="Login" class="btn-iniciar">Iniciar sesión</a>
+
+        <a asp-controller="Account"
+           asp-action="Login"
+           asp-route-showRegister="true" class="btn-registrar">Registrarse</a>
     </div>
 </section>
 

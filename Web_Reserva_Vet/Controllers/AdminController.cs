@@ -82,11 +82,18 @@ namespace Web_Vet_Pet.Controllers
 
             if (verificationResult == PasswordVerificationResult.Success)
             {
-                return View("Reservas");
-               
+                return View("~/Views/Account/registerAdmin.cshtml");
+
+            }
+            else 
+            {
+                //JOFRE YA LE PONES TU EL MENSAJE DE ERROR no me da esa wea
+                ModelState.AddModelError(nameof(model.Password), "La contraseña es incorrecta.");
+
+
             }
 
-            return View();
+            return View("Administrador");
 
         }
         private IActionResult RequirePassword(string section, string icon)

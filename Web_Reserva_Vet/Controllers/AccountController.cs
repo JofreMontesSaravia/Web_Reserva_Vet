@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Principal;
 
 namespace Web_Vet_Pet.Controllers
 {
@@ -31,8 +32,12 @@ namespace Web_Vet_Pet.Controllers
         // --- 1. MÉTODO GET PARA MOSTRAR LA PÁGINA ---
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login()
+        public IActionResult Login(bool showRegister = false)
         {
+            //establecemos un ViewData para pasar microinformacion con la vista
+            ViewData["ShowRegister"] = showRegister;
+
+            //Preparamos el Modelo para la carga de datos
             var viewModel = new LoginAndRegisterViewModel();
             return View(viewModel);
         }
@@ -82,6 +87,7 @@ namespace Web_Vet_Pet.Controllers
             if (await _adminRepository.AnyAsync(a => a.UserId == user.Id))
             {
                 claims.Add(new Claim(ClaimTypes.Role, "Administrator"));
+                return View("~/Views/Admin/Servicios.cshtml");
             }
             if (await _clientRepository.AnyAsync(c => c.UserId == user.Id))
             {
@@ -190,8 +196,7 @@ namespace Web_Vet_Pet.Controllers
 
             if (!ModelState.IsValid)
             {
-                // Si hay un error de validación (ej: email inválido, campos vacíos),
-                // devolvemos la misma vista con los datos que el usuario ya ingresó.
+
                 return View(model); // <--- ¡Esto es clave! Devuelve a la vista Register_Admin.
             }
 
@@ -217,11 +222,6 @@ namespace Web_Vet_Pet.Controllers
 
             var newAdmin = new Administrator { Users = newUser };
 
-            // Aquí parece haber una inconsistencia en tu lógica anterior. 
-            // Si la tabla Administrator tiene una FK a User, solo necesitas guardar el usuario 
-            // y EF Core se encargará de la relación si está bien configurada.
-            // O si son dos entidades separadas, el guardado doble está bien.
-            // Por ahora, mantendré tu lógica original de guardado.
             await _userRepository.AddAsync(newUser);
             await _adminRepository.AddAsync(newAdmin);
 
