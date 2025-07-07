@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocPet</title>
+    <link rel="icon" href="../IMAGENES/logo1.png" sizes="32x32" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="styleAdm.css" rel="stylesheet">
+    <script src="script.js" type="module"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="../IMAGENES/admin.jpg" alt="Admin" class="img-logo" />
+            </div>
+            <h5>Alejandra Muñoz</h5>
+            <small>Administrador</small>
+            <div class="section-title">NAVEGACIÓN</div>
+            <nav class="nav">
+                <a href="#" data-target="reservas" class="nav-item active"><i class="fa-solid fa-calendar"></i>
+                    Reservas</a>
+                <a href="#" data-target="noticias" class="nav-item"><i class="fa-solid fa-newspaper"></i> Noticias</a>
+                <a href="#" data-target="veterinarios" class="nav-item"><i class="fa-solid fa-user-doctor"></i>
+                    Veterinarios</a>
+                <a href="#" data-target="servicios" class="nav-item"><i class="fa-solid fa-shield"></i> Servicios</a>
+                <a href="#" data-target="dash" class="nav-item"><i class="fa-solid fa-chart-bar"></i> Dashboard</a>
+            </nav>
+            <div class="section-title">CUENTA</div>
+            <nav class="nav">
+                <a href="../PRINCIPAL/index.html" data-target="salir" class="nav-item"><i
+                        class="fa-solid fa-door-open"></i> Cerrar sesión</a>
+                <a href="https://www.facebook.com/" class="nav-item" target="_blank" rel="noopener"><i
+                        class="fa-solid fa-circle-info"></i> Soporte</a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <section id="reservas" class="pagina-contenido active">
+                <header class="opc-header">
+                    <div class="opc-titles">
+                        <h1>Reservas</h1>
+                        <p class="subtitle">Administra las citas programadas y bloqueos</p>
+                    </div>
+                    <button type="button" class="btn-notificaciones" data-bs-toggle="modal"
+                        data-bs-target="#miModal">Notificaciones</button>
+                </header>
+                <section class="card">
+                    <div class="card-header">
+                        <h2>Lista de Reservas</h2>
+                        <input type="text" id="filtro-horario" class="search-input" placeholder="Buscar horario…">
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Email</th>
+                                        <th>Horario</th>
+                                        <th>Teléfono</th>
+                                        <th>Estado</th>
+                                        <th class="text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Alan</td>
+                                        <td>Janice_Monahan@yahoo.com</td>
+                                        <td>10:00 am – 12:00 pm</td>
+                                        <td>969-068-8439</td>
+                                        <td>Por atender</td>
+                                        <td class="text-center">
+                                            <button class="btn-action edit" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal" data-bs-whatever="@mdo">Editar</button>
+                                            <button class="btn-action delete" data-bs-target="#modalEliminar"
+                                                data-bs-toggle="modal">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Hittler</td>
+                                        <td>Rollin_Fadel@gmail.com</td>
+                                        <td>01:00 pm – 03:00 pm</td>
+                                        <td>(017) 057-6055</td>
+                                        <td>Atendido</td>
+                                        <td class="text-center">
+                                            <button class="btn-action edit" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal" data-bs-whatever="@mdo">Editar</button>
+                                            <button class="btn-action delete" data-bs-target="#modalEliminar"
+                                                data-bs-toggle="modal">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Magdiel</td>
+                                        <td>Lera_Stroman3@gmail.com</td>
+                                        <td>03:00 pm – 05:00 pm</td>
+                                        <td>166-619-2267</td>
+                                        <td>Por atender</td>
+                                        <td class="text-center">
+                                            <button class="btn-action edit" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal" data-bs-whatever="@mdo">Editar</button>
+                                            <button class="btn-action delete" data-bs-target="#modalEliminar"
+                                                data-bs-toggle="modal">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <section class="card card-bloqueados">
+                    <div class="card-header">
+                        <h2>Usuarios Bloqueados</h2>
+                        <div class="bloqueados-actions">
+                            <button class="btn-add" data-bs-toggle="modal" data-bs-target="#bloque"
+                                data-bs-whatever="@mdo">Agregar</button>
+                            <input type="text" id="filtro-bloqueados" class="search-input"
+                                placeholder="Buscar descripción…">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Email</th>
+                                        <th>Dirección</th>
+                                        <th>Teléfono</th>
+                                        <th class="text-center">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Alan</td>
+                                        <td>Janice_Monahan@yahoo.com</td>
+                                        <td>Av. Siempre Viva 123</td>
+                                        <td>969-068-8439</td>
+                                        <td class="text-center">
+                                            <button class="btn-action delete" data-bs-target="#modalEliminar"
+                                                data-bs-toggle="modal">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Hittler</td>
+                                        <td>Rollin_Fadel@gmail.com</td>
+                                        <td>djfnjsdf sdf sdf df</td>
+                                        <td>(017) 057-6055</td>
+                                        <td class="text-center">
+                                            <button class="btn-action delete" data-bs-target="#modalEliminar"
+                                                data-bs-toggle="modal">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <section id="noticias" class="pagina-contenido">
+                <header class="opc-header">
+                    <div class="opc-titles">
+                        <h1>Noticias</h1>
+                        <p class="subtitle">Publica novedades y promociones para tus clientes</p>
+                    </div>
+                    <button type="button" class="btn-notificaciones" data-bs-toggle="modal"
+                        data-bs-target="#miModal">Notificaciones</button>
+                </header>
+                <div class="noticias-body">
+                    <section class="card form-column">
+                        <div class="card-header">
+                            <h2>Agregar Noticia</h2>
+                            <button class="btn-add" data-bs-target="#noti" data-bs-toggle="modal">Publicar</button>
+                        </div>
+                        <div class="card-body">
+                            <label for="encabezado">Encabezado:</label>
+                            <input type="text" id="encabezado" class="form-control" placeholder="Título de la noticia">
+                            <label for="subtitulo">Subtítulo:</label>
+                            <input type="text" id="subtitulo" class="form-control" placeholder="Subtítulo breve">
+                            <label for="descripcion">Descripción:</label>
+                            <textarea id="descripcion" class="form-control" rows="4"
+                                placeholder="Cuerpo de la noticia…"></textarea>
+                            <label for="segmento">Segmento:</label>
+                            <select id="segmento" class="form-control">
+                                <option selected>Seleccione...</option>
+                                <option>Promoción</option>
+                                <option>Evento</option>
+                                <option>Otro</option>
+                            </select>
+                            <div class="upload-group">
+                                <input type="file" id="imagen" class="d-none">
+                                <label for="imagen" class="btn-add">📷 Cargar imagen</label>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="list-column">
+                        <h2>Noticias Agregadas</h2>
+                        <div class="news-list">
+                            <article class="news-item">
+                                <h3>Vacuna Gratis</h3>
+                                <p>Al reservar en línea, tu mascota recibe la vacuna antirrábica sin costo.</p>
+                                <button class="btn-add" data-bs-toggle="modal" data-bs-target="#noticia" data-bs-whatever="@mdo">Editar</button>
+                                <button class="btn-action delete" data-bs-target="#modalEliminar"
+                                    data-bs-toggle="modal">Eliminar</button>
+                            </article>
+                        </div>
+                    </section>
+                </div>
+            </section>
+            <section id="servicios" class="pagina-contenido">
+                <header class="opc-header">
+                    <div class="opc-titles">
+                        <h1>Servicios</h1>
+                        <p class="subtitle">Gestiona y administra tus servicios disponibles</p>
+                    </div>
+                    <button type="button" class="btn-notificaciones" data-bs-toggle="modal"
+                        data-bs-target="#miModal">Notificaciones</button>
+                </header>
+                <section class="card card-servicios">
+                    <div class="card-header">
+                        <h2>Mis Servicios</h2>
+                        <div class="servicios-actions">
+                            <button class="btn-add" data-bs-toggle="modal" data-bs-target="#ser"
+                                data-bs-whatever="@mdo">+ Nuevo servicio</button>
+                            <input type="text" class="search-input" placeholder="Buscar servicio…">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Duración</th>
+                                        <th>Veterinario</th>
+                                        <th>Costo</th>
+                                        <th>Especie</th>
+                                        <th class="text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Baño</td>
+                                        <td>60 min</td>
+                                        <td>Messi</td>
+                                        <td>30 soles</td>
+                                        <td>Perro</td>
+                                        <td class="text-center">
+                                            <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#service" data-bs-whatever="@mdo">Editar</button>
+                                            <button class="btn-action delete" data-bs-target="#modalEliminar"
+                                                data-bs-toggle="modal">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Vacuna</td>
+                                        <td>30 min</td>
+                                        <td>Mia</td>
+                                        <td>20 soles</td>
+                                        <td>Gato</td>
+                                        <td class="text-center">
+                                            <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#ser"
+                                data-bs-whatever="@mdo">Editar</button>
+                                            <button class="btn-action delete" data-bs-target="#modalEliminar"
+                                                data-bs-toggle="modal">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Peinado</td>
+                                        <td>20 min</td>
+                                        <td>Teodoro</td>
+                                        <td>10 soles</td>
+                                        <td>Perro</td>
+                                        <td class="text-center">
+                                            <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#ser"
+                                data-bs-whatever="@mdo">Editar</button>
+                                            <button class="btn-action delete" data-bs-target="#modalEliminar"
+                                                data-bs-toggle="modal">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <section id="veterinarios" class="pagina-contenido">
+                <header class="opc-header">
+                    <div class="opc-titles">
+                        <h1>Veterinarios</h1>
+                        <p class="subtitle">Gestiona y administra tus trabajadores disponibles</p>
+                    </div>
+                    <button type="button" class="btn-notificaciones" data-bs-toggle="modal"
+                        data-bs-target="#miModal">Notificaciones</button>
+                </header>
+                <section class="card card-servicios">
+                    <div class="card-header">
+                        <h2>Mis Trabajadores</h2>
+                        <div class="servicios-actions">
+                            <button class="btn-add" data-bs-toggle="modal" data-bs-target="#vete"
+                                data-bs-whatever="@mdo">+ Nuevo veterinario</button>
+                            <input type="text" class="search-input" placeholder="Buscar veterinario…">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Email</th>
+                                        <th>Jornada</th>
+                                        <th>Telefono</th>
+                                        <th>Especialidad</th>
+                                        <th class="text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Alejo</td>
+                                        <td>Alejo@gmail.com</td>
+                                        <td>8</td>
+                                        <td>999999999</td>
+                                        <td>Cirujano</td>
+                                        <td class="text-center">
+                                            <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#veteri" data-bs-whatever="@mdo">Editar</button>
+                                            <button class="btn-action delete" data-bs-target="#modalEliminar"
+                                                data-bs-toggle="modal">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Maria</td>
+                                        <td>Maria@gmail.com</td>
+                                        <td>8</td>
+                                        <td>222222222</td>
+                                        <td>Peluquero</td>
+                                        <td class="text-center">
+                                            <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#veteri" data-bs-whatever="@mdo">Editar</button>
+                                            <button class="btn-action delete" data-bs-target="#modalEliminar"
+                                                data-bs-toggle="modal">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Pedro</td>
+                                        <td>Pedro@gmail.com</td>
+                                        <td>8</td>
+                                        <td>444444444</td>
+                                        <td>Rehabilitador</td>
+                                        <td class="text-center">
+                                            <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#veteri" data-bs-whatever="@mdo">Editar</button>
+                                            <button class="btn-action delete" data-bs-target="#modalEliminar"
+                                                data-bs-toggle="modal">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <section id="dash" class="pagina-contenido">
+                <header class="dashboard-header">
+                    <h1>Reporte de Citas por Servicio</h1>
+                </header>
+            </section>
+        </main>
+    </div>
+
+    <!-- MODAL PARA NOTIFICACIONES -->
+    <div class="modal fade" id="miModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal de Notificaciones</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Aquí irán tus notificaciones o puede quedar en blanco por ahora -->
+                    <p>Este es un modal de prueba para notificaciones.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA BOTON DE ELIMINAR -->
+    <div class="modal fade" id="modalEliminar" aria-hidden="true" aria-labelledby="modalEliminar" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalEliminar">Modal 1</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Usuario Eliminado 😁
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA EDITAR RESERVAS-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">EDITAR RESERVA</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Horario:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Estado:</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+                    <button type="button" class="btn btn-primary">cambiar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AGREGAR BLOQUEADOS -->
+    <div class="modal fade" id="bloque" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">AGREGAR BLOQUEADO</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">ID Usuario</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Correo Electronico</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+                    <button type="button" class="btn btn-primary">eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA PUBLICAR NOTICIA -->
+    <div class="modal fade" id="noti" aria-hidden="true" aria-labelledby="modalEliminar" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalEliminar">Modal 1</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Noticia publicada, sigue informando a tus clientes 😁
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDITAR NOTICIA -->
+    <div class="modal fade" id="noticia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">EDITAR NOTICIA</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Nuevo Encabezado</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Subtitulo</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Descripcion</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Segmento</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+                    <button type="button" class="btn btn-primary">cambiar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AGREGAR VETERINARIOS -->
+    <div class="modal fade" id="vete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">AGREGAR VETERINARIOS</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Nombre</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Email</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Jornada</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Telefono</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Especialidad</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+                    <button type="button" class="btn btn-primary">agregar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDITAR VETERINARIOS -->
+    <div class="modal fade" id="veteri" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">EDITAR VETERINARIO</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Nombre</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Email</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Jornada</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Telefono</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Especialidad</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+                    <button type="button" class="btn btn-primary">cambiar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AGREGAR SERVICIO -->
+    <div class="modal fade" id="ser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">AGREGAR SERVICIO</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Nombre</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Duracion</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Veterinario</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Costo</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Especie</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+                    <button type="button" class="btn btn-primary">agregar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDITAR SERVICIO -->
+    <div class="modal fade" id="service" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">EDITAR SERVICIO</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Nombre</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Duracion</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Veterinario</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Costo</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Especie</label>
+                            <input type="text" class="form-control" id="message-text"></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+                    <button type="button" class="btn btn-primary">cambiar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

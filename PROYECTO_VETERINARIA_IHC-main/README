@@ -1,0 +1,47 @@
+# 🐾 DocPets — Sistema de Gestión de Reservas para Veterinarias
+
+**DocPets** es una aplicación web diseñada para que las clínicas veterinarias puedan gestionar las reservas de citas de manera sencilla, rápida y sin necesidad de backend. Este sistema está organizado por módulos independientes cada uno con su propio HTML, CSS y JavaScript.
+
+---
+
+## 📁 Estructura del Proyecto (POR FAVOR SEGUIR LA ESTRUCTURA TAL CUAL AL PROYECTO)
+
+docpets/
+├── README.md
+├── # Página de bienvenida 
+├── login/
+│ ├── login.html # Vista de inicio de sesión 🔐
+│ ├── login.css # Estilos del login 🎨
+│ └── login.js # Lógica de validación JS ⚙️
+|__PRINCIPAL
+|  |__index.html
+|__|__move.js
+|__|__style.css
+
+
+
+---
+
+## ✨ Funcionalidades principales
+
+- 🔐 Inicio de sesión básico para usuarios.
+- 📝 Registro de clientes y sus mascotas.
+- 📅 Gestión visual de citas veterinarias.
+
+
+---
+
+## 🛠️ Tecnologías utilizadas
+
+- 🧱 **HTML5** — Estructura del contenido.
+- 🎨 **CSS3** — Diseño visual responsivo.
+- ⚙️ **JavaScript (Vanilla)** — Interactividad del sitio.
+- 🧑‍💻 **Visual Studio Code** — Editor de código recomendado.
+
+---
+
+## 🚀 Cómo ejecutar el proyecto
+
+1. Clona este repositorio:
+   ```bash
+   git clone https://github.com/ABRAHM20/PROYECTO_VETERINARIA_IHC.git

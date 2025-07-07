@@ -1,0 +1,404 @@
+:root {
+    --color-primario: #2ba9db; /* Celeste fuerte: Para enlaces, bordes, íconos principales, hovers */
+    --color-secundario: #666666; /* Gris oscuro: Para texto general, bordes menos importantes */
+    --color-terciario: #f7a300; /* Naranja: Para acentos, algunos hovers, elementos destacados */
+    --fondo-claro: #f9f9f9; /* Fondo muy claro: Para secciones con contenido */
+    --fondo-oscuro: #45413e; /* Gris muy oscuro: Para footer, texto de títulos */
+    --color-texto-principal: #333333; /* Negro/Gris oscuro: Para el texto principal del body */
+    --color-texto-claro: #ffffff; /* Blanco: Para texto sobre fondos oscuros */
+    --sombra-ligera: rgba(0, 0, 0, 0.1);
+    --sombra-media: rgba(0, 0, 0, 0.2);
+    --borde-redondo-sm: 5px; /* Pequeño para tarjetas y elementos */
+    --borde-redondo-md: 50px; /* Mediano para botones y contenedores de mapa */
+}
+* {
+    box-sizing: border-box; /* Incluye padding y border en el tamaño del elemento */
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6; /* Mejora la legibilidad */
+    background-color: var(--fondo-claro);
+    color: var(--color-texto-principal);
+}
+/* Consolidar estilos para elementos de texto */
+h1, h2, h3, p, ul {
+    margin: 0;
+    padding: 0;
+}
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif; /* Mantener la fuente elegante */
+    color: var(--fondo-oscuro); /* Color más oscuro para títulos */
+    margin-bottom: 15px;
+}
+a {
+    text-decoration: none;
+    color: var(--color-texto-principal); /* Color por defecto para enlaces */
+    transition: color 0.3s ease; /* Suaviza el cambio de color al hover */
+}
+ul {
+    list-style: none;
+}
+/* --- Títulos de Sección --- */
+.tit-sec {
+    font-size: 2.8rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    padding-bottom: 15px;
+    color: var(--fondo-oscuro);
+}
+.tit-sec::after { /* Línea debajo del título */
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 4px;
+    background-color: var(--color-primario);
+    border-radius: 2px;
+}
+.destacado {
+    color: var(--color-primario); /* Color de acento para la palabra "nosotros" y "servicios" */
+}
+/* --- Navbar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: var(--color-texto-claro); /* Blanco */
+    box-shadow: 0px 2px 5px var(--sombra-ligera);
+    position: fixed; /* Hacer el navbar fijo */
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+.logo {
+    height: 50px;
+    margin-right: 10px;
+}
+.clinic-name {
+    font-family: 'Playfair Display', serif; /* Usar Playfair para el nombre */
+    font-size: 25px;
+    font-weight: 900;
+    color: var(--fondo-oscuro); /* Un gris oscuro para el nombre */
+}
+.main-nav ul {
+    display: flex;
+    gap: 30px;
+}
+.main-nav a {
+    color: var(--color-texto-principal);
+    font-weight: 700;
+    padding: 5px 0;
+    border-bottom: 2px solid transparent; /* Para la animación del hover */
+}
+.main-nav a:hover {
+    color: var(--color-primario); /* Color de letra cuando hover (tu --color-primario) */
+    border-color: var(--color-primario); /* Borde con el color primario */
+}
+/* Redes Sociales en Navbar */
+.nav-social {
+    display: flex;
+    gap: 15px;
+    margin-left: 20px;
+}
+.nav-social a {
+    font-size: 1.3rem;
+    color: var(--color-secundario); /* Usar el gris secundario */
+    border-bottom: none; /* Asegurar que no tengan borde inferior */
+}
+/* Colores específicos para hover de iconos sociales */
+.nav-social .fa-whatsapp:hover { color: #25D366; } /* Verde WhatsApp */
+.nav-social .fa-facebook:hover { color: #3b5998; } /* Azul Facebook */
+.nav-social .fa-instagram:hover { color: #C13584; } /* Rosa Instagram */
+/* --- Sección Hero --- */
+.hero {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-texto-claro); /* Texto blanco para el hero */
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../IMAGENES/gato-f.png') no-repeat center center/cover;
+    margin-top: 80px; /* Espacio para el navbar fijo */
+}
+.hero-content {
+    max-width: 60rem;
+}
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-texto-claro); /* Título en blanco */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+}
+.btns-hero {
+    margin-top: 4rem;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+.btn-hero {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: var(--borde-redondo-md); /* 50px */
+    transition: all 0.3s ease; /* Transición general */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.btn-hero-ppal {
+    background-color: var(--color-texto-claro); /* Blanco */
+    color: var(--color-primario); /* Celeste primario */
+    border: 2px solid var(--color-texto-claro); /* Borde blanco */
+}
+.btn-hero-ppal:hover {
+    background-color: var(--color-primario); /* Celeste primario */
+    color: var(--color-texto-claro); /* Blanco */
+    border-color: var(--color-primario); /* Borde celeste primario */
+    box-shadow: 0 5px 10px var(--sombra-media); /* Sombra con el color primario */
+}
+.btn-hero-contorno {
+    background-color: transparent;
+    color: var(--color-texto-claro); /* Blanco */
+    border: 2px solid var(--color-texto-claro); /* Borde blanco */
+}
+.btn-hero-contorno:hover {
+    background-color: var(--color-texto-claro); /* Blanco */
+    color: var(--color-primario); /* Celeste primario */
+    box-shadow: 0 5px 10px var(--sombra-ligera); /* Sombra más ligera */
+}
+/* --- Sección Sobre Nosotros --- */
+.about-section {
+    padding: 50px 5%;
+    background-color: var(--color-texto-claro); /* Fondo blanco */
+    text-align: center;
+}
+.about-container {
+    display: flex;
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 30px;
+    align-items: flex-start; /* Alineación al inicio para el texto */
+    flex-wrap: wrap; /* Permite que las columnas se envuelvan en pantallas pequeñas */
+    justify-content: center; /* Centra los elementos cuando se envuelven */
+}
+.image-column {
+    flex: 1; /* Permite que la imagen tome espacio flexible */
+    max-width: 450px; /* Limita el ancho de la columna de imagen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem; /* Espacio inferior en móviles */
+}
+.secondary-image {
+    width: 100%;
+    height: auto;
+    border: 5px solid var(--color-primario); /* Borde celeste primario */
+    box-shadow: 0px 10px 20px var(--sombra-media); /* Sombra media */
+    border-radius: var(--borde-redondo-sm); /* 5px */
+    display: block; /* Eliminar espacio extra */
+    /* No hay hover para esta imagen, como se pidió */
+}
+/* Contenedor de texto para "Sobre Nosotros" */
+.about-container > div:last-child {
+    flex: 1; /* Permite que el texto tome espacio flexible */
+    max-width: 500px; /* Limita el ancho de la columna de texto */
+    text-align: left; /* Asegurar que el texto esté alineado a la izquierda */
+}
+.feature-item {
+    background-color: var(--fondo-claro); /* Fondo claro para los ítems */
+    padding: 20px;
+    border-radius: var(--borde-redondo-sm); /* 5px */
+    box-shadow: 0px 2px 5px var(--sombra-ligera);
+    border-left: 3px solid var(--color-primario); /* Borde izquierdo celeste primario */
+    margin-bottom: 15px;
+    transition: transform 0.3s ease; /* Transición suave para el hover */
+}
+.feature-item:hover {
+    transform: scale(1.03); /* Un poco de escala al hacer hover */
+}
+/* Ajuste para los títulos dentro de feature-item */
+.feature-item h3 {
+    color: var(--color-primario); /* Título de característica en color primario */
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.feature-item p {
+    font-size: 15px;
+    color: var(--color-secundario); /* Texto de característica en gris secundario */
+}
+/* --- Sección Servicios --- */
+.services-section {
+    padding: 50px 5%;
+    background-color: var(--fondo-claro); /* Fondo claro */
+    text-align: center;
+}
+.services-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan */
+    gap: 25px;
+    max-width: 1000px;
+    margin: 0 auto 30px auto;
+}
+.service-card {
+    background-color: var(--color-texto-claro); /* Fondo blanco */
+    border-radius: var(--borde-redondo-sm); /* 5px */
+    box-shadow: 0px 2px 5px var(--sombra-ligera);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 280px;
+    border: 1px solid transparent; /* Borde transparente por defecto */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.service-card:hover {
+    border-color: var(--color-terciario); /* Borde naranja al hover */
+    box-shadow: 0px 5px 15px var(--sombra-media); /* Sombra más pronunciada al hover */
+}
+.service-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 3px solid var(--color-primario); /* Borde circular de la imagen en celeste primario */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.service-image img { /* Asegura que la imagen dentro del círculo se ajuste */
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    object-fit: contain;
+}
+.info-ubic {
+    margin-top: 2rem;
+    text-align: center;
+}
+.txt-dest {
+    font-size: 1.2rem;
+    color: var(--color-secundario);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+/* Títulos y descripciones de las tarjetas de servicio */
+.service-card h3 { /* Renombrado de .service-title a h3 */
+    font-size: 22px;
+    color: var(--color-primario); /* Color primario */
+    margin-bottom: 10px;
+}
+.service-card p { /* Renombrado de .service-description a p */
+    font-size: 14px;
+    color: var(--color-secundario); /* Color secundario */
+    margin-bottom: 15px;
+}
+.btn-reservar {
+    background-color: var(--fondo-oscuro); /* Gris oscuro para el botón */
+    margin-top: 10px;
+    color: var(--color-texto-claro); /* Blanco */
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--borde-redondo-sm); /* 5px */
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn-reservar:hover {
+    background-color: var(--color-primario); /* Celeste primario al hover */
+}
+.center-button {
+    text-align: center;
+    margin-top: 30px;
+}
+.btn-reservar-top {
+    background-color: #e2e9f0; /* Un gris azulado claro para este botón */
+    color: var(--color-texto-principal); /* Color de texto principal */
+    border: none;
+    padding: 15px 30px;
+    border-radius: var(--borde-redondo-md); /* 50px */
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0px 2px 5px var(--sombra-ligera);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.btn-reservar-top:hover {
+    background-color: var(--color-primario); /* Celeste primario al hover */
+    color: var(--color-texto-claro); /* Blanco */
+}
+/* --- Sección Ubicación --- */
+.location-section {
+    padding: 50px 5%;
+    background-color: var(--color-texto-claro); /* Fondo blanco */
+    text-align: center;
+}
+.map-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: var(--borde-redondo-md); /* 50px */
+    box-shadow: 0px 5px 15px var(--sombra-ligera);
+    border: 10px solid var(--color-primario); /* Borde celeste primario */
+    overflow: hidden; /* Asegura que el iframe respete el border-radius */
+}
+.map-container iframe {
+    width: 100%;
+    height: 450px;
+    border: none; /* Eliminar borde del iframe */
+}
+/* --- Sección Contacto (Footer) --- */
+.contact-section {
+    background-color: var(--fondo-oscuro); /* Fondo gris muy oscuro */
+    color: var(--color-texto-claro); /* Texto blanco */
+    padding: 40px 5% 15px;
+}
+.footer-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap; /* Permite que las columnas se envuelvan */
+    gap: 30px; /* Espacio entre las columnas */
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separador sutil */
+}
+/* Estilos para las columnas individuales del footer */
+.contact-info, .business-hours {
+    flex: 1; /* Permite que las columnas tomen espacio flexible */
+    min-width: 250px; /* Ancho mínimo para que no se compriman demasiado */
+    text-align: left; /* Alineación del texto por defecto */
+}
+.contact-section h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: var(--color-primario); /* Títulos del footer en celeste primario */
+}
+.contact-section p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8); /* Texto del footer ligeramente transparente */
+}
+.copyright {
+    text-align: center;
+    padding: 15px 0;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6); /* Texto de copyright más transparente */
+}

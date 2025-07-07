@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barra de Navegación</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>  
+    <script src="script.js"></script>
+
+
+
+    <!--Agregado-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+
+    <link href="Estilos.css" rel="stylesheet">
+
+</head>
+
+
+
+
+<body>
+    <aside class="sidebar">
+        <div class="user-profile">
+            <div class="avatar-container">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="avatar-icon" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                </svg>
+            </div>
+            <span class="user-name-tag">@Name_Users</span>
+            <span class="user-actual-name">Nombre del usuario</span>
+        </div>
+
+        <nav class="main-nav" aria-label="Navegación principal">
+            <ul class="nav-list">
+                <li>
+                    <a href="#" data-target="perfil" class="sidebar-link active"> <svg
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            class="icon" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                        </svg>
+                        <span>Perfil</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-target="reservar" class="sidebar-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            class="icon" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-3.75h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                        </svg>
+                        <span>Reservar</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-target="noticias" class="sidebar-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            class="icon" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18V7.875c0-.621.504-1.125 1.125-1.125H7.5M12 4.5h.008v.008H12V4.5Z" />
+                        </svg>
+                        <span>Noticias</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-target="configuracion" class="sidebar-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            class="icon" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.646.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.24-.438.613-.43.992a6.759 6.759 0 0 1 0 1.25c.008.379.137.75.43.991l1.004.827c.485.398.552 1.055.259 1.432l-1.295 2.247a1.125 1.125 0 0 1-1.37.49l-1.217-.456c-.354-.133-.75-.072-1.076.124a6.6 6.6 0 0 1-.22.128c-.333.183-.582.495-.646.869l-.213 1.28c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.646-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.296-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.759 6.759 0 0 1 0-1.25c-.007-.379-.137-.75-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.432l1.296-2.247a1.125 1.125 0 0 1 1.37-.49l1.217.456c.354.133.75.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.646-.869l.213-1.28Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                        <span>Configuración</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../PRINCIPAL/index.html" class="salir">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            class="icon" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                        </svg>
+                        <span>Salir</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="sidebar-section-separator tutorial-section">
+            <a href="#" id="tutorialLink" data-target="video-tutorial-content" class="sidebar-link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    class="icon" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9A2.25 2.25 0 0 0 13.5 5.25h-9A2.25 2.25 0 0 0 2.25 7.5v9A2.25 2.25 0 0 0 4.5 18.75Z" />
+                </svg>
+                <span>Tutorial de uso</span>
+            </a>
+        </div>
+        <div class="dark-mode-toggle-container">
+        <span class="dark-mode-label">Modo Oscuro</span>
+        <div class="toggle-container">
+            <input type="checkbox" id="dark-mode-toggle" class="toggle-input">
+            <label for="dark-mode-toggle" class="toggle-label"></label>
+        </div>
+        <div class="sidebar-section-separator social-links-container">
+            <a href="https://wa.me/TUNUMERO" target="_blank" title="WhatsApp" class="social-link-whatsapp">
+                <svg xmlns="http://www.w3.org/2000/svg" class="social-icon" fill="currentColor" viewBox="0 0 24 24"
+                    aria-label="WhatsApp">
+                    <path
+                        d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01s-.521.074-.792.372c-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.289.173-1.413z" />
+                </svg>
+            </a>
+            <a href="https://facebook.com/TUPAGINA" target="_blank" title="Facebook" class="social-link-facebook">
+                <svg xmlns="http://www.w3.org/2000/svg" class="social-icon" fill="currentColor" viewBox="0 0 24 24"
+                    aria-label="Facebook">
+                    <path
+                        d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+                </svg>
+            </a>
+        </div>
+    </aside>
+    <!--//////////////////////////////////////////////////////////////ACA PONDRAS LAS SECCIONES DE CADA OPCION DENTRO DEL PANEL///////////////////////////////////////////////////////////////////-->
+    <main>
+        <section id="perfil" class="pagina-contenido" style="display: block">
+            <div class="titulo-promocion">
+                <h1><i class="fa-solid fa-user"></i> PERFIL</h1>
+
+
+                <div class="notificaciones">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                </div>
+
+            </div>
+            <div class="profile-content-flex">
+                <div class="profile-cards-row-flex">
+                    <div class="profile-card1 about-me-card">
+                        <div class="card-header">
+                            <h2 class="card-title"><i class="fas fa-info-circle"></i> Sobre mí</h2>
+
+                            <button
+                                class="icon-button edit-button"
+                                aria-label="Editar información personal"
+                                data-bs-toggle="modal"
+                                data-bs-target="#formModal">
+                                <i class="fas fa-edit"></i>
+                            </button>
+
+                        </div>
+                        <dl class="user-details">
+                            <div>
+                                <dt>Nombre:</dt>
+                                <dd>Adrian</dd>
+                            </div>
+                            <div>
+                                <dt>Apellido:</dt>
+                                <dd>Prado</dd>
+                            </div>
+                            <div>
+                                <dt>Correo:</dt>
+                                <dd>adri@gmail.com</dd>
+                            </div>
+                            <div>
+                                <dt>Teléfono:</dt>
+                                <dd>+51 987654321</dd>
+                            </div>
+                            <div>
+                                <dt>Dirección:</dt>
+                                <dd>Av. El Sol 123</dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div class="profile-card2 my-pets-card">
+                        <div class="card-header">
+                            <h2 class="card-title"><i class="fas fa-paw"></i> Mis Mascotas</h2>
+                            <button
+                                class="icon-button add-button"
+                                aria-label="Añadir nueva mascota"
+                                data-bs-toggle="modal"
+                                data-bs-target="#mascotaModal">
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
+                        </div>
+                        <div class="pets-carousel">
+                            <div class="pet-card">
+                                <header class="pet-card-header">
+                                    <h3 class="pet-name">Toni</h3>
+                                    <div class="pet-actions">
+                                        <button
+                                            class="icon-button edit-button"
+                                            aria-label="Editar mascota Toni"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editarMascotaModal">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+
+                                        <button
+                                            class="icon-button delete-button"
+                                            aria-label="Eliminar mascota Toni"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#confirmarEliminarModal">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </header>
+                                <div class="pet-info-image">
+                                    <div class="pet-info">
+                                        <p><strong>Raza:</strong> Labrador</p>
+                                        <p><strong>Edad:</strong> 3 años</p>
+                                        <p><strong>Descripción:</strong> Compañero leal y juguetón.</p>
+                                    </div>
+                                    <figure class="pet-image-container">
+                                        <img src="https://ichef.bbci.co.uk/ace/ws/640/cpsprodpb/15665/production/_107435678_perro1.jpg.webp"
+                                            alt="Toni, un Labrador">
+                                    </figure>
+                                </div>
+                                <footer class="pet-card-footer">
+
+                                    <button class="icon-button view-history-button" aria-label="Ver historial de Toni" id="verHistorial">
+                                        <i class="fas fa-history"></i> Ver Historial
+                                    </button>
+
+                                </footer>
+                            </div>
+                            <div class="pet-card">
+                                <header class="pet-card-header">
+                                    <h3 class="pet-name">Luna</h3>
+                                    <div class="pet-actions">
+                                        <button class="icon-button edit-button" aria-label="Editar mascota Luna">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="icon-button delete-button" aria-label="Eliminar mascota Luna">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </header>
+                                <div class="pet-info-image">
+                                    <div class="pet-info">
+                                        <p><strong>Raza:</strong> Beagle</p>
+                                        <p><strong>Edad:</strong> 2 años</p>
+                                        <p><strong>Descripción:</strong> Enérgica y curiosa
+                                            aventuras.</p>
+                                    </div>
+                                    <figure class="pet-image-container">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Beagle_Luna.jpg/1200px-Beagle_Luna.jpg"
+                                            alt="Luna, una Beagle">
+                                    </figure>
+                                </div>
+                                <footer class="pet-card-footer">
+                                    <button class="icon-button view-history-button" aria-label="Ver historial de Luna">
+                                        <i class="fas fa-history"></i> Ver Historial
+                                    </button>
+                                </footer>
+                            </div>
+                            <div class="pet-card">
+                                <header class="pet-card-header">
+                                    <h3 class="pet-name">Max</h3>
+                                    <div class="pet-actions">
+                                        <button class="icon-button edit-button" aria-label="Editar mascota Max">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="icon-button delete-button" aria-label="Eliminar mascota Max">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </header>
+                                <div class="pet-info-image">
+                                    <div class="pet-info">
+                                        <p><strong>Raza:</strong> Bulldog</p>
+                                        <p><strong>Edad:</strong> 4 años</p>
+                                        <p><strong>Descripción:</strong> Tranquilo y cariñoso.
+                                        </p>
+                                    </div>
+                                    <figure class="pet-image-container">
+                                        <img src="https://www.purina.co.uk/sites/default/files/styles/ttt_image_510/public/2022-12/English-Bulldog-Breed-Info.jpg?itok=fT1D7i6j"
+                                            alt="Max, un Bulldog">
+                                    </figure>
+                                </div>
+                                <footer class="pet-card-footer">
+                                    <button class="icon-button view-history-button" aria-label="Ver historial de Max">
+                                        <i class="fas fa-history"></i> Ver Historial
+                                    </button>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-cards-row-flex">
+                    <div class="profile-card1 my-reservations-card">
+                        <div class="card-header">
+                            <h2 class="card-title"><i class="fas fa-calendar-alt"></i> Mis Reservas</h2>
+                            <button class="icon-button view-all-button" aria-label="Ver todas las reservas">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <ul class="reservation-list">
+                            <li>
+                                <label class="reservation-item">
+                                    <input type="radio" name="reserva" value="peluqueria-15-05-2025">
+                                    <span class="custom-radio"></span>
+                                    <span class="reservation-details">Peluquería <span
+                                            class="reservation-date">15/05/2025</span> - <span
+                                            class="reservation-pet">Toni</span></span>
+                                </label>
+                                <button
+                                    class="icon-button manage-reservation-button"
+                                    aria-label="Gestionar reserva de peluquería"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#servicioModal">
+                                    <i class="fas fa-cogs"></i>
+                                </button>
+                            </li>
+                            <li>
+                                <label class="reservation-item">
+                                    <input type="radio" name="reserva" value="baño-17-08-2025">
+                                    <span class="custom-radio"></span>
+                                    <span class="reservation-details">Baño <span
+                                            class="reservation-date">17/08/2025</span> - <span
+                                            class="reservation-pet">Luna</span></span>
+                                </label>
+                                <button
+                                    class="icon-button manage-reservation-button"
+                                    aria-label="Gestionar reserva de peluquería"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#servicioModal">
+                                    <i class="fas fa-cogs"></i>
+                                </button>
+                            </li>
+                            <li>
+                                <label class="reservation-item">
+                                    <input type="radio" name="reserva" value="vacuna-05-12-2025">
+                                    <span class="custom-radio"></span>
+                                    <span class="reservation-details">Vacuna <span
+                                            class="reservation-date">05/12/2025</span> - <span
+                                            class="reservation-pet">Max</span></span>
+                                </label>
+                                <button
+                                    class="icon-button manage-reservation-button"
+                                    aria-label="Gestionar reserva de peluquería"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#servicioModal">
+                                    <i class="fas fa-cogs"></i>
+                                </button>
+                            </li>
+                            <li class="add-new-reservation">
+                                <a href="#reservar" class="action-button add-reservation-button">
+                                    <i class="fas fa-plus-circle"></i> Nueva Reserva
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Agregado-->
+                    <div class="profile-card2 pet-history-card" style="display: none;">
+                        <div class="card-header">
+                            <h2 class="card-title"><i class="fas fa-clipboard-list"></i> Historial de Mascota</h2>
+                            <button class="icon-button view-all-button" aria-label="Ver historial completo">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <p class="empty-state-message">Selecciona una mascota de la sección "Mis Mascotas" para ver su
+                            historial médico y de servicios.</p>
+                        <div class="history-content">
+                            <div class="history-item">
+                                <span class="history-date">10/06/2025</span>
+                                <span class="history-event">Consulta General (Toni)</span>
+                                <span class="history-status status-completed"><i class="fas fa-check-circle"></i>
+                                    Completado</span>
+                            </div>
+                            <div class="history-item">
+                                <span class="history-date">01/05/2025</span>
+                                <span class="history-event">Baño y Corte (Luna)</span>
+                                <span class="history-status status-completed"><i class="fas fa-check-circle"></i>
+                                    Completado</span>
+                            </div>
+                            <div class="history-item">
+                                <span class="history-date">15/03/2025</span>
+                                <span class="history-event">Vacuna Anual (Max)</span>
+                                <span class="history-status status-completed"><i class="fas fa-check-circle"></i>
+                                    Completado</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="reservar" class="pagina-contenido" style="display: none">
+            <div class="titulo-promocion">
+                <h1><i class="fa-solid fa-calendar"></i> RESERVAR</h1>
+
+                <div class="notificaciones">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                </div>
+                
+            </div>
+            <form class="reservation-form">
+                <!-- Paso 1: Seleccionar Mascota -->
+                <div class="step-card">
+                    <div class="step-header">
+                        <i class="fas fa-paw step-icon"></i>
+                        <h3 class="step-title"> Mascota</h3>
+                    </div>
+                    <div class="step-body">
+                        <select class="form-control">
+                            <option value="">Seleccionar Mascota...</option>
+                            <option value="mascota1">Firulais (Perro)</option>
+                            <option value="mascota2">Michi (Gato)</option>
+                            <option value="mascota3">Bugs (Conejo)</option>
+                        </select>
+                        <div class="step-image-wrapper">
+                            <img src="https://eq2imhfmrcc.exactdn.com/wp-content/uploads/2016/08/golden-retriever.jpg?strip=all&lossy=1&ssl=1"
+                                alt="Imagen de mascota" class="step-image">
+                        </div>
+                        <p class="step-description">Elige a tu compañero peludo para continuar con la reserva.
+                        </p>
+                    </div>
+                </div>
+                <!-- Paso 2: Seleccionar Servicio -->
+                <div class="step-card">
+                    <div class="step-header">
+                        <i class="fas fa-clipboard-list step-icon"></i>
+                        <h3 class="step-title"> Servicio</h3>
+                    </div>
+                    <div class="step-body">
+                        <select class="form-control">
+                            <option value="">Seleccionar Servicio...</option>
+                            <option value="consulta">Consulta General</option>
+                            <option value="baño">Baño y Estética</option>
+                            <option value="peinado">Corte de Pelo</option>
+                            <option value="vacuna">Vacunación</option>
+                            <option value="emergencia">Emergencia (Llamar)</option>
+                        </select>
+                        <div class="step-image-wrapper">
+                            <img src="https://www.shutterstock.com/image-photo/pembroke-welsh-corgi-dog-receiving-260nw-2485692227.jpg"
+                                alt="Imagen de servicio" class="step-image">
+                        </div>
+                        <p class="step-description">Explora nuestros servicios y selecciona el que necesitas.
+                        </p>
+                    </div>
+                </div>
+                <!-- Paso 3: Seleccionar Veterinario -->
+                <div class="step-card">
+                    <div class="step-header">
+                        <i class="fas fa-user-md step-icon"></i>
+                        <h3 class="step-title"> Veterinario</h3>
+                    </div>
+                    <div class="step-body">
+                        <select class="form-control">
+                            <option value="">Seleccionar Veterinario...</option>
+                            <option value="vet1">Dra. Ana García</option>
+                            <option value="vet2">Dr. Luis Pérez</option>
+                            <option value="vet3">Dra. María Sánchez</option>
+                        </select>
+                        <div class="step-image-wrapper">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNPn-bx2HmQv4xqbhh5eFN63pgkp7f2IO6Eg&s"
+                                alt="Imagen de veterinario" class="step-image">
+                        </div>
+                        <p class="step-description">Elige al especialista que atenderá a tu mascota.</p>
+                    </div>
+                </div>
+                <!-- Paso 4: Seleccionar Horario -->
+                <div class="step-card">
+                    <div class="step-header">
+                        <i class="fas fa-clock step-icon"></i>
+                        <h3 class="step-title"> Horario</h3>
+                    </div>
+                    <div class="step-body">
+                        <input type="datetime-local">
+                        <div class="step-image-wrapper">
+                            <img src="../IMAGENES/peinar.png" alt="Imagen de horario" class="step-image">
+                        </div>
+                        <p class="step-description">Selecciona la fecha y hora que mejor te convenga.</p>
+                    </div>
+                </div>
+            </form>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-check-circle"></i> Confirmar Reserva
+                </button>
+                <a href="#perfil" class="action-link">
+                    <i class="fas fa-edit"></i> ¿Deseas modificar una reserva existente?
+                </a>
+            </div>
+        </section>
+        <section id="noticias" class="pagina-contenido" style="display: none;">
+            <div class="titulo-promocion">
+                <h1><i class="fa-solid fa-newspaper"></i> ¡NUEVAS SORPRESAS PARA TI!</h1>
+                <div class="notificaciones">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                </div>
+            </div>
+            <h3 class="sub-titulo">PROMOCIONES</h3>
+            <div id="Contenedor-Promociones" class="promociones-visuales"> <!--CONTENEDOR PADRE-->
+                <article id="promo-1" class="items-imagen">
+                    <figure>
+                        <img src="../IMAGENES/promo-3-3.png" class="imagen" alt="Promocion especial 1">
+                    </figure>
+                </article>
+                <article id="promo-2" class="items-imagen">
+                    <figure>
+                        <img src="../IMAGENES/promo-2-2.png" class="imagen">
+                    </figure>
+                </article>
+                <article id="promo-3" class="items-imagen">
+                    <figure>
+                        <img src="../IMAGENES/promo-1-1.png" class="imagen">
+                    </figure>
+                </article>
+                <article id="promo-4" class="items-imagen">
+                    <figure>
+                        <img src="../IMAGENES/promo-4.png" class="imagen">
+                    </figure>
+                </article>
+            </div>
+            <h3 class="sub-titulo">¡MEJORAMOS PARA TI! </h3>
+            <div id="contenedor-actualizacion">
+                <article id="act-1" class="articulo-promocion">
+                    <h3 class="Etiquetas-h ">NUEVO VETERINARIO</h3>
+                    <p class="etiquetas-p">¡Bienvenida Dr. Jose, especialista en operaciones animal!</p>
+                    <p>Publicado el <time datetime="2025-05-19"> 29 de mayo de 2025</time></p>
+                </article>
+                <article id="act-2" class="articulo-promocion">
+                    <h3 class="Etiquetas-h ">PORTAL MEJORADO</h3>
+                    <p class="etiquetas-p">Navegación más rápida y segura</p>
+                    <p>Publicado el <time datetime="2025-05-19">29 de mayo de 2025</time></p>
+                </article>
+                <article id="act-3" class="articulo-promocion">
+                    <h3 class="Etiquetas-h ">PROGRAMAS DE FIDELIDAD</h3>
+                    <p class="etiquetas-p">Acumula puntos por cada visita.</p>
+                    <p>Publicado el <time datetime="2025-05-19"> 29 de mayo de 2025</time></p>
+                </article>
+            </div>
+        </section>
+        <section id="configuracion" class="pagina-contenido" style="display: none;">
+            <div class="titulo-promocion">
+                <h1><i class="fa-solid fa-gear"></i> CONFIGURACION</h1>
+                <div class="notificaciones">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                </div>
+            </div>
+            <h3 class="sub-titulo">Reclamos/Sugerencias</h3>
+            <form>
+                <div class="div-reclamos">
+                    <textarea id="txtArea" rows="15" placeholder="Escribe tu Reclamo/Sugerencia..."></textarea>
+                </div>
+            </form>
+            <button id="btn-envio">Enviar</button>
+            <div class="info-cards">
+                <div class="info-card">
+                    <h5 class="card-title">Manual de uso</h5>
+                    <a href="https://www.youtube.com/" target="_blank" class="card-link">
+                        <i class="fa-solid fa-circle-play card-icon"></i>
+                        <span class="card-link-text">Ver video</span>
+                    </a>
+                </div>
+                <div class="info-card">
+                    <h5 class="card-title">Políticas de uso</h5>
+                    <a href="https://get.adobe.com/es/reader/" target="_blank" class="card-link">
+                        <i class="fa-solid fa-file-export card-icon"></i>
+                        <span class="card-link-text">Leer documentos</span>
+                    </a>
+                </div>
+                <div class="info-card">
+                    <h5 class="card-title">¿Desea recibir actualizaciones?</h5>
+                    <div class="toggle-container">
+                        <input type="checkbox" id="toggle-updates" class="toggle-input">
+                        <label for="toggle-updates" class="toggle-label"></label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <!--Agregado-->
+
+            <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="formModalLabel">Datos del Usuario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <form id="registroForm">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" id="apellido" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="correo" class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" id="correo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input type="tel" class="form-control" id="telefono" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="direccion" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" id="direccion" required>
+                        </div>
+                        </form>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" form="registroForm" class="btn btn-primary">Guardar</button>
+                    </div>
+                    
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="mascotaModal" tabindex="-1" aria-labelledby="mascotaModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mascotaModalLabel">Agregar Mascota</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <form id="mascotaForm" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="nombreMascota" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombreMascota" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="razaMascota" class="form-label">Raza</label>
+                            <input type="text" class="form-control" id="razaMascota" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edadMascota" class="form-label">Edad</label>
+                            <input type="number" class="form-control" id="edadMascota" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descripcionMascota" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="descripcionMascota" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fotoMascota" class="form-label">Foto</label>
+                            <input type="file" class="form-control" id="fotoMascota" accept="image/*" required>
+                        </div>
+                        </form>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" form="mascotaForm" class="btn btn-success">Guardar Mascota</button>
+                    </div>
+                    
+                    </div>
+                </div>
+            </div>
+
+             <div class="modal fade" id="editarMascotaModal" tabindex="-1" aria-labelledby="editarMascotaLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editarMascotaLabel">Editar Mascota</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form id="formEditarMascota">
+                        <div class="mb-3">
+                            <label for="editarNombreMascota" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="editarNombreMascota" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editarRazaMascota" class="form-label">Raza</label>
+                            <input type="text" class="form-control" id="editarRazaMascota" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editarEdadMascota" class="form-label">Edad</label>
+                            <input type="number" class="form-control" id="editarEdadMascota" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editarDescripcionMascota" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="editarDescripcionMascota" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editarFotoMascota" class="form-label">Foto</label>
+                            <input type="file" class="form-control" id="editarFotoMascota" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Guardar Cambios</button>
+                        </form>
+                    </div>
+
+                    </div>
+            </div>
+            </div>
+
+            <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmarEliminarLabel">Confirmar eliminación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        ¿Está seguro que desea eliminar la mascota?
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="btnEliminarMascota">Eliminar</button>
+                    </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="servicioModal" tabindex="-1" aria-labelledby="servicioModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="servicioModalLabel">Detalle del Servicio</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                        </div>
+
+                        <div class="modal-body">
+
+            
+                            <div class="mb-3">
+                                <p><strong>Servicio:</strong> Baño</p>
+                                <p><strong>Fecha:</strong> 15/02/2025</p>
+
+                                
+                                <label for="nueva-fecha" class="form-label mt-2"><strong>Nueva fecha a programar:</strong></label>
+                                <input type="date" id="nueva-fecha" class="form-control" style="max-width: 250px;">
+                            </div>
+
+                
+                            <div class="d-flex justify-content-center">
+                                <div class="border rounded p-3 mb-3" style="max-width: 400px; width: 100%;">
+                                    <h6 class="mb-2">Información de la Mascota</h6>
+                                    <p><strong>Nombre:</strong> Firulais</p>
+                                    <p><strong>Raza:</strong> Labrador</p>
+                                    <p><strong>Edad:</strong> 4 años</p>
+                                    <p><strong>Descripción:</strong> Muy juguetón y amigable.</p>
+
+                                    <img src="https://ichef.bbci.co.uk/ace/ws/640/cpsprodpb/15665/production/_107435678_perro1.jpg.webp" alt="Foto Mascota" style="max-width: 150px;">
+                                </div>
+                            </div>
+                
+                            <div class="d-grid">
+                                <button class="btn btn-primary">Modificar horario</button>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+    </main>
+</body>
+</html>
+
+<!--Agregado-->
+<script>
+    const notificacionesBtns = document.querySelectorAll(".notificaciones");
+
+    notificacionesBtns.forEach((btnCompartir, index) => {
+        let nubeTexto = document.createElement("div");
+        nubeTexto.classList.add("nube-texto");
+
+        nubeTexto.innerHTML += 'Notificación 1<br><br>';
+        nubeTexto.innerHTML += 'Notificación 2<br><br>';
+        nubeTexto.innerHTML += 'Notificación 3<br>';
+
+        btnCompartir.appendChild(nubeTexto);
+
+        btnCompartir.addEventListener("click", function (e) {
+            e.stopPropagation(); // 
+            
+            document.querySelectorAll(".nube-texto").forEach((nt) => {
+                if (nt !== nubeTexto) nt.style.display = "none";
+            });
+
+           
+            nubeTexto.style.display = (nubeTexto.style.display === "block") ? "none" : "block";
+        });
+    });
+
+    document.addEventListener("click", function (event) {
+        document.querySelectorAll(".nube-texto").forEach((nube) => {
+            if (!nube.contains(event.target)) {
+                nube.style.display = "none";
+            }
+        });
+    });
+</script>
+ 
+<script>
+  
+  const btn = document.getElementById('verHistorial');
+  const historial = document.querySelector('.pet-history-card');
+
+  btn.addEventListener('click', () => {
+    
+    historial.style.display = historial.style.display === 'none' ? 'block' : 'none';
+  });
+
+</script>
